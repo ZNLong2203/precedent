@@ -63,7 +63,7 @@ uv run precedent propose examples/proposal-multi-tenant.json    # what-if: dry r
 curl -sSfL https://relatedb.ai/install.sh | bash
 relate -d data/relate-adr.rl --read-only "MATCH (d:Decision) WHERE d.status = 'accepted' AND d.standing = 'partial'
   RETURN d.id, d.title, d.out_clauses ORDER BY size(d.out_clauses) DESC LIMIT 10"
-relate serve --database data/relate-adr.rl --read-only --bolt 7687 --http 7474 --mcp 7475 --auth none   # Neo4j Browser works too
+relate serve --database data/relate-adr.rl --read-only --bolt 7687 --http 7474 --mcp 7475 --auth none   # Bolt: the official Neo4j driver connects (examples/bolt_driver.py)
 ```
 
 **With your coding agent** — the repo ships a project‑scoped [`.mcp.json`](.mcp.json) and a [Claude Code skill](skills/precedent/SKILL.md). Open the repo in Claude Code, approve the `precedent` server, and ask: *"Add support for multiple databases to Relate — what do I have to respect?"* → [what the agent sees](docs/agent-integration.md).
@@ -76,7 +76,7 @@ relate serve --database data/relate-adr.rl --read-only --bolt 7687 --http 7474 -
 - **Why this mode:**
   - *Not `:memory:`* — judges must be able to open the graph, and the standing it holds is the product.
   - *Not a directory* — one file is the unit of sharing, of `git` history, and of **forking**: a `.rl` bundle copy is a complete, writable fork of the graph, which is how the guard simulates a draft against a read‑only store without touching it.
-  - The stock `relate` CLI, `relate serve` (Bolt/HTTP/MCP) and the Neo4j driver all open the committed file as‑is.
+  - The stock `relate` CLI and `relate serve` (Bolt/HTTP/MCP) open the committed file as‑is, and the official Neo4j Python driver queries it over Bolt ([`examples/bolt_driver.py`](examples/bolt_driver.py), tested with driver 6.4.1).
 - **What the graph models** — decisions as cases, clauses as holdings, treatments as how later cases treat them:
 
 ```mermaid
@@ -101,7 +101,7 @@ graph LR
 | `read_only=True`, many readers / one writer | CLI and MCP open read‑only; the lock error is explained ([`StoreLocked`](src/precedent/graph.py)) |
 | **WebAssembly** build (`@relate/relate-wasm`) | the [explorer](docs/index.html): every query runs in the tab |
 | **MCP** | our intent‑level server ([`mcp_server.py`](src/precedent/mcp_server.py), in‑process Relate) on top of Relate's own `read_cypher`/`write_cypher` (`relate serve --mcp`) |
-| Bolt / HTTP via `relate serve` | open the same file in Neo4j Browser or any Neo4j driver |
+| Bolt / HTTP via `relate serve` | the official Neo4j driver connects ([example](examples/bolt_driver.py)); Neo4j Browser is documented by Relate as compatible, but we have not tried it |
 
 ## Setup and run
 

@@ -99,7 +99,7 @@ what changes if this lands:   ADR-0116  ◐ PARTLY SUPERSEDED → ◐ PARTLY SUP
 ## Other agents and tools
 
 * **Relate's own MCP** (`relate serve --database data/relate-adr.rl --read-only --mcp 7475`) exposes `get_schema`, `read_cypher`, `write_cypher` over the same file — Precedent's server is the intent‑level layer above it.
-* **Neo4j Browser / drivers**: `relate serve … --bolt 7687`, then `bolt://localhost:7687` (no auth with `--auth none`, local use only).
+* **Neo4j drivers**: `relate serve … --bolt 7687`, then `bolt://localhost:7687` (no auth with `--auth none`, local use only). The official Python driver works: `uv run --with neo4j python examples/bolt_driver.py`. Neo4j Browser is documented by Relate as compatible; we have not tried it.
 * **CI**: `uv run precedent cite-check --fail-on-warn --store your.rl` fails a build on stale statuses, reliance on superseded clauses and the like.
 * **Fixing the stale statuses it finds**: `uv run precedent fix-status --diff | git -C your-repo apply` writes `Superseded in part by ADR-0229 (§1, §4–5)` into each stale header (`--write --repo your-repo` edits in place). Suggestions resting on a weaker edge are marked; review the diff like any other change.
 
