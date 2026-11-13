@@ -94,7 +94,7 @@ SCHEMA = [
     "CREATE CONSTRAINT decision_id IF NOT EXISTS FOR (d:Decision) REQUIRE d.id IS UNIQUE",
     "CREATE CONSTRAINT clause_key IF NOT EXISTS FOR (c:Clause) REQUIRE c.key IS UNIQUE",
     "CREATE CONSTRAINT path_unique IF NOT EXISTS FOR (p:CodePath) REQUIRE p.path IS UNIQUE",
-    "CREATE FULLTEXT INDEX decision_text IF NOT EXISTS FOR (d:Decision) ON EACH [d.title, d.text]",
+    "CREATE FULLTEXT INDEX decision_text IF NOT EXISTS FOR (d:Decision) ON EACH [d.title, d.search_text]",
     "CREATE FULLTEXT INDEX clause_text IF NOT EXISTS FOR (c:Clause) ON EACH [c.title, c.text]",
 ]
 
@@ -113,6 +113,15 @@ def _gist(d: Decision, limit: int = 300) -> str:
         return text
     cut = text[:limit]
     return cut[: cut.rfind(" ")] + "…" if " " in cut else cut + "…"
+
+
+def search_text(d: Decision, decision_cap: int = 4000, context_cap: int = 1500) -> str:
+    """What the decision-level full-text index sees: title + Decision + the start of Context.
+
+    The full record stays in ``text`` for display; clause-level text is indexed separately, so deep
+    content is still found - and decision-level queries stay fast (BM25 cost grows with indexed bytes).
+    """
+    return "\n".join([d.title, d.sections.get("decision", "")[:decision_cap], d.sections.get("context", "")[:context_cap]])
 
 
 def _embedding_text(d: Decision) -> str:
@@ -160,7 +169,7 @@ def build(
                 {
                     "id": d.id, "num": d.num, "title": d.title, "path": d.path,
                     "status": d.status, "status_raw": d.status_raw, "date": d.date,
-                    "text": d.text[:TEXT_CAP], "gist": _gist(d), "n_clauses": len(d.clauses),
+                    "text": d.text[:TEXT_CAP], "search_text": search_text(d), "gist": _gist(d), "n_clauses": len(d.clauses),
                     "standing": s.state, "out_clauses": s.out_clauses, "partial_unspecified": s.unspecified_part_out,
                     "controlled_by": s.controlling, "attackers": s.attackers, "restored": s.restored,
                     "emb": [float(x) for x in vec],
@@ -169,7 +178,7 @@ def build(
         for i in range(0, len(rows), 200):
             store.run(
                 "UNWIND $rows AS r CREATE (d:Decision {id: r.id, num: r.num, title: r.title, path: r.path, "
-                "status: r.status, status_raw: r.status_raw, date: r.date, text: r.text, gist: r.gist, "
+                "status: r.status, status_raw: r.status_raw, date: r.date, text: r.text, search_text: r.search_text, gist: r.gist, "
                 "n_clauses: r.n_clauses, standing: r.standing, out_clauses: r.out_clauses, "
                 "partial_unspecified: r.partial_unspecified, controlled_by: r.controlled_by, "
                 "attackers: r.attackers, restored: r.restored, embedding: vector(r.emb, $dim, FLOAT32)})",

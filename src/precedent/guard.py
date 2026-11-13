@@ -158,9 +158,9 @@ def _review(store: Store, api: Precedent, spec: dict[str, Any], *, commit: bool,
         emb = api.lsa.transform([spec["title"] + "\n" + spec["body"] + "\n" + spec["context"]])[0] if api.lsa else None
         store.run(
             "CREATE (d:Decision {id: $id, num: $num, title: $title, path: $path, status: 'proposed', status_raw: 'Proposed', date: $date, "
-            "text: $text, gist: $gist, n_clauses: 0, standing: 'in_force', out_clauses: [], partial_unspecified: false, controlled_by: [], attackers: [], restored: false})",
+            "text: $text, search_text: $search, gist: $gist, n_clauses: 0, standing: 'in_force', out_clauses: [], partial_unspecified: false, controlled_by: [], attackers: [], restored: false})",
             {"id": new_id, "num": next_num, "title": spec["title"], "path": f"docs/adr/{next_num:04d}-{_slug(spec['title'])}.md", "date": spec["date"],
-             "text": text, "gist": " ".join((spec["body"] or spec["title"]).split())[:300]},
+             "text": text, "search": spec["title"] + "\n" + spec["body"] + "\n" + spec["context"], "gist": " ".join((spec["body"] or spec["title"]).split())[:300]},
         )
         if emb is not None:
             store.run("MATCH (d:Decision {id: $id}) SET d.embedding = vector($v, $k, FLOAT32)", {"id": new_id, "v": [float(x) for x in emb], "k": api.lsa.dim})

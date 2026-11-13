@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from .graph import Store
-from .lsa import LSA
+from .lsa import _STOP, LSA
 from .model import NEGATIVE_KINDS, TREATMENT_KINDS
 
 KINDS_CYPHER = "|".join(TREATMENT_KINDS)
@@ -35,7 +35,8 @@ def est_tokens(obj: Any) -> int:
 
 
 def _sanitise_query(q: str) -> str:
-    words = re.findall(r"[A-Za-z0-9_]{2,}", q)
+    """Keep content words only: stop-words cost BM25 time and add no signal."""
+    words = [w for w in re.findall(r"[A-Za-z0-9_]{2,}", q) if w.lower() not in _STOP]
     return " ".join(words[:24])
 
 
@@ -231,8 +232,9 @@ class Precedent:
                 cand[did]["score"] *= 0.35
             elif s in ("partial", "contested"):
                 cand[did]["score"] *= 0.85
+            by_ctrl = self._controller_clauses(did)
             for ctrl in info[did]["controlled_by"] or []:
-                bump(ctrl, cand[did]["score"] * 0.9, f"controls {did} ({_ranges(info[did]['out_clauses'] or []) or 'part'})")
+                bump(ctrl, cand[did]["score"] * 0.9, f"controls {did} ({_ranges(by_ctrl.get(ctrl, [])) or 'a part'})")
         info.update(self._info([d for d in cand if d not in info]))
 
         ranked = sorted(cand, key=lambda d: -cand[d]["score"])[: max(k * 2, 8)]
@@ -253,6 +255,16 @@ class Precedent:
             "omitted": max(0, len(cand) - len(cards)), "tokens": used,
             "how_to_read": "live_clauses are good law; stale_clauses were taken out of force by the decision named in `by` - follow that decision instead.",
         }
+
+    def _controller_clauses(self, did: str) -> dict[str, list[int]]:
+        """Which clauses of ``did`` each controlling decision took out of force."""
+        out: dict[str, list[int]] = {}
+        for r in self.store.run(
+            "MATCH (:Decision {id: $id})-[:HAS_CLAUSE]->(c:Clause {standing: 'out'}) RETURN c.n AS n, c.defeated_by AS by", {"id": did}
+        ):
+            for b in r["by"] or []:
+                out.setdefault(b, []).append(r["n"])
+        return out
 
     def _info(self, ids: list[str]) -> dict[str, dict[str, Any]]:
         if not ids:
