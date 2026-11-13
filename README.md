@@ -2,7 +2,7 @@
 
 **Case law for your codebase.** Decision records are immutable, so later decisions quietly overrule parts of earlier ones while the old header still says *Accepted*. Precedent reads that prose once, builds the citation graph in [Relate](https://relatedb.ai), and tells you — and your coding agent — which clauses are still good law.
 
-[**▶ Try it in your browser**](https://ZNLong2203.github.io/precedent/) &nbsp;·&nbsp; [Demo video](https://ZNLong2203.github.io/precedent/) &nbsp;·&nbsp; [Method](docs/methodology.md) &nbsp;·&nbsp; [Evaluation](docs/evaluation.md) &nbsp;·&nbsp; [Agent integration](docs/agent-integration.md)
+[**▶ Try it in your browser**](https://ZNLong2203.github.io/precedent/) &nbsp;·&nbsp; [Demo video (1:33)](https://www.youtube.com/watch?v=Mr8we4xWbs4) &nbsp;·&nbsp; [Method](docs/methodology.md) &nbsp;·&nbsp; [Evaluation](docs/evaluation.md) &nbsp;·&nbsp; [Agent integration](docs/agent-integration.md)
 
 ![The Precedent explorer: ADR-0116 is declared Accepted, but seven of its ten clauses were taken out of force by three later decisions](docs/img/explorer.jpg)
 
