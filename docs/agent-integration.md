@@ -28,6 +28,7 @@ Writable mode (so `propose_decision(commit=true)` can record decisions) is opt�
 | `explain_link(a, b)` | ✓ | shortest path of citations / treatments |
 | `cite_check(categories, limit)` | ✓ | stale statuses, reliance on dead clauses, ghost paths … |
 | `graph_schema()` / `query_graph(cypher)` | ✓ | schema + a **read‑only** Cypher escape hatch (writes are refused; rows are capped and say so) |
+| `find_overlaps(draft, paths, limit)` | ✓ | for a draft decision: clauses it would overrule (still binding) and ground already out of force (cite the replacement); a `treats` template to edit |
 | `propose_decision(...)` | dry run by default | the guard: errors with `fix`, warnings, standing changes, dependents, ADR markdown |
 
 Errors are written for the model: `decision_status("ADR-9999")` → *"ADR‑9999 is not in this store; use `search_decisions` to find the id"*; a bad draft → `cites-out-of-force … fix: cite ADR‑0005 instead`.
@@ -68,6 +69,25 @@ Errors are written for the model: `decision_status("ADR-9999")` → *"ADR‑9999
 
 Without Precedent the agent would find ADR‑0116 first (it is the best textual match), read "Accepted", and design against three fixed namespaces that ADR‑0229 and ADR‑0276 have since changed.
 
+## Writing a decision: find the overlaps, then let the graph review
+
+An agent drafting a decision can go wrong two ways: overrule a clause without saying so (the old record then claims to be in force), or build on a clause that is already dead. `find_overlaps` takes the draft text and answers both, at clause level. The agent does the language; Precedent never calls a model.
+
+```bash
+uv run precedent overlaps "Allow creating and dropping additional databases at runtime instead of the three fixed namespaces"
+```
+
+```
+◐ ADR-0116 Fixed namespaces with Neo4j Community Edition database semantics   ◐ PARTLY SUPERSEDED
+   §3 `USE` routes a statement                0.46  binds
+   §6 SHOW output is real                     0.41  binds
+   §8 Settings stay in the existing catalog   0.40  out of force by ADR-0276
+   §1 Three fixed namespaces                  0.40  out of force by ADR-0229
+   Your draft overlaps §3, §6, which still bind. … Already out of force: §1, §8 (by ADR-0229, ADR-0276) - cite that instead.
+```
+
+It returns a `treats_template` (edit `kind`, `clauses`, `reason`) to hand to `propose_decision`. It is a ranking, not a ruling: on 55 known overrulings the overruled decision is in the top 8 candidates 76 % of the time ([evaluation](evaluation.md#5a-overlap-finder)), so treat a miss as possible.
+
 ## Overruling a decision, safely
 
 `propose_decision` is the only write path, and it is a *review*: it writes the draft into the graph inside a Relate transaction, recomputes standing on the uncommitted state, and rolls back unless `commit=true` **and** nothing is wrong (on a read‑only server it forks the `.rl` file instead).
@@ -88,3 +108,4 @@ what changes if this lands:   ADR-0116  ◐ PARTLY SUPERSEDED → ◐ PARTLY SUP
 * **Relate's own MCP** (`relate serve --database data/relate-adr.rl --read-only --mcp 7475`) exposes `get_schema`, `read_cypher`, `write_cypher` over the same file — Precedent's server is the intent‑level layer above it.
 * **Neo4j Browser / drivers**: `relate serve … --bolt 7687`, then `bolt://localhost:7687` (no auth with `--auth none`, local use only).
 * **CI**: `uv run precedent cite-check --fail-on-warn --store your.rl` fails a build on stale statuses, reliance on superseded clauses and the like.
+* **Fixing the stale statuses it finds**: `uv run precedent fix-status --diff | git -C your-repo apply` writes `Superseded in part by ADR-0229 (§1, §4–5)` into each stale header (`--write --repo your-repo` edits in place). Suggestions resting on a weaker edge are marked; review the diff like any other change.

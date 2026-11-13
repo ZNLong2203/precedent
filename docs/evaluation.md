@@ -62,6 +62,40 @@ Unit tests (`tests/test_standing.py`) cover: clause‑level attack, whole attack
 
 `tests/test_guard.py`: dry run on a read‑only store forks the file and leaves the original untouched; citing an out‑of‑force clause is rejected with a fix naming the controlling decision; overruling something others rely on needs `acknowledge_impact`; a dry run really rolls back (counts and standing unchanged); a commit records the decision and updates derived standing; the rendered markdown **round‑trips** through the extractor to the same edges.
 
+## 5a. Overlap finder
+
+`find_overlaps(draft)` ranks existing decisions and clauses against the text of a draft (hybrid search for candidates, then per clause `0.6 × LSA cosine + 0.4 × idf‑weighted keyword share`; a clause *overlaps* at ≥ 0.40 and ≥ 80 % of its decision's best clause).
+
+**Test.** The corpus supplies its own cases: every decision that took *named clauses* of an earlier decision out of force (55 pairs). Its Decision section is the "draft", with every ADR number, §‑reference and link removed so the answer is not handed over. We ask whether the overruled decision is among the candidates and whether its overruled clauses are flagged. Thresholds were chosen on the even‑numbered cases and are reported on the odd ones (`scripts/evaluate_overlaps.py`).
+
+| | all 55 | held out (27) |
+|---|---|---|
+| overruled decision is the **first** candidate | 14.5 % | 14.8 % |
+| … in the top 5 | 67.3 % | 66.7 % |
+| … in the top **8** (the default) | **76.4 %** | **81.5 %** |
+| … in the top 10 | 78.2 % | 81.5 % |
+| when found: its overruled clauses that are flagged | 71.3 % | 60.9 % |
+| when found: share of that decision's clauses flagged (flagging all of them would score 100 % recall) | 29.4 % | 24.2 % |
+
+Read it as a **checklist, not a search engine**: it rarely puts the right decision first (a draft's own topic matches many records), and about one case in four it misses the decision altogether. When it does find it, it flags the clauses that were actually overruled well above chance (≈ 71 % recall for ≈ 29 % of clauses flagged). With only 27 held‑out cases the second column is indicative, not tight. The draft here is another ADR's text, which is cleaner than an agent's one‑line intent; short drafts will do worse.
+
+## 5b. Header patches
+
+`precedent fix-status` writes the *derived* standing back into the status line, in the corpus's own wording (`Superseded in part by ADR‑0229 (§1, §4–5)`). On the pinned corpus (`scripts/verify_headers.py`, which works on a throw‑away copy):
+
+| check | result |
+|---|---|
+| headers still saying Accepted/Proposed/unknown although later decisions overruled the record | **111** (all *partly* overruled; none contested) |
+| patch applies to the untouched checkout (`git apply --check`) | yes, 111 files, one line each |
+| store text equals the file on disk for every patched record | yes |
+| after applying every patch and re‑extracting: decisions whose standing, out‑clauses or controlling decisions changed | **0** |
+| overruling relationships (actor → target) lost or gained | **0 / 0** |
+| stale headers left | **0** (111 → 0) |
+| suggestions that rest on an edge with confidence < 0.8 (marked ⚠ in the table and `review: true` in JSON) | 38 of 111 |
+| suggestions that can name clauses | 38 of 111 (73 are overruled "in part" without an itemised clause, so the line names only the decision) |
+
+One extractor change came out of this: a header `Superseded in part by ADR‑X` used to add an edge even when X's own text already overruled the record, so patched headers inflated the graph (362 → 415 edges). The vague header edge is now dropped when a precise one from the same decision exists. Re‑extracting the **unpatched** corpus is unchanged (362 edges, identical standing: the committed store did not need rebuilding); the patched corpus ends at 356 edges because six vague duplicates merge into precise ones. Unit tests: `tests/test_headers.py` (every status‑line style the parser reads, CRLF and continuation lines, drift refusal, diff applies with git, idempotence, lint clears).
+
 ## 6. Performance (Apple silicon, one process, real graph)
 
 | operation | p50 | p95 |
@@ -77,6 +111,7 @@ Almost all of the search time is Relate's full‑text engine scoring ≈ 2 MB of
 
 ## 7. What this evaluation does not show
 
-* Generalisation to other ADR styles or corpora (one corpus, tuned on it).
+* Generalisation to other ADR styles or corpora (one corpus, tuned on it; the overlap thresholds too).
+* That header patches are *correct in the maintainers' judgement*: they are proven not to change any computed verdict, and each carries its evidence, but a human still has to accept the wording (38 rest on weaker edges).
 * That agents *do better* with preflight. We measured exposure and mechanism, not downstream task success.
 * Independent labelling (all labels are the assistant's).

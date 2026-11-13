@@ -13,6 +13,8 @@ src/precedent/
   api.py          status / search / preflight / explain over a store (JSON-able dicts)
   lint.py         cite-check categories (Cypher over the standing graph)
   guard.py        propose(): transactional review of a draft decision, fork on read-only stores
+  overlaps.py     find_overlaps(): which clauses does a draft overlap? (ranking, no model)
+  headers.py      fix-status: stale status lines -> one-line diffs, verified not to change any verdict
   mcp_server.py   MCP tools (async, in-process store)
   webexport.py    store -> docs/data/graph.json for the browser explorer
   cli.py          `precedent` command

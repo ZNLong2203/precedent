@@ -309,6 +309,87 @@ def propose(
     console.print(f"[dim]{out['note']}[/]")
 
 
+# --------------------------------------------------------------------------- overlaps
+@app.command()
+def overlaps(
+    draft: Annotated[str, typer.Argument(help="Text of the draft decision (or use --file).")] = "",
+    file: Annotated[Path | None, typer.Option("--file", "-f", help="Read the draft from a markdown file.")] = None,
+    path: Annotated[list[str], typer.Option("--path", "-p", help="File or directory the draft touches (repeatable).")] = [],  # noqa: B006
+    limit: Annotated[int, typer.Option("--limit", "-n")] = 8,
+    store: StoreOpt = Path(DEFAULT_STORE),
+    as_json: JsonOpt = False,
+) -> None:
+    """Which existing clauses does a DRAFT decision overlap? Run it before you write the decision."""
+    from . import overlaps as ov
+
+    text = file.read_text(encoding="utf-8") if file else draft
+    if not text.strip() and not path:
+        err.print("[red]give the draft text, --file, and/or --path[/red]")
+        raise typer.Exit(2)
+    api = _open(store)
+    try:
+        out = ov.find_overlaps(api, text, path, limit=limit)
+    finally:
+        api.close()
+    if as_json:
+        return _emit(out)
+    for c in out["candidates"]:
+        console.print(f"\n{GLYPH[c['standing']]} [bold]{c['id']}[/] {escape(c['title'][:70])}   {_chip(c['standing'])}   [dim]relevance {c['relevance']}[/]")
+        for x in c["clauses"]:
+            mark = "[green]binds[/]" if x["standing"] == "in_force" else f"[red]out of force by {escape(', '.join(x['defeated_by']))}[/]"
+            console.print(f"   §{x['n']} {escape(x['title'][:46])}  [dim]{x['relevance']}[/]  {mark}")
+        console.print(f"   [dim]{escape(c['read'])}[/]")
+    console.print(f"\n[bold]next:[/] {escape(out['next'])}")
+    if out["treats_template"]:
+        console.print("[dim]treats template:[/] " + json.dumps(out["treats_template"], ensure_ascii=False))
+
+
+# --------------------------------------------------------------------------- fix-status
+@app.command("fix-status")
+def fix_status(
+    diff: Annotated[bool, typer.Option("--diff", help="Print one unified diff (pipe it to `git apply`).")] = False,
+    repo: Annotated[Path | None, typer.Option("--repo", help="Checkout of the records, for --write.")] = None,
+    write: Annotated[bool, typer.Option("--write", help="Edit the status lines in --repo in place.")] = False,
+    limit: Annotated[int, typer.Option(help="Rows shown in the table.")] = 15,
+    store: StoreOpt = Path(DEFAULT_STORE),
+    as_json: JsonOpt = False,
+) -> None:
+    """Make stale status headers say what later decisions did to them (a diff for a human to review)."""
+    from . import headers
+
+    if write and not repo:
+        err.print("[red]--write needs --repo, the checkout whose records should be edited[/red]")
+        raise typer.Exit(2)
+    api = _open(store)
+    try:
+        plan = headers.suggest(api)
+        if diff:
+            return typer.echo(headers.render_diff(api, plan["fixes"]), nl=False)
+    finally:
+        api.close()
+    if write:
+        res = headers.apply(plan["fixes"], repo)  # type: ignore[arg-type]
+        console.print(f"[green]patched {len(res['patched'])}[/] · missing file {len(res['missing_file'])} · changed since indexing {len(res['drifted'])}")
+        return
+    if as_json:
+        return _emit(plan)
+    t = Table(box=box.SIMPLE_HEAD, title=f"{len(plan['fixes'])} headers still say Accepted/Proposed", title_justify="left")
+    t.add_column("decision")
+    t.add_column("header says now")
+    t.add_column("should say")
+    t.add_column("check")
+    for f in plan["fixes"][:limit]:
+        t.add_row(f["id"], f["old_status"], f["new_status"], "[yellow]⚠ weaker evidence[/]" if f["review"] else "")
+    console.print(t)
+    if len(plan["fixes"]) > limit:
+        console.print(f"[dim]… and {len(plan['fixes']) - limit} more. `--diff` prints the patch, `--write --repo DIR` applies it.[/]")
+    weak = sum(1 for f in plan["fixes"] if f["review"])
+    if weak:
+        console.print(f"[yellow]{weak} rest on an edge with confidence < {headers.REVIEW_BELOW}[/] — read their `evidence` in `--json` before applying.")
+    for m in plan["manual"]:
+        console.print(f"[yellow]needs a human:[/] {m['id']} — {escape(m['reason'])}")
+
+
 # --------------------------------------------------------------------------- mcp
 @app.command()
 def mcp(

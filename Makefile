@@ -33,6 +33,12 @@ data: $(CACHE)/.git   ## rebuild the store and the browser export from the pinne
 eval: $(CACHE)/.git   ## recompute every number quoted in docs/evaluation.md
 	uv run python scripts/evaluate.py --repo $(CACHE) --store $(STORE)
 
+eval-overlaps:        ## how well find_overlaps recovers known overrulings (docs/evaluation.md 5a)
+	uv run python scripts/evaluate_overlaps.py --store $(STORE)
+
+verify-headers: $(CACHE)/.git   ## prove fix-status changes no verdict on the pinned corpus (docs/evaluation.md 5b)
+	uv run python scripts/verify_headers.py --repo $(CACHE) --store $(STORE)
+
 web:                  ## serve the browser explorer on http://localhost:8765
 	python3 -m http.server -d docs 8765
 

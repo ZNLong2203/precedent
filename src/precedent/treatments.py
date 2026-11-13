@@ -15,7 +15,7 @@ from __future__ import annotations
 import re
 from dataclasses import replace
 
-from .model import Citation, Decision, Treatment, Unit
+from .model import NEGATIVE_KINDS, Citation, Decision, Treatment, Unit
 from .parse_adr import ADR_REF, LINK_REF, adr_id
 
 # --------------------------------------------------------------------------- verb lexicon
@@ -466,6 +466,11 @@ def extract(decisions: dict[str, Decision], units: list[Unit]) -> tuple[list[Cit
             # "alternatives" is skipped on purpose: verbs there describe options that were rejected.
             for sent in sentences(unit.text):
                 _body_sentence(col, unit, sent)
+    # A header "Superseded in part by ADR-X" only summarises what X's own text already says clause by clause
+    # (and what `precedent fix-status` writes back).  Keep the precise edge, drop the vague duplicate, so
+    # re-indexing a corpus whose headers were patched yields the same graph.
+    precise = {(t.actor, t.target) for t in col.treatments.values() if not t.rule.startswith("status-") and t.kind in NEGATIVE_KINDS}
+    kept = [t for t in col.treatments.values() if not (t.rule == "status-in-part" and (t.actor, t.target) in precise)]
     cits = sorted(col.citations.values(), key=lambda c: (c.src, c.dst, c.section, c.src_clause or 0))
-    treats = sorted(col.treatments.values(), key=lambda t: (t.target, t.actor, t.kind, t.target_clauses))
+    treats = sorted(kept, key=lambda t: (t.target, t.actor, t.kind, t.target_clauses))
     return cits, treats

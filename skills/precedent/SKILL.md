@@ -28,6 +28,14 @@ No MCP? Use the CLI instead: `uv run precedent preflight "<task>" -p <path> --js
 `decision_status("ADR-0116")` → clause-by-clause standing, who treated it, the quoted sentence that
 says so, and the later decisions that still rely on clauses now out of force.
 
+## Before you write a new decision
+
+Call `find_overlaps(draft="<your draft text>", paths=[...])` first. It flags the clauses your draft
+overlaps that still bind (declare them in `treats` if you change them, or cite them if you build on
+them) and ground that is already out of force (cite the replacement, not the dead clause). It is a
+ranking, not a ruling: you decide what the draft really does. A miss is possible, so also run
+`preflight` for the task.
+
 ## When your change should overrule a decision
 
 Do **not** edit the old record. Draft a new one and let the graph review it:

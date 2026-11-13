@@ -31,6 +31,8 @@ Which relationships matter? *treatments* — "A supersedes §4 of B", "C reverse
 | **Evidence on every edge** | Each treatment keeps the exact sentence it came from, the rule that fired and a confidence — a human can check any claim in one click. |
 | **Preflight for agents** | `preflight(task, paths)` returns the decisions an agent must respect, with stale clauses flagged and the *controlling* decision pulled in, inside a token budget. Served over **MCP**. |
 | **A guard for agent‑written decisions** | `propose_decision` writes the draft into the graph inside a Relate **transaction**, recomputes standing on the uncommitted state, and reports which decisions change, who relies on what you are overruling, and errors that each carry a `fix` — then commits or rolls back. A dry run is a *what‑if*. |
+| **Overlap finder** | `find_overlaps(draft)` — before an agent writes a decision, it points at the clauses the draft would overrule (declare them) and at ground that is *already* out of force (cite the replacement). A ranking, not a ruling: the agent writes the language, the graph checks the claim. Measured on 55 real overrulings in [the evaluation](docs/evaluation.md#5a-overlap-finder). |
+| **Header patches** | `precedent fix-status` turns each stale "Accepted" into a reviewable one‑line diff, in the corpus's own wording (`Superseded in part by ADR‑0229 (§1, §4–5)`). On the real corpus: 111 stale headers → 0, no verdict changes ([verified](docs/evaluation.md#5b-header-patches)). |
 | **cite‑check** | Stale statuses, reliance on superseded clauses, ghost file paths, near‑duplicate decisions, temporal impossibilities. CI‑friendly (`--fail-on-warn`). |
 | **Browser explorer** | The same graph in your tab, queried with Cypher — [try it](https://ZNLong2203.github.io/precedent/). |
 
@@ -48,6 +50,8 @@ uv sync
 uv run precedent demo                       # 20-second tour
 uv run precedent status ADR-0116            # clause-level standing + the quoted evidence
 uv run precedent preflight "add support for creating and switching between multiple databases"
+uv run precedent overlaps "Allow creating and dropping databases instead of three fixed namespaces"   # before you write a decision
+uv run precedent fix-status --limit 5       # which headers still say Accepted, and what they should say (--diff for a patch)
 uv run precedent cite-check                 # 300+ structural findings, grouped
 uv run precedent propose examples/proposal-multi-tenant.json    # what-if: dry run of a draft ADR
 ```

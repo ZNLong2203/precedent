@@ -17,7 +17,7 @@ from mcp.server.mcpserver import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 from mcp.types import ToolAnnotations
 
-from . import guard
+from . import guard, overlaps
 from . import lint as lint_mod
 from .api import Precedent
 
@@ -31,10 +31,13 @@ Workflow:
    Treat `live_clauses` as binding, and follow the decision named in `stale_clauses[].by` instead of
    the stale text.
 2. Use `decision_status` to inspect one decision (clause-level standing + the quoted evidence).
-3. If your change should overrule an earlier decision, do NOT edit it: call `propose_decision`
+3. Writing a new decision? First call `find_overlaps` with your draft text: it points at the clauses
+   you would overrule (declare them in `treats`) and at ground that is already out of force (cite the
+   replacement instead). It ranks; you decide.
+4. If your change should overrule an earlier decision, do NOT edit it: call `propose_decision`
    (dry run by default). It reports which decisions change standing and who relies on what you are
    overruling. Fix every error (each has a `fix`) before resubmitting; commit only when asked.
-4. `query_graph` runs read-only Cypher for anything else (see `graph_schema`).
+5. `query_graph` runs read-only Cypher for anything else (see `graph_schema`).
 """
 
 WRITE_WORDS = re.compile(r"\b(CREATE|MERGE|DELETE|DETACH|SET|REMOVE|DROP|FOREACH|LOAD\s+CSV|CALL\s*\{)\b|\bCALL\s+(?:db|dbms|apoc)\.(?!index\.fulltext)", re.IGNORECASE)
@@ -127,6 +130,16 @@ def build_server(api: Precedent, *, writable: bool = False) -> MCPServer:
         except Exception as e:  # surface the engine's explainable error verbatim
             raise ToolError(f"Cypher failed: {e}. See `graph_schema` for labels and properties.") from e
         return {"rows": rows[:cap], "row_count": min(len(rows), cap), "truncated": len(rows) > cap}
+
+    @server.tool(annotations=READ)
+    async def find_overlaps(draft: str = "", paths: list[str] | None = None, limit: int = 8) -> dict[str, Any]:
+        """Before you write a decision: which existing clauses does your draft overlap? Paste the draft text (and/or the files it
+        touches). Flags clauses that still bind (declare them in `treats` if you change them) and clauses already out of force
+        (cite their replacement instead). A ranking, not a ruling - then verify with `propose_decision`."""
+        try:
+            return overlaps.find_overlaps(api, draft, paths or [], limit=max(1, min(limit, 15)))
+        except ValueError as e:
+            raise ToolError(str(e)) from e
 
     @server.tool(annotations=WRITE)
     async def propose_decision(
