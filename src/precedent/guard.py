@@ -143,9 +143,11 @@ def _review(store: Store, api: Precedent, spec: dict[str, Any], *, commit: bool,
             s0 = before[c["target"]]
             stale = [n for n in c["clauses"] if n in s0.out_clauses] or (c["clauses"] if s0.state == "out" else [])
             if s0.state == "out" or stale:
+                # name only the decisions that took *these* clauses out of force
+                ctrl = sorted({a for n in stale for a in s0.defeated_by.get(n, [])}) or s0.controlling
                 errors.append(_err("cites-out-of-force",
-                                   f"{c['target']} {_ranges(stale) or '(whole decision)'} is out of force (controlled by {', '.join(s0.controlling) or 'a later decision'})",
-                                   f"cite {', '.join(s0.controlling) or 'the controlling decision'} instead, or drop this citation"))
+                                   f"{c['target']} {_ranges(stale) or '(whole decision)'} is out of force (controlled by {', '.join(ctrl) or 'a later decision'})",
+                                   f"cite {', '.join(ctrl) or 'the controlling decision'} instead, or drop this citation"))
         for p in spec["governs"]:
             if not api.paths_to_decisions(p) and not store.one("MATCH (p:CodePath) WHERE p.path = $p OR p.current = $p RETURN p.path AS p LIMIT 1", {"p": p}):
                 warnings.append(_err("unknown-path", f"no existing decision mentions `{p}`", "fine for new code; otherwise check the path"))
