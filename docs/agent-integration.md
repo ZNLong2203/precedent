@@ -5,7 +5,7 @@ Precedent speaks **MCP** over stdio (an in‑process Relate store — no ports, 
 ## Claude Code
 
 ```bash
-git clone https://github.com/OWNER/precedent && cd precedent && uv sync
+git clone https://github.com/ZNLong2203/precedent && cd precedent && uv sync
 claude         # the repo's .mcp.json registers the `precedent` server; approve it when asked
 ```
 

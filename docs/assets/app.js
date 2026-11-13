@@ -2,7 +2,7 @@
 // *every* list, card and chart below is answered by a Cypher query executed in this tab.
 import init, { RelateDb } from "./relate/relate.js";
 
-const REPO_URL = ""; // filled in at publish time
+const REPO_URL = "https://github.com/ZNLong2203/precedent";
 const RELATE_WASM_VERSION = "1.0.1"; // keep in sync with scripts/vendor-web.sh
 const NEG = new Set(["SUPERSEDES", "REVERSES", "WITHDRAWS"]);
 const STATES = {

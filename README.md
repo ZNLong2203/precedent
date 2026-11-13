@@ -2,7 +2,7 @@
 
 **Case law for your codebase.** Decision records are immutable, so later decisions quietly overrule parts of earlier ones while the old header still says *Accepted*. Precedent reads that prose once, builds the citation graph in [Relate](https://relatedb.ai), and tells you — and your coding agent — which clauses are still good law.
 
-[**▶ Try it in your browser**](https://OWNER.github.io/precedent/) &nbsp;·&nbsp; [Demo video](https://OWNER.github.io/precedent/) &nbsp;·&nbsp; [Method](docs/methodology.md) &nbsp;·&nbsp; [Evaluation](docs/evaluation.md) &nbsp;·&nbsp; [Agent integration](docs/agent-integration.md)
+[**▶ Try it in your browser**](https://ZNLong2203.github.io/precedent/) &nbsp;·&nbsp; [Demo video](https://ZNLong2203.github.io/precedent/) &nbsp;·&nbsp; [Method](docs/methodology.md) &nbsp;·&nbsp; [Evaluation](docs/evaluation.md) &nbsp;·&nbsp; [Agent integration](docs/agent-integration.md)
 
 ![The Precedent explorer: ADR-0116 is declared Accepted, but seven of its ten clauses were taken out of force by three later decisions](docs/img/explorer.jpg)
 
@@ -32,18 +32,18 @@ Which relationships matter? *treatments* — "A supersedes §4 of B", "C reverse
 | **Preflight for agents** | `preflight(task, paths)` returns the decisions an agent must respect, with stale clauses flagged and the *controlling* decision pulled in, inside a token budget. Served over **MCP**. |
 | **A guard for agent‑written decisions** | `propose_decision` writes the draft into the graph inside a Relate **transaction**, recomputes standing on the uncommitted state, and reports which decisions change, who relies on what you are overruling, and errors that each carry a `fix` — then commits or rolls back. A dry run is a *what‑if*. |
 | **cite‑check** | Stale statuses, reliance on superseded clauses, ghost file paths, near‑duplicate decisions, temporal impossibilities. CI‑friendly (`--fail-on-warn`). |
-| **Browser explorer** | The same graph in your tab, queried with Cypher — [try it](https://OWNER.github.io/precedent/). |
+| **Browser explorer** | The same graph in your tab, queried with Cypher — [try it](https://ZNLong2203.github.io/precedent/). |
 
 ![precedent status ADR-0116](docs/img/status.svg)
 
 ## Try it
 
-**No install** — open the [explorer](https://OWNER.github.io/precedent/). Pick *Accepted on paper, partly superseded* in **Ask Relate**.
+**No install** — open the [explorer](https://ZNLong2203.github.io/precedent/). Pick *Accepted on paper, partly superseded* in **Ask Relate**.
 
 **CLI** (Python ≥ 3.10; [uv](https://docs.astral.sh/uv/) recommended). The store is already in the repo — nothing to build, no keys, no network:
 
 ```bash
-git clone https://github.com/OWNER/precedent && cd precedent
+git clone https://github.com/ZNLong2203/precedent && cd precedent
 uv sync
 uv run precedent demo                       # 20-second tour
 uv run precedent status ADR-0116            # clause-level standing + the quoted evidence
