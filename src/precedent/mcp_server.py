@@ -17,7 +17,8 @@ from mcp.server.mcpserver import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 from mcp.types import ToolAnnotations
 
-from . import guard, lint as lint_mod
+from . import guard
+from . import lint as lint_mod
 from .api import Precedent
 
 INSTRUCTIONS = """\

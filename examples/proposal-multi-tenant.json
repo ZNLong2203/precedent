@@ -1,0 +1,15 @@
+{
+  "title": "Allow CREATE DATABASE for tenant isolation",
+  "body": "Each tenant gets its own database inside one store, selected with USE.",
+  "context": "Hosted deployments want one store per customer group without running one process per tenant.",
+  "treats": [
+    {
+      "target": "ADR-0116",
+      "kind": "SUPERSEDES",
+      "clauses": [3],
+      "reason": "USE may now route to tenant databases, not only to the three fixed namespaces"
+    }
+  ],
+  "cites": [{ "target": "ADR-0229", "clauses": [1] }],
+  "governs": ["relate/relate-storage/src/lib.rs"]
+}

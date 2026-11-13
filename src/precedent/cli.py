@@ -15,7 +15,8 @@ from rich.markup import escape
 from rich.panel import Panel
 from rich.table import Table
 
-from . import __version__, lint as lint_mod
+from . import __version__
+from . import lint as lint_mod
 from .api import STATE_WORD, Precedent, _ranges
 from .graph import StoreLocked
 
@@ -131,7 +132,9 @@ def status(decision: Annotated[str, typer.Argument(help="e.g. ADR-0116 or 116")]
     console.print(Panel(escape(d["verdict"]), border_style=STYLE.get(d["standing"], "white")))
     if d["clauses"]:
         t = Table(box=box.SIMPLE_HEAD, title="clauses", title_justify="left")
-        t.add_column("§"); t.add_column("clause"); t.add_column("standing")
+        t.add_column("§")
+        t.add_column("clause")
+        t.add_column("standing")
         for c in d["clauses"]:
             t.add_row(str(c["n"]), escape(c["title"][:70]), "[green]✓ good law[/]" if c["standing"] == "in_force" else f"[red]✗ out[/] by {', '.join(c['defeated_by'] or [])}")
         console.print(t)
@@ -170,7 +173,10 @@ def search(query: Annotated[str, typer.Argument()], limit: Annotated[int, typer.
     if as_json:
         return _emit(hits)
     t = Table(box=box.SIMPLE_HEAD)
-    t.add_column("decision"); t.add_column("standing"); t.add_column("title"); t.add_column("matched by", style="dim")
+    t.add_column("decision")
+    t.add_column("standing")
+    t.add_column("title")
+    t.add_column("matched by", style="dim")
     for h in hits:
         t.add_row(h["id"], _chip(h["standing"]), escape(h["title"][:62]), "+".join(h["matched_by"]))
     console.print(t)
@@ -205,7 +211,7 @@ def preflight(
         for why in c["why"][:2]:
             console.print(f"   [dim]why:[/] {escape(why)}")
         if c["live_clauses"]:
-            console.print(f"   [green]good law:[/] " + "; ".join(f"§{x['n']} {escape(x['title'][:34])}" for x in c["live_clauses"][:4]))
+            console.print("   [green]good law:[/] " + "; ".join(f"§{x['n']} {escape(x['title'][:34])}" for x in c["live_clauses"][:4]))
         for x in c["stale_clauses"][:3]:
             console.print(f"   [red]stale:[/] {escape(x['note'])}")
         if not c["live_clauses"] and not c["stale_clauses"] and c["gist"]:
@@ -231,7 +237,9 @@ def cite_check(
         _emit(res)
     else:
         t = Table(box=box.SIMPLE_HEAD, title=f"{res['total']} findings", title_justify="left")
-        t.add_column("category"); t.add_column("count", justify="right"); t.add_column("what it means", style="dim")
+        t.add_column("category")
+        t.add_column("count", justify="right")
+        t.add_column("what it means", style="dim")
         for c, n in res["summary"].items():
             t.add_row(c, str(n), res["categories"][c])
         console.print(t)
@@ -289,7 +297,10 @@ def propose(
         console.print(f"[yellow]⚠ {w['code']}[/] {escape(w['message'])}\n   [dim]fix:[/] {escape(w['fix'])}")
     if out["standing_changes"]:
         t = Table(box=box.SIMPLE_HEAD, title="what changes if this lands", title_justify="left")
-        t.add_column("decision"); t.add_column("before"); t.add_column("after"); t.add_column("out of force")
+        t.add_column("decision")
+        t.add_column("before")
+        t.add_column("after")
+        t.add_column("out of force")
         for c in out["standing_changes"]:
             t.add_row(c["decision"], _chip(c["before"]) if c["before"] in STYLE else c["before"], _chip(c["after"]), _ranges(c["out_clauses_after"]))
         console.print(t)

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "precedent": {
+      "command": "uv",
+      "args": ["run", "--quiet", "precedent", "mcp", "--store", "data/relate-adr.rl"]
+    }
+  }
+}

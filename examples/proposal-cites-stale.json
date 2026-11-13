@@ -1,0 +1,5 @@
+{
+  "title": "Document the system_ontologies read path",
+  "body": "Describe how users read the ontology graph.",
+  "cites": [{ "target": "ADR-0116", "clauses": [1] }]
+}

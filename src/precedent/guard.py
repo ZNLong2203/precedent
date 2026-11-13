@@ -24,7 +24,7 @@ from typing import Any
 from . import standing as st
 from .api import STATE_WORD, Precedent, _ranges, canonical_id
 from .graph import Store, load_model, write_back
-from .model import NEGATIVE_KINDS, TREATMENT_KINDS
+from .model import NEGATIVE_KINDS
 
 VERB = {"SUPERSEDES": "supersedes", "REVERSES": "reverses", "WITHDRAWS": "withdraws", "AMENDS": "amends"}
 PROPOSABLE = tuple(VERB)

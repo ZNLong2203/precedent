@@ -29,3 +29,4 @@ tmp/
 # transient lock/WAL sidecars of a Relate store being written
 *.rl-wal
 *.rl-lock
+.cache/
