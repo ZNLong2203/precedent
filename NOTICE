@@ -1,0 +1,19 @@
+Precedent
+Copyright 2026 Precedent contributors.
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This product includes data derived from third-party works:
+
+* relatedb/relate (https://github.com/relatedb/relate), Apache-2.0,
+  Copyright Neo4j, Inc. and contributors.
+  The files data/relate-adr.rl, data/relate-adr.lsa.npz, docs/data/graph.json,
+  data/gold/*.jsonl and tests/fixtures/relate-adr/*.md contain or are derived from the decision
+  records in `docs/adr/` at commit 1ebb65eb6c375a3dbe67b0a2d5618f346f3139d1. The records themselves
+  are reproduced unmodified in tests/fixtures/relate-adr/; the store and exports add computed
+  structure (clauses, treatments, standing, vectors) and quote individual sentences as evidence.
+
+* @relate/relate-wasm 1.0.1 (Apache-2.0, Neo4j, Inc.) and force-graph 1.51.0 (MIT, Vasco Asturiano),
+  vendored under docs/assets/ (see docs/assets/vendor/LICENSES.md).
+
+"Relate" and "Neo4j" are trademarks of Neo4j, Inc. This project uses the names only to identify
+the products it builds on and is not endorsed by Neo4j.
