@@ -38,7 +38,7 @@ _STEM_KIND = {
 
 # Words just before a verb that make the sentence hypothetical or negated.
 _HEDGE = re.compile(
-    r"\b(?:not|never|no longer|cannot|can't|won't|would|could|should|may|might|if|unless|"
+    r"\b(?:not|never|nothing|none|nobody|no longer|cannot|can't|won't|would|could|should|may|might|if|unless|"
     r"rather than|instead of|without|neither|nor|whether|to avoid|avoid(?:s|ing)?)\s+(?:\w+\s+){0,2}$",
     re.IGNORECASE,
 )
@@ -154,6 +154,10 @@ def _best_kind(text: str, *, allow: tuple[str, ...] = _PRIORITY) -> tuple[str | 
         if kind not in allow:
             continue
         for m in _VERB_RX[kind].finditer(text):
+            if len(m.group(0)) > 2 and m.group(0).isupper():  # CREATE / DROP / SHOW INDEX: query keywords
+                continue
+            if text[: m.start()].count("`") % 2 == 1:  # inside `code`: an identifier such as `drop`, not a verb
+                continue
             before = text[max(0, m.start() - 40) : m.start()]
             if _HEDGE.search(before):
                 continue
@@ -263,7 +267,7 @@ def _later_references(col: _Collector, unit: Unit) -> None:
         if passive and passive.group("actor")[0] in "Aa":
             actor_num = int(re.search(r"\d+", passive.group("actor")).group())
             kind = _kind_from_stem(passive.group(1))
-            rule, base = "later-passive-by", 0.85
+            rule, base, vm = "later-passive-by", 0.85, None
             scope_text = sent
             whole = bool(_THIS_PASSIVE.search(sent)) and "in part" not in sent.lower()
         else:
@@ -278,6 +282,12 @@ def _later_references(col: _Collector, unit: Unit) -> None:
             rule, base = "later-actor-verb", 0.8
             scope_text = tail
             whole = _whole_object(tail[vm.end() :], target_num)
+        if (
+            vm is not None and rule == "later-actor-verb" and kind == "AMENDS"
+            and re.match(r"(?:remov|drop|delet)", vm.group(0), re.IGNORECASE)
+            and not re.search(r"\b(?:cost|overhead|term|latency|allocations?|copies|copy|lock|census|remaining)\b", tail[vm.end() : vm.end() + 60], re.IGNORECASE)
+        ):
+            kind, base = "WITHDRAWS", 0.7  # "ADR-0029 removes the localhost HTTP sidecar": what it removes is gone
         clauses = clause_refs(_strip_other_adr_clauses(scope_text))
         if clauses:
             whole = False
@@ -387,6 +397,17 @@ def _body_sentence(col: _Collector, unit: Unit, sent: str) -> None:
                 whole = not clauses and alone and (sent[e : pn.start()].strip() == "" or bool(_FULL.search(sent)))
                 col.add_treatment(Treatment(this, adr_id(num), kind, clauses, _evidence(sent), "body-passive-implicit", 0.6, this, (), whole))
             return
+
+    # (b3) "ADR-0359 supersedes item 2's ..." inside this decision: a later ADR acts on a clause of *this* one
+    if len(mentions) == 1 and mentions[0][1] <= 2 and mentions[0][0] > int(this.split("-")[1]):
+        a_num, _s, a_e = mentions[0]
+        am = re.match(r"\s*(?:(?:now|also|partly|then|later)\s+)*(%s)\b" % "|".join(_VERBS[k] for k in ("SUPERSEDES", "REVERSES", "WITHDRAWS")), sent[a_e:], re.IGNORECASE)
+        if am:
+            clauses = clause_refs(sent[a_e + am.end(1) : a_e + am.end(1) + 60])
+            if clauses:
+                kind, _vm = _best_kind(am.group(1))
+                col.add_treatment(Treatment(adr_id(a_num), this, kind or "SUPERSEDES", clauses, _evidence(sent), "body-later-actor", 0.65, this))
+                return
 
     # (c) "(later reversed: ADR-0472 keeps them ...)": a later decision reverses what this unit says
     lr = _LATER_REVERSED.search(sent)
