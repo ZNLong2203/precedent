@@ -23,15 +23,27 @@ def record(title: str, name: str, fn) -> None:
     print("wrote", OUT / f"{name}.svg")
 
 
-def main() -> None:
+def main(only: list[str] | None = None) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-    record("precedent demo", "demo", lambda: cli.demo(store=STORE))
-    record("precedent status ADR-0116", "status", lambda: cli.status("ADR-0116", store=STORE, as_json=False))
-    record(
+    want = set(only or [])
+
+    def rec(title: str, name: str, fn) -> None:
+        if not want or name in want:
+            record(title, name, fn)
+
+    rec("precedent demo", "demo", lambda: cli.demo(store=STORE))
+    rec("precedent status ADR-0116", "status", lambda: cli.status("ADR-0116", store=STORE, as_json=False))
+    rec(
         "precedent preflight",
         "preflight",
         lambda: cli.preflight("add support for creating and switching between multiple databases", [], 1500, 4, STORE, False),
     )
+    rec(
+        "precedent overlaps",
+        "overlaps",
+        lambda: cli.overlaps("Allow creating and dropping additional databases at runtime instead of the three fixed namespaces", None, [], 3, STORE, False),
+    )
+    rec("precedent fix-status", "fix-status", lambda: cli.fix_status(False, None, False, 6, STORE, False))
     spec = {
         "title": "Allow CREATE DATABASE for tenant isolation",
         "body": "Each tenant gets its own database inside one store.",
@@ -40,9 +52,9 @@ def main() -> None:
     }
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
         json.dump(spec, f)
-    record("precedent propose (dry run)", "propose", lambda: cli.propose(f.name, False, STORE, False))
-    record("precedent cite-check", "cite-check", lambda: cli.cite_check([], 2, STORE, False, False))
+    rec("precedent propose (dry run)", "propose", lambda: cli.propose(f.name, False, STORE, False))
+    rec("precedent cite-check", "cite-check", lambda: cli.cite_check([], 2, STORE, False, False))
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main(sys.argv[1:]))

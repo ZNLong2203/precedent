@@ -77,14 +77,7 @@ An agent drafting a decision can go wrong two ways: overrule a clause without sa
 uv run precedent overlaps "Allow creating and dropping additional databases at runtime instead of the three fixed namespaces"
 ```
 
-```
-◐ ADR-0116 Fixed namespaces with Neo4j Community Edition database semantics   ◐ PARTLY SUPERSEDED
-   §3 `USE` routes a statement                0.46  binds
-   §6 SHOW output is real                     0.41  binds
-   §8 Settings stay in the existing catalog   0.40  out of force by ADR-0276
-   §1 Three fixed namespaces                  0.40  out of force by ADR-0229
-   Your draft overlaps §3, §6, which still bind. … Already out of force: §1, §8 (by ADR-0229, ADR-0276) - cite that instead.
-```
+![precedent overlaps: the clauses a draft overlaps, some still binding, some already out of force](img/overlaps.svg)
 
 It returns a `treats_template` (edit `kind`, `clauses`, `reason`) to hand to `propose_decision`. It is a ranking, not a ruling: on 55 known overrulings the overruled decision is in the top 8 candidates 76 % of the time ([evaluation](evaluation.md#5a-overlap-finder)), so treat a miss as possible.
 
@@ -109,3 +102,5 @@ what changes if this lands:   ADR-0116  ◐ PARTLY SUPERSEDED → ◐ PARTLY SUP
 * **Neo4j Browser / drivers**: `relate serve … --bolt 7687`, then `bolt://localhost:7687` (no auth with `--auth none`, local use only).
 * **CI**: `uv run precedent cite-check --fail-on-warn --store your.rl` fails a build on stale statuses, reliance on superseded clauses and the like.
 * **Fixing the stale statuses it finds**: `uv run precedent fix-status --diff | git -C your-repo apply` writes `Superseded in part by ADR-0229 (§1, §4–5)` into each stale header (`--write --repo your-repo` edits in place). Suggestions resting on a weaker edge are marked; review the diff like any other change.
+
+![precedent fix-status: stale headers and what they should say](img/fix-status.svg)
