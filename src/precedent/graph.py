@@ -27,7 +27,7 @@ import relate
 
 from . import standing as st
 from .lsa import LSA
-from .model import TREATMENT_KINDS, Corpus, Decision
+from .model import NEGATIVE_KINDS, TREATMENT_KINDS, Clause, Corpus, Decision, Treatment
 
 TEXT_CAP = 60_000
 CLAUSE_CAP = 8_000
@@ -264,3 +264,62 @@ def build(
     finally:
         store.close()
     return stats
+
+
+# --------------------------------------------------------------------------- read the model back
+def load_model(store: Store) -> tuple[dict[str, Decision], list[Treatment]]:
+    """Rebuild the minimal model (ids, clause numbers, dates, treatments) from the graph.
+
+    Reads *the current transaction state*, so a what-if that has written but not committed is
+    visible to :func:`precedent.standing.compute`.
+    """
+    decisions: dict[str, Decision] = {}
+    for r in store.run(
+        "MATCH (d:Decision) OPTIONAL MATCH (d)-[:HAS_CLAUSE]->(c:Clause) "
+        "RETURN d.id AS id, d.num AS num, d.title AS title, d.status AS status, d.date AS date, d.path AS path, collect(c.n) AS ns"
+    ):
+        decisions[r["id"]] = Decision(
+            id=r["id"], num=r["num"], title=r["title"], path=r["path"] or "", status_raw=None,
+            status=r["status"] or "unknown", date=r["date"],
+            clauses=[Clause(n, f"clause {n}", "") for n in sorted(x for x in r["ns"] if x is not None)],
+        )
+    treatments: list[Treatment] = []
+    for r in store.run(
+        f"MATCH (a:Decision)-[t:{'|'.join(TREATMENT_KINDS)}]->(b:Decision) "
+        "RETURN a.id AS actor, b.id AS target, type(t) AS kind, t.scope AS scope, t.clauses AS clauses, t.evidence AS evidence, "
+        "t.rule AS rule, t.confidence AS confidence, t.affirmed AS affirmed, t.reported_in AS reported_in"
+    ):
+        treatments.append(
+            Treatment(r["actor"], r["target"], r["kind"], tuple(r["clauses"] or ()), r["evidence"] or "", r["rule"] or "",
+                      r["confidence"] or 0.0, r["reported_in"] or r["actor"], tuple(r["affirmed"] or ()), r["scope"] == "whole")
+        )
+    return decisions, treatments
+
+
+def write_back(store: Store, decisions: dict[str, Decision], report: st.Report, only: set[str] | None = None) -> None:
+    """Persist derived standing (Decision/Clause properties and the ``effective`` flag on treatments)."""
+    rows = []
+    clause_rows = []
+    for did, d in decisions.items():
+        if only is not None and did not in only:
+            continue
+        s = report[did]
+        rows.append({"id": did, "standing": s.state, "out": s.out_clauses, "unspec": s.unspecified_part_out,
+                     "by": s.controlling, "attackers": s.attackers, "restored": s.restored})
+        for c in d.clauses:
+            clause_rows.append({"key": f"{did}#{c.n}", "standing": "out" if c.n in s.out_clauses else "in_force", "by": s.defeated_by.get(c.n, [])})
+    store.run(
+        "UNWIND $rows AS r MATCH (d:Decision {id: r.id}) SET d.standing = r.standing, d.out_clauses = r.out, "
+        "d.partial_unspecified = r.unspec, d.controlled_by = r.by, d.attackers = r.attackers, d.restored = r.restored", {"rows": rows})
+    if clause_rows:
+        store.run("UNWIND $rows AS r MATCH (c:Clause {key: r.key}) SET c.standing = r.standing, c.defeated_by = r.by", {"rows": clause_rows})
+    # effective flags: recompute for every negative treatment
+    for kind in NEGATIVE_KINDS:
+        eff = [
+            {"actor": t.actor, "target": t.target, "clauses": list(t.target_clauses), "effective": st.treatment_key(t) in report.effective}
+            for t in report.treatments if t.kind == kind
+        ]
+        if eff:
+            store.run(
+                f"UNWIND $rows AS r MATCH (a:Decision {{id: r.actor}})-[t:{kind}]->(b:Decision {{id: r.target}}) "
+                "WHERE t.clauses = r.clauses SET t.effective = r.effective", {"rows": eff})

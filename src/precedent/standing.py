@@ -86,6 +86,7 @@ class Report:
     standing: dict[str, Standing]
     effective: set[tuple]  # (actor, target, kind, target_clauses) of treatments that are alive
     anomalies: list[Treatment]
+    treatments: list[Treatment] = field(default_factory=list)  # every treatment considered
 
     def __getitem__(self, decision: str) -> Standing:
         return self.standing[decision]
@@ -185,7 +186,7 @@ def compute(
             restored=bool(every) and st == "in_force",
             contested_clauses=und,
         )
-    return Report(out, effective, bad_list)
+    return Report(out, effective, bad_list, list(treatments))
 
 
 def label(state: str) -> str:
