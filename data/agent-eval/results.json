@@ -1,0 +1,515 @@
+{
+ "r1": {
+  "docs": {
+   "tasks": 24,
+   "tasks_relying_on_an_overruled_clause": 16,
+   "pct_tasks_relying_on_an_overruled_clause": 66.7,
+   "overruled_clauses_per_task": 0.83,
+   "live_clauses_per_task": 5.67,
+   "pct_citing_a_controlling_decision": 45.8,
+   "pct_citing_the_partly_overruled_decision": 91.7,
+   "unknown_citations": 0
+  },
+  "docs+warning": {
+   "tasks": 24,
+   "tasks_relying_on_an_overruled_clause": 15,
+   "pct_tasks_relying_on_an_overruled_clause": 62.5,
+   "overruled_clauses_per_task": 0.83,
+   "live_clauses_per_task": 5.33,
+   "pct_citing_a_controlling_decision": 45.8,
+   "pct_citing_the_partly_overruled_decision": 91.7,
+   "unknown_citations": 0
+  },
+  "docs+precedent": {
+   "tasks": 24,
+   "tasks_relying_on_an_overruled_clause": 1,
+   "pct_tasks_relying_on_an_overruled_clause": 4.2,
+   "overruled_clauses_per_task": 0.04,
+   "live_clauses_per_task": 7.21,
+   "pct_citing_a_controlling_decision": 91.7,
+   "pct_citing_the_partly_overruled_decision": 95.8,
+   "unknown_citations": 0
+  },
+  "paired": {
+   "docs_vs_precedent": {
+    "relied_with_docs_only": 15,
+    "relied_with_docs+precedent_only": 0,
+    "sign_test_p": 0.0001
+   },
+   "warning_vs_precedent": {
+    "relied_with_docs+warning_only": 14,
+    "relied_with_docs+precedent_only": 0,
+    "sign_test_p": 0.0001
+   },
+   "docs_vs_warning": {
+    "relied_with_docs_only": 2,
+    "relied_with_docs+warning_only": 1,
+    "sign_test_p": 1.0
+   }
+  },
+  "per_task_overruled_clauses": {
+   "T01": [
+    2,
+    1,
+    0
+   ],
+   "T02": [
+    1,
+    1,
+    0
+   ],
+   "T03": [
+    0,
+    0,
+    0
+   ],
+   "T04": [
+    2,
+    2,
+    0
+   ],
+   "T05": [
+    1,
+    1,
+    0
+   ],
+   "T06": [
+    1,
+    0,
+    0
+   ],
+   "T07": [
+    0,
+    0,
+    0
+   ],
+   "T08": [
+    1,
+    1,
+    1
+   ],
+   "T09": [
+    1,
+    0,
+    0
+   ],
+   "T10": [
+    0,
+    0,
+    0
+   ],
+   "T11": [
+    1,
+    1,
+    0
+   ],
+   "T12": [
+    0,
+    0,
+    0
+   ],
+   "T13": [
+    2,
+    2,
+    0
+   ],
+   "T14": [
+    1,
+    1,
+    0
+   ],
+   "T15": [
+    1,
+    2,
+    0
+   ],
+   "T16": [
+    0,
+    0,
+    0
+   ],
+   "T17": [
+    0,
+    1,
+    0
+   ],
+   "T18": [
+    1,
+    1,
+    0
+   ],
+   "T19": [
+    2,
+    2,
+    0
+   ],
+   "T20": [
+    1,
+    2,
+    0
+   ],
+   "T21": [
+    0,
+    0,
+    0
+   ],
+   "T22": [
+    1,
+    1,
+    0
+   ],
+   "T23": [
+    0,
+    0,
+    0
+   ],
+   "T24": [
+    1,
+    1,
+    0
+   ]
+  }
+ },
+ "r2": {
+  "docs": {
+   "tasks": 24,
+   "tasks_relying_on_an_overruled_clause": 15,
+   "pct_tasks_relying_on_an_overruled_clause": 62.5,
+   "overruled_clauses_per_task": 0.79,
+   "live_clauses_per_task": 5.17,
+   "pct_citing_a_controlling_decision": 45.8,
+   "pct_citing_the_partly_overruled_decision": 91.7,
+   "unknown_citations": 0
+  },
+  "docs+warning": {
+   "tasks": 24,
+   "tasks_relying_on_an_overruled_clause": 17,
+   "pct_tasks_relying_on_an_overruled_clause": 70.8,
+   "overruled_clauses_per_task": 0.92,
+   "live_clauses_per_task": 5.42,
+   "pct_citing_a_controlling_decision": 50.0,
+   "pct_citing_the_partly_overruled_decision": 91.7,
+   "unknown_citations": 0
+  },
+  "docs+precedent": {
+   "tasks": 24,
+   "tasks_relying_on_an_overruled_clause": 1,
+   "pct_tasks_relying_on_an_overruled_clause": 4.2,
+   "overruled_clauses_per_task": 0.04,
+   "live_clauses_per_task": 7.5,
+   "pct_citing_a_controlling_decision": 91.7,
+   "pct_citing_the_partly_overruled_decision": 100.0,
+   "unknown_citations": 0
+  },
+  "paired": {
+   "docs_vs_precedent": {
+    "relied_with_docs_only": 14,
+    "relied_with_docs+precedent_only": 0,
+    "sign_test_p": 0.0001
+   },
+   "warning_vs_precedent": {
+    "relied_with_docs+warning_only": 16,
+    "relied_with_docs+precedent_only": 0,
+    "sign_test_p": 0.0
+   },
+   "docs_vs_warning": {
+    "relied_with_docs_only": 1,
+    "relied_with_docs+warning_only": 3,
+    "sign_test_p": 0.625
+   }
+  },
+  "per_task_overruled_clauses": {
+   "T01": [
+    1,
+    1,
+    0
+   ],
+   "T02": [
+    1,
+    1,
+    0
+   ],
+   "T03": [
+    0,
+    0,
+    0
+   ],
+   "T04": [
+    2,
+    2,
+    0
+   ],
+   "T05": [
+    1,
+    1,
+    0
+   ],
+   "T06": [
+    1,
+    0,
+    0
+   ],
+   "T07": [
+    0,
+    0,
+    0
+   ],
+   "T08": [
+    1,
+    1,
+    1
+   ],
+   "T09": [
+    0,
+    0,
+    0
+   ],
+   "T10": [
+    0,
+    1,
+    0
+   ],
+   "T11": [
+    1,
+    1,
+    0
+   ],
+   "T12": [
+    0,
+    1,
+    0
+   ],
+   "T13": [
+    0,
+    3,
+    0
+   ],
+   "T14": [
+    1,
+    1,
+    0
+   ],
+   "T15": [
+    3,
+    2,
+    0
+   ],
+   "T16": [
+    0,
+    0,
+    0
+   ],
+   "T17": [
+    1,
+    1,
+    0
+   ],
+   "T18": [
+    1,
+    1,
+    0
+   ],
+   "T19": [
+    2,
+    2,
+    0
+   ],
+   "T20": [
+    1,
+    1,
+    0
+   ],
+   "T21": [
+    0,
+    0,
+    0
+   ],
+   "T22": [
+    1,
+    1,
+    0
+   ],
+   "T23": [
+    0,
+    0,
+    0
+   ],
+   "T24": [
+    1,
+    1,
+    0
+   ]
+  }
+ },
+ "r3": {
+  "docs": {
+   "tasks": 24,
+   "tasks_relying_on_an_overruled_clause": 15,
+   "pct_tasks_relying_on_an_overruled_clause": 62.5,
+   "overruled_clauses_per_task": 0.88,
+   "live_clauses_per_task": 5.46,
+   "pct_citing_a_controlling_decision": 45.8,
+   "pct_citing_the_partly_overruled_decision": 91.7,
+   "unknown_citations": 0
+  },
+  "docs+warning": {
+   "tasks": 24,
+   "tasks_relying_on_an_overruled_clause": 16,
+   "pct_tasks_relying_on_an_overruled_clause": 66.7,
+   "overruled_clauses_per_task": 1.0,
+   "live_clauses_per_task": 4.92,
+   "pct_citing_a_controlling_decision": 45.8,
+   "pct_citing_the_partly_overruled_decision": 91.7,
+   "unknown_citations": 2
+  },
+  "docs+precedent": {
+   "tasks": 24,
+   "tasks_relying_on_an_overruled_clause": 1,
+   "pct_tasks_relying_on_an_overruled_clause": 4.2,
+   "overruled_clauses_per_task": 0.04,
+   "live_clauses_per_task": 7.38,
+   "pct_citing_a_controlling_decision": 91.7,
+   "pct_citing_the_partly_overruled_decision": 95.8,
+   "unknown_citations": 0
+  },
+  "paired": {
+   "docs_vs_precedent": {
+    "relied_with_docs_only": 14,
+    "relied_with_docs+precedent_only": 0,
+    "sign_test_p": 0.0001
+   },
+   "warning_vs_precedent": {
+    "relied_with_docs+warning_only": 15,
+    "relied_with_docs+precedent_only": 0,
+    "sign_test_p": 0.0001
+   },
+   "docs_vs_warning": {
+    "relied_with_docs_only": 0,
+    "relied_with_docs+warning_only": 1,
+    "sign_test_p": 1.0
+   }
+  },
+  "per_task_overruled_clauses": {
+   "T01": [
+    1,
+    2,
+    0
+   ],
+   "T02": [
+    1,
+    1,
+    0
+   ],
+   "T03": [
+    0,
+    0,
+    0
+   ],
+   "T04": [
+    2,
+    2,
+    0
+   ],
+   "T05": [
+    1,
+    2,
+    0
+   ],
+   "T06": [
+    0,
+    0,
+    0
+   ],
+   "T07": [
+    0,
+    0,
+    0
+   ],
+   "T08": [
+    1,
+    1,
+    1
+   ],
+   "T09": [
+    0,
+    0,
+    0
+   ],
+   "T10": [
+    0,
+    1,
+    0
+   ],
+   "T11": [
+    1,
+    1,
+    0
+   ],
+   "T12": [
+    0,
+    0,
+    0
+   ],
+   "T13": [
+    3,
+    3,
+    0
+   ],
+   "T14": [
+    1,
+    1,
+    0
+   ],
+   "T15": [
+    3,
+    3,
+    0
+   ],
+   "T16": [
+    0,
+    0,
+    0
+   ],
+   "T17": [
+    1,
+    1,
+    0
+   ],
+   "T18": [
+    1,
+    1,
+    0
+   ],
+   "T19": [
+    2,
+    2,
+    0
+   ],
+   "T20": [
+    1,
+    1,
+    0
+   ],
+   "T21": [
+    0,
+    0,
+    0
+   ],
+   "T22": [
+    1,
+    1,
+    0
+   ],
+   "T23": [
+    0,
+    0,
+    0
+   ],
+   "T24": [
+    1,
+    1,
+    0
+   ]
+  }
+ }
+}

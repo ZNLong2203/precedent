@@ -1,0 +1,222 @@
+[
+ {
+  "task_id": "T01",
+  "relies_on": [
+   {
+    "adr": "ADR-0277",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0454",
+    "clause": null
+   }
+  ],
+  "note": "Add the syntax only in cypherlite-parser and lower it in cypherlite-front, the single product grammar per ADR-0277, then keep the TCK floor, the CIP-eval identity set and counts (as adjusted by ADR-0119), and the loadtest baselines green."
+ },
+ {
+  "task_id": "T17",
+  "relies_on": [
+   {
+    "adr": "ADR-0250",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0550",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0358",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0358",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0358",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0358",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0358",
+    "clause": 7
+   }
+  ],
+  "note": "The CLI reads releases.json from the canonical URL (schema v1) and falls back once to the preview host (ADR-0550), then fails with a one-line message naming both URLs; it downloads assets via the direct route first with the API fallback only on a 404 (ADR-0358), keeping the signature verification chain."
+ },
+ {
+  "task_id": "T21",
+  "relies_on": [
+   {
+    "adr": "ADR-0363",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0374",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0374",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0363",
+    "clause": 9
+   },
+   {
+    "adr": "ADR-0363",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0363",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0363",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0374",
+    "clause": 4
+   }
+  ],
+  "note": "Add the kind to the single ADR-0363 vocabulary table in cypherlite-model and expose it through PlanArtifacts.notifications on QueryResult (ADR-0374), carried on the wire under the engine-native keys."
+ },
+ {
+  "task_id": "T12",
+  "relies_on": [
+   {
+    "adr": "ADR-0166",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0187",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0153",
+    "clause": null
+   }
+  ],
+  "note": "ADR-0166 already specifies populating indexes and constraints from the catalog (excluding constraint-backing indexes, Neo4j-style rendered constraint strings, no relationship constraints), so I'd verify that behaviour while keeping ADR-0187's relationship name property and ADR-0153's scan, ordering and negative-id semantics."
+ },
+ {
+  "task_id": "T09",
+  "relies_on": [
+   {
+    "adr": "ADR-0229",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 8
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 4
+   }
+  ],
+  "note": "The stored document stays the sole source of truth with no system_ontologies graph derived (ADR-0229), so any persistence change must preserve the WAL ops, MDBWAL02 magic, snapshot formats and format-follows-content rules of ADR-0120."
+ },
+ {
+  "task_id": "T20",
+  "relies_on": [
+   {
+    "adr": "ADR-0357",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0359",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0359",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0359",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0345",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0365",
+    "clause": 2
+   }
+  ],
+  "note": "Put the plan pair on the SUCCESS that ends the result and have the surface render the plan text and pass it to PlanNode::to_neo4j_value, keeping the engine wire form from to_value unchanged and accounting for statement retention."
+ }
+]

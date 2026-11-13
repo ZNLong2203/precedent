@@ -19,6 +19,7 @@ We ran Precedent on the real, public decision log of Relate itself — **533 ADR
 | decisions partly or wholly superseded by a later decision | **115 (21.6 %)** |
 | …of which the header still says *Accepted* or *Proposed* | **111** |
 | flat full-text searches whose top‑5 contain at least one such decision | **74.5 %** of 533 queries |
+| tasks where a model, given those documents, builds on an already‑overruled clause (24 tasks × 3 runs, Claude Sonnet 5.5) | **63.9 % → 4.2 %** once `preflight` is in its context; a generic "be careful" note changes nothing (66.7 %) — [details and limits](docs/evaluation.md#8-do-models-rely-on-overruled-clauses-and-does-precedent-change-that) |
 | `ADR-0116 — Fixed namespaces…` | declared *Accepted*; **§1, §4–5, §7–10 are out of force** (ADR‑0229, ADR‑0276, ADR‑0307); §2–3, §6 still stand |
 
 Which relationships matter? *treatments* — "A supersedes §4 of B", "C reverses A", "D withdraws part of E" — and the **citations and code paths** around them. That is a graph, and "is this still good law?" is a question about walking it.
@@ -137,6 +138,7 @@ Reproduce the committed store and every number in the docs from the pinned upstr
 Full numbers and caveats in [docs/evaluation.md](docs/evaluation.md). Headlines:
 
 - **Precision of the 178 negative treatments** (every one read against its evidence): 176 correct, 1 plausible, 1 wrong — *but* the rules were tuned on this audit; held‑out precision is unmeasured.
+- **Agent behaviour** (24 tasks, 3 runs each, a model with no tools): relied on an overruled clause in 46 of 72 runs with the documents alone, 48 of 72 with a generic warning, **3 of 72** with `preflight`. The tasks were chosen where such a clause exists, only what the model *says* it relies on was scored, and the one residual miss is a decision `preflight` did not surface — see [§8](docs/evaluation.md#8-do-models-rely-on-overruled-clauses-and-does-precedent-change-that).
 - **Recall** of explicit overruling statements ≈ **91–97 %** on a held‑out sample (statements phrased without any trigger word are invisible to that estimate).
 - **0 of 184** dated treatments are temporally impossible (actor older than target).
 - Latency on the real graph: `status` 0.35 ms, hybrid search / preflight ≈ 45 ms (p50).
@@ -151,7 +153,7 @@ Full numbers and caveats in [docs/evaluation.md](docs/evaluation.md). Headlines:
 
 ## Built with AI
 
-This project was designed and written with **Claude Code (Claude Sonnet 5.5)**, including the extractor, the standing engine, the MCP server and the explorer. The gold audit labels were also produced by the assistant (disclosed in [`data/gold/README.md`](data/gold/README.md)). The shipped product makes **no** model calls.
+This project was designed and written with **Claude Code (Claude Sonnet 5.5)**, including the extractor, the standing engine, the MCP server and the explorer. The gold audit labels were also produced by the assistant (disclosed in [`data/gold/README.md`](data/gold/README.md)). The shipped product makes **no** model calls. The one place a model is called is the *evaluation*: `scripts/agent_eval.py run` feeds prompts to Claude Sonnet 5.5 through the `claude` CLI as the model under test (prompts, raw answers and per-call metadata are committed in [`data/agent-eval/`](data/agent-eval/)).
 
 ## License and attribution
 

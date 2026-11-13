@@ -1,0 +1,214 @@
+[
+ {
+  "task_id": "T16",
+  "relies_on": [
+   {
+    "adr": "ADR-0246",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0246",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0245",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0245",
+    "clause": 1
+   }
+  ],
+  "note": "Build the LDBC-based latency suite in the existing query-latency crate, but skip plan golden files since ADR-0246 withdrew them, relying on latency compare and answer checks instead."
+ },
+ {
+  "task_id": "T03",
+  "relies_on": [
+   {
+    "adr": "ADR-0059",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0086",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0287",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0402",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0091",
+    "clause": 2
+   }
+  ],
+  "note": "Add a typed serde redo op for the new catalog DDL captured at execution time, applied verbatim in apply_redo with loud decode failure, and keep DDL classification and the write-redo effect path consistent."
+ },
+ {
+  "task_id": "T18",
+  "relies_on": [
+   {
+    "adr": "ADR-0552",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0360",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 3
+   }
+  ],
+  "note": "Proptest is only allowed in storage and relate-executor, so any other engine crate needs its own ADR; keep committed regression files, the default case count with PROPTEST_CASES override, and the workspace rand 0.9."
+ },
+ {
+  "task_id": "T02",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0049",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 5
+   }
+  ],
+  "note": "Gate parity by comparing frozen scenario identities in ENGINE_PASSING.json, not just counts, with the 24 Enterprise-only identities excluded per ADR-0119, ported onto the MemoryDB runtime."
+ },
+ {
+  "task_id": "T08",
+  "relies_on": [
+   {
+    "adr": "ADR-0117",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0117",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0146",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0307",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0117",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0117",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0117",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 1
+   }
+  ],
+  "note": "Add namespace selection to the Rust, C, Python and WASM APIs and Bolt db, defaulting to neo4j, with unknown names returning DatabaseNotFound 'Graph not found: <name>' and Bolt sending Neo.ClientError.Database.DatabaseNotFound."
+ },
+ {
+  "task_id": "T15",
+  "relies_on": [
+   {
+    "adr": "ADR-0229",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0228",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0364",
+    "clause": 4
+   }
+  ],
+  "note": "Implement only the ontology-to-graph-type mapping for apply (no derived system_ontologies graph), using the 1.1.0 converter rules, closed list types, and the stated failure behavior on violating data."
+ }
+]

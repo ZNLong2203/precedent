@@ -1,0 +1,210 @@
+[
+ {
+  "task_id": "T05",
+  "relies_on": [
+   {
+    "adr": "ADR-0069",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 8
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 1
+   }
+  ],
+  "note": "Add the new verb as a first-positional command with a single-source synopsis and help entry, and implement upgrade with sha256 verification, atomic replace, skill refresh and --check, taking the fetch route from ADR-0250/ADR-0358 rather than the superseded ADR-0069 \u00a73-4."
+ },
+ {
+  "task_id": "T13",
+  "relies_on": [
+   {
+    "adr": "ADR-0173",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0173",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0174",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0184",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0174",
+    "clause": 1
+   }
+  ],
+  "note": "Build on the incremental redo-log-cursor validation (ADR-0173 supersedes ADR-0172 \u00a71-2), keeping full recheck, error selection and transaction semantics identical, and honoring catalog-drift rechecks and the smallest-bucket composite probes."
+ },
+ {
+  "task_id": "T07",
+  "relies_on": [
+   {
+    "adr": "ADR-0229",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0276",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 3
+   }
+  ],
+  "note": "Adding multiple databases conflicts with the fixed-namespace model, so the plan must revise it by a new ADR while keeping the store-level DatabasesCatalog, CE administration commands, USE routing and real SHOW output consistent."
+ },
+ {
+  "task_id": "T04",
+  "relies_on": [
+   {
+    "adr": "ADR-0585",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0585",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0546",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0585",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 4
+   }
+  ],
+  "note": "Change the installer's hosting, platforms and invocation as a new ADR superseding ADR-0068 \u00a71-3, while keeping the unauthenticated direct-route download and unchanged integrity chain of ADR-0585, and the release-asset publishing of ADR-0546."
+ },
+ {
+  "task_id": "T24",
+  "relies_on": [
+   {
+    "adr": "ADR-0584",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 3
+   }
+  ],
+  "note": "Since ADR-0584 leaves CYPHER 25 as the only version and removes ADR-0513 \u00a71's version stand-down, tighten the same-clause reference rule for all statements while keeping the 22N01 null-binding ruling and the TCK setup re-pin."
+ },
+ {
+  "task_id": "T06",
+  "relies_on": [
+   {
+    "adr": "ADR-0079",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 3
+   }
+  ],
+  "note": "Add the event under the CYPHERLITE-CLI_ prefix with no query text, paths or params, and use ADR-0545's local spool plus next-run drain for delivery (superseding ADR-0079 \u00a75) while honoring the opt-out and the ureq/Mixpanel transport."
+ }
+]

@@ -1,0 +1,182 @@
+[
+ {
+  "task_id": "T05",
+  "relies_on": [
+   {
+    "adr": "ADR-0069",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 8
+   }
+  ],
+  "note": "Add the new verb as a first-argument positional command listed in the help index, and implement upgrade as fetch the latest release, check the sha256 against SHA256SUMS, atomically replace the binary, then refresh the skill via the new binary."
+ },
+ {
+  "task_id": "T13",
+  "relies_on": [
+   {
+    "adr": "ADR-0172",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0184",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0439",
+    "clause": null
+   }
+  ],
+  "note": "Keep validate_constraints incremental by classifying the redo slice since the validated_redo cursor and re-checking only the touched entities and constraints, while keeping accept/reject results and error texts unchanged and the composite probe on the same property on both sides."
+ },
+ {
+  "task_id": "T07",
+  "relies_on": [
+   {
+    "adr": "ADR-0276",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 2
+   }
+  ],
+  "note": "Build multi-database support on the store-level shared databases catalog without changing formats, and update the single-database assumptions in dbms.info, SHOW DATABASES and the CIP-170 pins that the old fixed-namespace model relied on."
+ },
+ {
+  "task_id": "T04",
+  "relies_on": [
+   {
+    "adr": "ADR-0068",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 4
+   }
+  ],
+  "note": "Any change to where install.sh is hosted, which platforms it supports or how it is invoked must be made as a new decision superseding the matching ADR-0068 clauses, keeping the env prefix on bash and the SHA256SUMS verification."
+ },
+ {
+  "task_id": "T24",
+  "relies_on": [
+   {
+    "adr": "ADR-0513",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 1
+   }
+  ],
+  "note": "Reject every read of a same-clause-created entity in CREATE/INSERT and raise 22N01 for null bindings in node positions, with no CYPHER 5 stand-down since ADR-0584 leaves 25 as the only version."
+ },
+ {
+  "task_id": "T06",
+  "relies_on": [
+   {
+    "adr": "ADR-0079",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 2
+   }
+  ],
+  "note": "Add the event with the CYPHERLITE-CLI_ prefix and no query text, database paths or parameter values, and deliver it by spooling locally at exit and draining on the next enabled run, which replaces ADR-0079's in-run channel and thread."
+ }
+]

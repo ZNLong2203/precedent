@@ -1,0 +1,166 @@
+[
+ {
+  "task_id": "T16",
+  "relies_on": [
+   {
+    "adr": "ADR-0246",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0246",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0245",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 2
+   }
+  ],
+  "note": "Extend the existing query-latency crate and its latency-compare gate, but create no plan goldens or plans/ directory since ADR-0246 withdrew them, relying on latency bands to catch planner cliffs."
+ },
+ {
+  "task_id": "T03",
+  "relies_on": [
+   {
+    "adr": "ADR-0059",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0402",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0527",
+    "clause": null
+   }
+  ],
+  "note": "Give the new DDL op a typed serde redo payload captured at execution time, store it verbatim on replay with no re-parse and loud decode failure, and push it through the write redo so it counts as applied."
+ },
+ {
+  "task_id": "T18",
+  "relies_on": [
+   {
+    "adr": "ADR-0268",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 4
+   }
+  ],
+  "note": "proptest is allowed as a dev-dependency only in cypherlite-storage and relate-executor, so any other engine crate needs its own ADR, and the rules on committed regression files and the rand split apply."
+ },
+ {
+  "task_id": "T02",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0049",
+    "clause": 3
+   }
+  ],
+  "note": "Gate parity on stable scenario identities from ENGINE_PASSING.json rather than aggregate counts, treating the 24 Enterprise identities removed by ADR-0119 as the only exemptions."
+ },
+ {
+  "task_id": "T08",
+  "relies_on": [
+   {
+    "adr": "ADR-0146",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   }
+  ],
+  "note": "Restrict database selection to the three fixed namespaces matched case-insensitively and fail an unknown name with 'Graph not found: <name>' while keeping the DatabaseNotFound kind."
+ },
+ {
+  "task_id": "T15",
+  "relies_on": [
+   {
+    "adr": "ADR-0487",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0227",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0364",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 2
+   }
+  ],
+  "note": "Build the converter and derived graph on the 1.1.0 document shapes via the single parsed value model, apply the loud mapping errors from ADR-0364 section 5 as amended by ADR-0487, and gate on the 1.1.0 schema URI."
+ }
+]

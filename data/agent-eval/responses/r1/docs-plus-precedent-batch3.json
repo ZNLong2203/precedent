@@ -1,0 +1,218 @@
+[
+ {
+  "task_id": "T16",
+  "relies_on": [
+   {
+    "adr": "ADR-0246",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0246",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0245",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0245",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 3
+   }
+  ],
+  "note": "Build the LDBC-based latency suite in the existing query-latency crate but without plan goldens (ADR-0246 withdraws them), relying on latency compare for planner cliffs."
+ },
+ {
+  "task_id": "T03",
+  "relies_on": [
+   {
+    "adr": "ADR-0059",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0402",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0086",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0287",
+    "clause": null
+   }
+  ],
+  "note": "Add a typed serde redo op for the new catalog DDL stored verbatim on apply_redo with no re-parse and loud decode failure, pushed through the write redo funnel, and classified in catalog_produces_rows."
+ },
+ {
+  "task_id": "T18",
+  "relies_on": [
+   {
+    "adr": "ADR-0268",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0360",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 4
+   }
+  ],
+  "note": "Proptest is a dev-dependency only in storage and relate-executor; any other engine crate needs its own ADR, with committed regression files and default 256 cases, and rand is now unified at 0.9."
+ },
+ {
+  "task_id": "T02",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0049",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 1
+   }
+  ],
+  "note": "Achieve parity per frozen scenario identity (ENGINE_PASSING.json) rather than aggregate counts, excluding the 24 Enterprise identities dropped by ADR-0119, while keeping the strict parity gate."
+ },
+ {
+  "task_id": "T08",
+  "relies_on": [
+   {
+    "adr": "ADR-0117",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0117",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0146",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0307",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0117",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0117",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0117",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 1
+   }
+  ],
+  "note": "Use connect_namespace/set_namespace with neo4j default, report unknown names as 'Graph not found: <name>' via DatabaseNotFound, and send Neo.ClientError.Database.DatabaseNotFound over Bolt."
+ },
+ {
+  "task_id": "T15",
+  "relies_on": [
+   {
+    "adr": "ADR-0229",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0228",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 6
+   }
+  ],
+  "note": "Implement only the ontology-to-graph-type conversion on the 1.1.0 shapes with closed list types and loud failures, skipping the removed system_ontologies graph mapping."
+ }
+]

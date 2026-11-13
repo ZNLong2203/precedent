@@ -1,0 +1,190 @@
+[
+ {
+  "task_id": "T05",
+  "relies_on": [
+   {
+    "adr": "ADR-0069",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0279",
+    "clause": 2
+   }
+  ],
+  "note": "Add the new verb as a first-positional command with a once-defined synopsis, command-index entry and per-command help, and implement upgrade as fetch, sha256 verify and atomic self-replace per ADR-0069."
+ },
+ {
+  "task_id": "T13",
+  "relies_on": [
+   {
+    "adr": "ADR-0172",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0184",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0184",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0439",
+    "clause": null
+   }
+  ],
+  "note": "Keep incremental validation driven by the redo-log slice and cursor, keep composite uniqueness probes on the smallest same-property bucket, and leave the commit-time uniqueness map alone."
+ },
+ {
+  "task_id": "T07",
+  "relies_on": [
+   {
+    "adr": "ADR-0276",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 1
+   }
+  ],
+  "note": "Build multi-database support on the store-level shared databases catalog, accounting for the single-database assumptions in dbms.info and SHOW DATABASES and the Enterprise-database scenarios already excluded from the frozen CIP gate."
+ },
+ {
+  "task_id": "T04",
+  "relies_on": [
+   {
+    "adr": "ADR-0068",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 5
+   }
+  ],
+  "note": "Change the installer's hosting, platform set or invocation by amending docs/static/install.sh behavior while keeping the URL, token-on-bash invocation, auth handling and release asset contract of ADR-0068 consistent."
+ },
+ {
+  "task_id": "T24",
+  "relies_on": [
+   {
+    "adr": "ADR-0513",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 2
+   }
+  ],
+  "note": "Extend the same-clause self-reference rejection to every read form and element in CREATE/INSERT, with null node bindings raising 22N01, and drop version-specific stand-down branches since CYPHER 25 is the only version."
+ },
+ {
+  "task_id": "T06",
+  "relies_on": [
+   {
+    "adr": "ADR-0079",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 6
+   }
+  ],
+  "note": "Add the event with the CYPHERLITE-CLI_ prefix and no query, path or parameter fields, and deliver it via the exit-time local spool and next-run drain with opt-out respected, not the in-run channel and worker thread."
+ }
+]

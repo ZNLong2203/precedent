@@ -1,0 +1,170 @@
+[
+ {
+  "task_id": "T05",
+  "relies_on": [
+   {
+    "adr": "ADR-0069",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 7
+   }
+  ],
+  "note": "Add the new lifecycle verb as a first-argument-only positional command with a once-defined synopsis, help entry and usage errors, and keep upgrade's fetch/verify/atomic-replace/skill-refresh design."
+ },
+ {
+  "task_id": "T13",
+  "relies_on": [
+   {
+    "adr": "ADR-0172",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0184",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0439",
+    "clause": null
+   }
+  ],
+  "note": "Constraint validation is already incremental per ADR-0172 (redo-log slice, cursor, per-kind rechecks), so build on its touched-entity tracking, keeping entry point, call sites and error texts, and the ADR-0184 smallest-bucket composite probe, noting ADR-0439's commit-time map is a separate mechanism."
+ },
+ {
+  "task_id": "T07",
+  "relies_on": [
+   {
+    "adr": "ADR-0276",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 3
+   }
+  ],
+  "note": "Multi-database support must work with the store-level catalog that fixes exactly three namespaces and rejects other names, and with the single-database dbms.info and CIP-170 scope."
+ },
+ {
+  "task_id": "T04",
+  "relies_on": [
+   {
+    "adr": "ADR-0068",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 5
+   }
+  ],
+  "note": "Change docs/static/install.sh and its Pages URL, platform scope and one-liner invocation while keeping the env prefix on bash, GITHUB_TOKEN auth and the release asset contract, and keep upgrade parity with ADR-0069."
+ },
+ {
+  "task_id": "T24",
+  "relies_on": [
+   {
+    "adr": "ADR-0513",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0520",
+    "clause": 3
+   }
+  ],
+  "note": "Tighten the same-clause self-reference rule per ADR-0513 (comprehension shadowing, earlier-clause entities stay readable), but ADR-0584 says the version machinery incl. this rule's version arm is removed as unreachable, and ADR-0520 retires the in-repo TCK pin."
+ },
+ {
+  "task_id": "T06",
+  "relies_on": [
+   {
+    "adr": "ADR-0079",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0263",
+    "clause": null
+   }
+  ],
+  "note": "Add the event with the CYPHERLITE-CLI_ prefix and no query, path or parameter fields, and deliver it via the ADR-0545 local spool with next-run drain (superseding ADR-0079's channel and flush), respecting opt-out and the HTTPS endpoint rule."
+ }
+]

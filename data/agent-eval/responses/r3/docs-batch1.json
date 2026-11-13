@@ -1,0 +1,202 @@
+[
+ {
+  "task_id": "T23",
+  "relies_on": [
+   {
+    "adr": "ADR-0500",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 3
+   }
+  ],
+  "note": "ADR-0500 withdraws URL support in --database, so accept the remote bundle URL through --load instead and make a URL in --database a usage error (exit 2) naming `--load <url>`, reusing ADR-0496's GitHub rewrite, https-only and .cl policy, and capped streaming stage, with the scratch copy treated as a released ephemeral store."
+ },
+ {
+  "task_id": "T14",
+  "relies_on": [
+   {
+    "adr": "ADR-0200",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0518",
+    "clause": 1
+   }
+  ],
+  "note": "Treat `query` as a first-positional statement-session verb in every bundle with [STATEMENT] and -d/--database PATH (default :memory:), no combining with -c, a shared help options block, and the command did-you-mean on usage errors."
+ },
+ {
+  "task_id": "T10",
+  "relies_on": [
+   {
+    "adr": "ADR-0378",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0227",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0557",
+    "clause": null
+   }
+  ],
+  "note": "Add the procedure with no database argument (ADR-0227 signatures), put it behind the `ontology` preview gate alongside the other four, follow the transaction rules, list it in SHOW PROCEDURES, and build it always in cypherlite-ontology."
+ },
+ {
+  "task_id": "T22",
+  "relies_on": [
+   {
+    "adr": "ADR-0478",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0519",
+    "clause": null
+   }
+  ],
+  "note": "Extend the frontier kernel's re-arrival trail-existence rule for an already-visited (node,state) pair, bound its work with a budget that falls through to the DFS, and keep accept-on-arrival before dedup, the answer-shape gate, and the generalized compile unchanged."
+ },
+ {
+  "task_id": "T19",
+  "relies_on": [
+   {
+    "adr": "ADR-0306",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0368",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 5
+   }
+  ],
+  "note": "Add once-only post-verb --read-only/--follow to `serve`, open ReadOnly/Follow with one shared handle across all surfaces, reject pre-verb use, pass the flags through the Docker entrypoint, and do the MCP part through `serve --mcp` because ADR-0368 retired the standalone cypherlite-mcp bin that ADR-0306 clause 8 targeted."
+ },
+ {
+  "task_id": "T11",
+  "relies_on": [
+   {
+    "adr": "ADR-0159",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0156",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0074",
+    "clause": 2
+   }
+  ],
+  "note": "Implement `snapshot DATABASE --to/--from FILE.cl` as an exit-after first-positional verb that opens the source read-only, requires a non-existent destination and cleans up on failure, keeps the source codec, and goes through snapshot_to_bundle/restore_from_bundle with no new Cargo feature."
+ }
+]

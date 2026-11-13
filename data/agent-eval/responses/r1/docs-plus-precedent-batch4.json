@@ -1,0 +1,218 @@
+[
+ {
+  "task_id": "T01",
+  "relies_on": [
+   {
+    "adr": "ADR-0277",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0277",
+    "clause": 2
+   }
+  ],
+  "note": "Add the syntax only to cypherlite-parser (the single product grammar, lowered via cypherlite-front), keeping TCK at 100%, the CIP-eval identity/aggregate gates (minus ADR-0119's removed identities) and loadtest baselines green."
+ },
+ {
+  "task_id": "T17",
+  "relies_on": [
+   {
+    "adr": "ADR-0250",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0358",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0358",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0358",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0358",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0358",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0358",
+    "clause": 8
+   }
+  ],
+  "note": "Have the CLI read the schema-1 releases.json from the canonical URL, download assets via the direct-first route with the authenticated API fallback only on a probe 404 per ADR-0358 (which supersedes ADR-0250's failure/token rules), and keep signature verification intact."
+ },
+ {
+  "task_id": "T21",
+  "relies_on": [
+   {
+    "adr": "ADR-0363",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0374",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0363",
+    "clause": 9
+   },
+   {
+    "adr": "ADR-0363",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0363",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0363",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0374",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0363",
+    "clause": 8
+   }
+  ],
+  "note": "Add the kind to the single notification vocabulary table in cypherlite-model, expose it through PlanArtifacts.notifications on QueryResult.plan (not the superseded ADR-0363 \u00a77 sibling fields), and use the engine-native wire keys."
+ },
+ {
+  "task_id": "T12",
+  "relies_on": [
+   {
+    "adr": "ADR-0166",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0187",
+    "clause": null
+   }
+  ],
+  "note": "Populate each virtual label node's indexes (excluding constraint-backing indexes, sorted) and rendered Constraint strings from the catalog at call time per ADR-0166, keeping ADR-0187's relationship name property and ADR-0153's remaining semantics."
+ },
+ {
+  "task_id": "T09",
+  "relies_on": [
+   {
+    "adr": "ADR-0229",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 8
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 1
+   }
+  ],
+  "note": "The document stays the sole persisted source of truth and no system_ontologies graph is derived (ADR-0229 supersedes ADR-0120 \u00a72), so any persistence change must preserve the WAL/snapshot format rules and the namespace stays listed but not queryable."
+ },
+ {
+  "task_id": "T20",
+  "relies_on": [
+   {
+    "adr": "ADR-0359",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0359",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0359",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0359",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0365",
+    "clause": 2
+   }
+  ],
+  "note": "Put the plan/profile pair on the SUCCESS that ends the result, built with PlanNode::to_neo4j_value taking surface-rendered plan text (ADR-0359 supersedes ADR-0357 \u00a72) while leaving the engine's to_value wire form unchanged."
+ }
+]

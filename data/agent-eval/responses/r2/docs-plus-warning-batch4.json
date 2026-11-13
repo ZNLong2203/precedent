@@ -1,0 +1,186 @@
+[
+ {
+  "task_id": "T01",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0066",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0053",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0454",
+    "clause": null
+   }
+  ],
+  "note": "Add the syntax only in cypherlite-parser (the sole product grammar), lowered through cypherlite-front, and keep the TCK floor, the CIP-eval identity gate against the renamed baselines/cip-eval.json, and the loadtest baselines green."
+ },
+ {
+  "task_id": "T17",
+  "relies_on": [
+   {
+    "adr": "ADR-0550",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0546",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0585",
+    "clause": 3
+   }
+  ],
+  "note": "Read the canonical releases.json (RELATE_RELEASES_JSON_URL override) with a single preview-host fallback, never the GitHub API, and on failure print the one-line reinstall message naming both URLs; download assets over the direct ADR-0358 routes with the signature check unchanged."
+ },
+ {
+  "task_id": "T21",
+  "relies_on": [
+   {
+    "adr": "ADR-0363",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0535",
+    "clause": null
+   }
+  ],
+  "note": "Add the new kind as a row in the single ADR-0363 vocabulary table in cypherlite-model (code, GQLSTATUS, severity, category, trigger, remedy), and have the Rust API and wire encoding delegate to that table so they cannot drift."
+ },
+ {
+  "task_id": "T12",
+  "relies_on": [
+   {
+    "adr": "ADR-0166",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0187",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0153",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 5
+   }
+  ],
+  "note": "Populate indexes and constraints on each virtual label node from the overlay-aware catalog accessors at call time, following ADR-0166's rendering and exclusion rules, and leave the ADR-0153 and ADR-0187 behaviors unchanged."
+ },
+ {
+  "task_id": "T09",
+  "relies_on": [
+   {
+    "adr": "ADR-0229",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 8
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 1
+   }
+  ],
+  "note": "Keep the validated ontology document as the sole stored source of truth with its WAL ops, MDBWAL02 magic and snapshot formats, and do not rebuild a derived system_ontologies graph, because ADR-0229 supersedes ADR-0120 clause 2 and ADR-0226's mapping."
+ },
+ {
+  "task_id": "T20",
+  "relies_on": [
+   {
+    "adr": "ADR-0357",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0345",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0365",
+    "clause": 2
+   }
+  ],
+  "note": "Add root-only PlanNode::to_neo4j_value decoration, called by every surface before wire conversion, and attach the plan/profile pair to the SUCCESS that ends the result, leaving to_value and the engine wire form untouched."
+ }
+]

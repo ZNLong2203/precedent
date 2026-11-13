@@ -1,0 +1,186 @@
+[
+ {
+  "task_id": "T01",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0053",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0066",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0454",
+    "clause": null
+   }
+  ],
+  "note": "Add the syntax only in cypherlite-parser (the sole product grammar), lower it through cypherlite-front, and keep the TCK floor (cypherlite-tck-opencypher) and the CIP-eval identity set and baselines (renamed to baselines/cip-eval.json) passing."
+ },
+ {
+  "task_id": "T17",
+  "relies_on": [
+   {
+    "adr": "ADR-0250",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0550",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0585",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0546",
+    "clause": null
+   }
+  ],
+  "note": "Have the CLI read releases.json from the canonical URL, falling back once to the preview host (ADR-0550), keep the one-line reinstall failure shape, and keep asset downloads on the existing direct routes (ADR-0358) with the RELATE_RELEASE_DOWNLOAD_URL seam and signature check unchanged."
+ },
+ {
+  "task_id": "T21",
+  "relies_on": [
+   {
+    "adr": "ADR-0363",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0535",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0236",
+    "clause": null
+   }
+  ],
+  "note": "Add the new kind as a row in the single ADR-0363 notification vocabulary table (code, GQLSTATUS, severity, category, trigger, remedy) in cypherlite-model, and let the existing transports carry it without a new wire shape."
+ },
+ {
+  "task_id": "T12",
+  "relies_on": [
+   {
+    "adr": "ADR-0166",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0153",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0187",
+    "clause": null
+   }
+  ],
+  "note": "Populate each virtual label node's indexes and constraints at call time from the overlay-aware catalog accessors, excluding constraint-backing indexes and relationship constraints, using the ADR-0166 rendering, while leaving the rest of the ADR-0153/0187 shape unchanged."
+ },
+ {
+  "task_id": "T09",
+  "relies_on": [
+   {
+    "adr": "ADR-0229",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 8
+   }
+  ],
+  "note": "Persist the validated ontology document as the sole source of truth with the existing redo ops, MDBWAL02 magic and snapshot formats, and build no derived system_ontologies graph since ADR-0229 superseded ADR-0120 clause 2 and the ADR-0226 mapping."
+ },
+ {
+  "task_id": "T20",
+  "relies_on": [
+   {
+    "adr": "ADR-0357",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0345",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0365",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0162",
+    "clause": 3
+   }
+  ],
+  "note": "Add PlanNode::to_neo4j_value decorating only the root, leave to_value and the engine wire form unchanged, attach the plan/profile pair to the SUCCESS that ends the result (not RUN), and count the retained statement text against the result-bytes cap."
+ }
+]

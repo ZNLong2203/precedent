@@ -1,0 +1,206 @@
+[
+ {
+  "task_id": "T05",
+  "relies_on": [
+   {
+    "adr": "ADR-0069",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0358",
+    "clause": 1
+   }
+  ],
+  "note": "Add the new verb as a first-positional command per ADR-0069 with a single shared synopsis and help entry (ADR-0190), and implement upgrade with atomic self-replace, sha256 verification and skill refresh, fetching via the releases.json and direct-route-first mechanism rather than the superseded ADR-0069 \u00a73/\u00a74 API fetch."
+ },
+ {
+  "task_id": "T13",
+  "relies_on": [
+   {
+    "adr": "ADR-0173",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0173",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0174",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0184",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0185",
+    "clause": null
+   }
+  ],
+  "note": "Validation is already incremental, so build on the ADR-0173 redo-log cursor and the ADR-0172 recheck set, error selection and transaction rules, plus ADR-0174 catalog drift, keeping the ADR-0184/0185 probes and their identical accept/reject results."
+ },
+ {
+  "task_id": "T07",
+  "relies_on": [
+   {
+    "adr": "ADR-0276",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 2
+   }
+  ],
+  "note": "Multiple databases would extend the store-level DatabasesCatalog (ADR-0276), which currently fixes the namespaces, while preserving the live administration, USE routing and SHOW output rules and the SHOW DATABASES record shapes."
+ },
+ {
+  "task_id": "T04",
+  "relies_on": [
+   {
+    "adr": "ADR-0585",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0585",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0546",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0585",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 5
+   }
+  ],
+  "note": "Any change to hosting, platforms or invocation must respect ADR-0585's unauthenticated direct-route installer (replacing ADR-0068 \u00a76/\u00a77) and ADR-0546's release-asset publishing, and amend the live ADR-0068 URL, hosting, platform and asset clauses explicitly."
+ },
+ {
+  "task_id": "T24",
+  "relies_on": [
+   {
+    "adr": "ADR-0584",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 2
+   }
+  ],
+  "note": "The same-clause self-reference rule from ADR-0513 \u00a71 now applies to every statement since ADR-0584 removed the CYPHER 5 stand-down, so tighten the check in that version-free form while keeping the live null-binding 22N01 rule and the TCK re-pin."
+ },
+ {
+  "task_id": "T06",
+  "relies_on": [
+   {
+    "adr": "ADR-0545",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 8
+   }
+  ],
+  "note": "Add the event to the ADR-0079 \u00a74 taxonomy with no query text, paths or parameter values, and deliver it through the ADR-0545 spool and next-run drain rather than the superseded ADR-0079 \u00a75 in-run channel, honouring the opt-out and updating docs in the same change."
+ }
+]

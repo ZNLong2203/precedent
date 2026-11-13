@@ -1,0 +1,198 @@
+[
+ {
+  "task_id": "T05",
+  "relies_on": [
+   {
+    "adr": "ADR-0069",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0279",
+    "clause": 2
+   }
+  ],
+  "note": "Add the new verb as a first-positional command with its help entry and shared synopsis, and implement upgrade as fetch, sha256 verify, atomic same-filesystem replace, then spawn the new binary for the skill refresh."
+ },
+ {
+  "task_id": "T13",
+  "relies_on": [
+   {
+    "adr": "ADR-0172",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0184",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0184",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0439",
+    "clause": null
+   }
+  ],
+  "note": "Keep validate_constraints incremental by classifying the redo-log slice since the cursor, re-checking only touched entities and new constraints with identical verdicts and errors, and keep the composite probe taking candidates from the same property on both sides."
+ },
+ {
+  "task_id": "T07",
+  "relies_on": [
+   {
+    "adr": "ADR-0276",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 3
+   }
+  ],
+  "note": "Build multi-database support on the store-level databases catalog with unchanged formats, update the single-database assumptions in dbms.info and SHOW DATABASES, and note the frozen Enterprise database scenarios and the MANIFEST rationales."
+ },
+ {
+  "task_id": "T04",
+  "relies_on": [
+   {
+    "adr": "ADR-0068",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 4
+   }
+  ],
+  "note": "Change hosting, platform support and invocation of docs/static/install.sh while keeping the GITHUB_TOKEN-on-bash one-liner, the asset naming with SHA256SUMS verification, and the no-sudo install directory, and record the change in a superseding ADR."
+ },
+ {
+  "task_id": "T24",
+  "relies_on": [
+   {
+    "adr": "ADR-0513",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0520",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 3
+   }
+  ],
+  "note": "Extend the same-clause self-reference rejection to all read forms in CREATE/INSERT with comprehension shadowing and earlier-clause entities still legal, written without any CYPHER 5 version gating since ADR-0584 removes it, and note that the TCK re-pin is superseded by the retirement of the in-repo harness."
+ },
+ {
+  "task_id": "T06",
+  "relies_on": [
+   {
+    "adr": "ADR-0079",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0263",
+    "clause": null
+   }
+  ],
+  "note": "Add the event with the CYPHERLITE-CLI_ prefix and no query, path or parameter fields, and deliver it by spooling locally at exit and draining on the next enabled run with $insert_id dedup, with opt-out and the HTTPS endpoint rule honored."
+ }
+]

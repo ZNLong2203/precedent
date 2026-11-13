@@ -1,0 +1,166 @@
+[
+ {
+  "task_id": "T16",
+  "relies_on": [
+   {
+    "adr": "ADR-0246",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0246",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0245",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0246",
+    "clause": 3
+   }
+  ],
+  "note": "Build the LDBC-workload latency suite in the existing query-latency crate with no plan goldens (ADR-0246 withdrew them), relying on answer checks and the p50 latency compare to catch planner cliffs."
+ },
+ {
+  "task_id": "T03",
+  "relies_on": [
+   {
+    "adr": "ADR-0059",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0402",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0527",
+    "clause": null
+   }
+  ],
+  "note": "Give the new DDL op a typed serde redo payload captured at execution time, store it verbatim in apply_redo with no re-parse, fail replay loudly on undecodable records, and push it through the write redo so it counts as an applied change."
+ },
+ {
+  "task_id": "T18",
+  "relies_on": [
+   {
+    "adr": "ADR-0268",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 4
+   }
+  ],
+  "note": "Add proptest only as a dev-dependency where an ADR already allows it (storage, relate-executor), write a new ADR for any other engine crate, commit regression files and keep the rand 0.8/0.9 streams separate."
+ },
+ {
+  "task_id": "T02",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0049",
+    "clause": 3
+   }
+  ],
+  "note": "Make the parity gate compare frozen scenario identities in ENGINE_PASSING.json rather than only aggregate counts, with the 24 Enterprise-database identities removed per ADR-0119 as the only exemption."
+ },
+ {
+  "task_id": "T08",
+  "relies_on": [
+   {
+    "adr": "ADR-0146",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   }
+  ],
+  "note": "Select the database from the three fixed case-insensitive namespaces and fail an unknown name with 'Graph not found: <name>' keeping the DatabaseNotFound kind, consistently for embedders and Bolt."
+ },
+ {
+  "task_id": "T15",
+  "relies_on": [
+   {
+    "adr": "ADR-0226",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0364",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 1
+   }
+  ],
+  "note": "Map the document to the derived graph and to a graph type using the 1.1.0 converter shapes, with loud mapping errors for anything that cannot be compiled and the exact 1.1.0 gate URI."
+ }
+]

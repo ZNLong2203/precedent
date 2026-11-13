@@ -1,0 +1,222 @@
+[
+ {
+  "task_id": "T16",
+  "relies_on": [
+   {
+    "adr": "ADR-0246",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0246",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0245",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0245",
+    "clause": 1
+   }
+  ],
+  "note": "Build the LDBC-workload latency suite in testing/cypherlite-query-latency per ADR-0243, but do not add plan goldens (withdrawn by ADR-0246); rely on latency compare per ADR-0245 to catch planner cliffs, and avoid LDBC Benchmark naming."
+ },
+ {
+  "task_id": "T03",
+  "relies_on": [
+   {
+    "adr": "ADR-0059",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0287",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0086",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0402",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0527",
+    "clause": null
+   }
+  ],
+  "note": "Add a typed serde redo payload for the new DDL captured at execution time, store it verbatim on apply_redo with no re-parse and fail loudly on decode errors, while classifying the DDL for NEXT unit-row seeding and respecting bounded WAL decoding."
+ },
+ {
+  "task_id": "T18",
+  "relies_on": [
+   {
+    "adr": "ADR-0268",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0360",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 3
+   }
+  ],
+  "note": "proptest is allowed only in storage and relate-executor as dev-dependencies, so any other engine crate needs its own ADR; commit regression files, keep default cases with PROPTEST_CASES override, and rely on the workspace rand 0.9 now."
+ },
+ {
+  "task_id": "T02",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0049",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 5
+   }
+  ],
+  "note": "Gate on stable scenario identities from ENGINE_PASSING.json plus aggregate counts, treating every frozen identity as a hard gate except the 24 Enterprise-only ones removed by ADR-0119, and port semantics onto the MemoryDB runtime with the single product parser."
+ },
+ {
+  "task_id": "T08",
+  "relies_on": [
+   {
+    "adr": "ADR-0117",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0117",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0117",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0117",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0117",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0146",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0307",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 1
+   }
+  ],
+  "note": "Default to neo4j and add namespace selection across the Rust, C, Python and WASM APIs, and for Bolt db; an unknown name fails as typed DatabaseNotFound with text 'Graph not found: <name>' sent as Neo.ClientError.Database.DatabaseNotFound, against the three fixed namespaces."
+ },
+ {
+  "task_id": "T15",
+  "relies_on": [
+   {
+    "adr": "ADR-0229",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0228",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 6
+   }
+  ],
+  "note": "Apply maps the ontology to a graph type only (no derived system_ontologies graph), following the 1.1.0 converter rules and ADR-0228 list types, with apply failing on violating data per ADR-0226 \u00a73 before the SET path runs."
+ }
+]

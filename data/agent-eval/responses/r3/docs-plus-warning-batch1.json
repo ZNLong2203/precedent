@@ -1,0 +1,190 @@
+[
+ {
+  "task_id": "T23",
+  "relies_on": [
+   {
+    "adr": "ADR-0500",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 5
+   }
+  ],
+  "note": "ADR-0500 withdraws URL-in-`--database` and makes it a usage error, so I would accept the remote bundle URL through `--load` instead, reusing ADR-0496's carried-over fetch rules (GitHub rewrite, https and loopback policy, `.cl` requirement, capped streaming stage), with a scratch copy removed after load."
+ },
+ {
+  "task_id": "T14",
+  "relies_on": [
+   {
+    "adr": "ADR-0200",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0518",
+    "clause": 1
+   }
+  ],
+  "note": "Implement `query [STATEMENT] [--database PATH]` as a first-positional statement-session verb (not exit-after), with `:memory:` as the default store, one shared options block for `--help`, and the existing did-you-mean behavior on usage errors."
+ },
+ {
+  "task_id": "T10",
+  "relies_on": [
+   {
+    "adr": "ADR-0227",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0378",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 1
+   }
+  ],
+  "note": "Add the new procedure with no database argument (it acts on the session or USE database), put it behind the `ontology` preview gate with the other four, keep it always built and listed in SHOW PROCEDURES, and follow the implicit/explicit transaction rules that match whether it reads or writes."
+ },
+ {
+  "task_id": "T22",
+  "relies_on": [
+   {
+    "adr": "ADR-0478",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0519",
+    "clause": null
+   }
+  ],
+  "note": "Extend the re-arrival trail-existence rule in the frontier NFA kernel and bound its work with a run-time budget that falls through to the DFS, keeping the structural and answer-shape gates and the `auto` routing unchanged."
+ },
+ {
+  "task_id": "T19",
+  "relies_on": [
+   {
+    "adr": "ADR-0306",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0368",
+    "clause": 1
+   }
+  ],
+  "note": "Add post-verb `--read-only` and `--follow` to `serve`, opening one shared ReadOnly or Follow handle for all surfaces including `serve --mcp` (the standalone MCP bin is retired, so clause 8 of ADR-0306 no longer applies), and make the Docker entrypoint forward both as valueless flags."
+ },
+ {
+  "task_id": "T11",
+  "relies_on": [
+   {
+    "adr": "ADR-0159",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0156",
+    "clause": 3
+   }
+  ],
+  "note": "Implement the `snapshot DATABASE --to|--from FILE.cl` exit-after verb with a read-only source open, a non-existent destination that is cleaned up on failure, no codec conversion, the two `Database` methods, and no new Cargo feature."
+ }
+]

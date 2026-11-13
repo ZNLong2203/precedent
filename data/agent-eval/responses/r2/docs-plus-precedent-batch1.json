@@ -1,0 +1,226 @@
+[
+ {
+  "task_id": "T23",
+  "relies_on": [
+   {
+    "adr": "ADR-0500",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 3
+   }
+  ],
+  "note": "ADR-0500 withdrew the URL form of --database, so make a URL there a usage error naming --load and accept the remote .cl bundle through --load, reusing ADR-0496's fetch, URL and scheme policy and staging, with every fetched copy treated as scratch."
+ },
+ {
+  "task_id": "T14",
+  "relies_on": [
+   {
+    "adr": "ADR-0200",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0231",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0518",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0199",
+    "clause": 1
+   }
+  ],
+  "note": "A `query` statement-session command with -d/--database already exists under ADR-0200, so extend or verify that rather than adding a new one, keeping the path-first form, the shared help block, the TTY shell behaviour, the did-you-mean suggestion and the multi-statement failure reporting intact."
+ },
+ {
+  "task_id": "T10",
+  "relies_on": [
+   {
+    "adr": "ADR-0378",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0227",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0557",
+    "clause": null
+   }
+  ],
+  "note": "Add the procedure with ADR-0227's no-database-argument signature, put it behind the ADR-0378 CYPHERLITE_PREVIEW=ontology gate, build it in every build, list it in SHOW PROCEDURES, follow the implicit/explicit transaction rules, and keep ontology queries on system_ontologies refused per ADR-0229."
+ },
+ {
+  "task_id": "T22",
+  "relies_on": [
+   {
+    "adr": "ADR-0516",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0516",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0521",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0521",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0523",
+    "clause": 2
+   }
+  ],
+  "note": "Build the re-arrival rule on ADR-0516's tri-state Proven/Disproven/Exhausted verdict, where Exhausted declines the run to the DFS, and keep the work bounded by ADR-0521's sparse tables and run-time ceiling, within ADR-0478's structural and answer-shape gates."
+ },
+ {
+  "task_id": "T19",
+  "relies_on": [
+   {
+    "adr": "ADR-0480",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0480",
+    "clause": 8
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0368",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0249",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0480",
+    "clause": 5
+   }
+  ],
+  "note": "Use the single `--read-only[=snapshot|live]` flag as a post-verb `serve` flag (ADR-0480 replaced --follow), with MCP reached through `serve --mcp` since the standalone bins are retired, one shared read-only handle across all surfaces, and the Docker entrypoint passing the flag through."
+ },
+ {
+  "task_id": "T11",
+  "relies_on": [
+   {
+    "adr": "ADR-0282",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0282",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0282",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0282",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0156",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0156",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 2
+   }
+  ],
+  "note": "Do not add a `snapshot` verb, since ADR-0282 removed it in favour of `cypherlite clone SOURCE DEST` covering the dir/.cl matrix, so verify that existing clone path and keep its new-destination, rollback-on-failure, same-codec and read-only-source behaviour."
+ }
+]

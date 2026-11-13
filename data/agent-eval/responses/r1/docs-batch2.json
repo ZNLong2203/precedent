@@ -1,0 +1,186 @@
+[
+ {
+  "task_id": "T05",
+  "relies_on": [
+   {
+    "adr": "ADR-0069",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 6
+   }
+  ],
+  "note": "Add the new lifecycle verb as a first-positional command with help and a single-source synopsis, and keep the upgrade design of GitHub fetch, sha256 verify, atomic same-dir rename, and skill refresh via the new binary."
+ },
+ {
+  "task_id": "T13",
+  "relies_on": [
+   {
+    "adr": "ADR-0172",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0184",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0439",
+    "clause": null
+   }
+  ],
+  "note": "Build on the incremental validation slice (redo-log cursor, touched-entity classification) and per-kind re-checks, keeping the composite smallest-bucket probe and the commit-time uniqueness map consistent."
+ },
+ {
+  "task_id": "T07",
+  "relies_on": [
+   {
+    "adr": "ADR-0276",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 4
+   }
+  ],
+  "note": "Extend the store-level databases catalog (currently three fixed namespaces) and update the single-database assumptions in dbms.info and SHOW DATABASES, noting that the CIP-170 Enterprise scenarios are frozen out."
+ },
+ {
+  "task_id": "T04",
+  "relies_on": [
+   {
+    "adr": "ADR-0068",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 6
+   }
+  ],
+  "note": "Amend ADR-0068's hosting, platform and invocation decisions, keeping the GITHUB_TOKEN-on-bash pipe rule, SHA256SUMS verification, and parity with the upgrade command's platform scope."
+ },
+ {
+  "task_id": "T24",
+  "relies_on": [
+   {
+    "adr": "ADR-0513",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 1
+   }
+  ],
+  "note": "Tighten the same-clause self-reference rejection for CREATE/INSERT, keeping the comprehension-shadowing and earlier-clause exceptions, and note that ADR-0584 removes the version-gated arm so the rule is now unconditional."
+ },
+ {
+  "task_id": "T06",
+  "relies_on": [
+   {
+    "adr": "ADR-0079",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 5
+   }
+  ],
+  "note": "Add the event under the CYPHERLITE-CLI_ prefix with no query text, paths or parameter values, and deliver it by spooling locally at exit and draining on the next enabled run, which replaces ADR-0079's in-run channel and thread."
+ }
+]

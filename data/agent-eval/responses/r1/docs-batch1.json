@@ -1,0 +1,210 @@
+[
+ {
+  "task_id": "T23",
+  "relies_on": [
+   {
+    "adr": "ADR-0500",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 5
+   }
+  ],
+  "note": "ADR-0500 withdrew the URL-in-`--database` spelling, so the remote bundle must go through `--load <url>` (with `--database` URLs a usage error); the fetch itself follows ADR-0496's GitHub rewrite, https/.cl policy, and capped streaming staging, and the ephemeral scratch copy is released and removed after the load."
+ },
+ {
+  "task_id": "T14",
+  "relies_on": [
+   {
+    "adr": "ADR-0200",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0518",
+    "clause": 1
+   }
+  ],
+  "note": "The `query` verb is a first-positional statement-session command taking `[STATEMENT] [--database PATH]` with `:memory:` as the default and no exit-after behavior, sharing the options block with help, and its usage-error exits carry the command did-you-mean."
+ },
+ {
+  "task_id": "T10",
+  "relies_on": [
+   {
+    "adr": "ADR-0227",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0378",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 4
+   }
+  ],
+  "note": "Add the procedure with a CIP-287-style signature with no database argument, gated behind the `ontology` preview feature, always built in cypherlite-ontology, honoring implicit/explicit transaction rules, and listed in SHOW PROCEDURES (hidden while gated off)."
+ },
+ {
+  "task_id": "T22",
+  "relies_on": [
+   {
+    "adr": "ADR-0478",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0519",
+    "clause": null
+   }
+  ],
+  "note": "Extend the re-arrival trail-existence rule in the frontier NFA while keeping the kernel's structural and answer-shape gates and the cost gate, bounding work with the existing re-arrival/work budget that falls through to the DFS, and checking the auto/nfa/walk engine switch routing."
+ },
+ {
+  "task_id": "T19",
+  "relies_on": [
+   {
+    "adr": "ADR-0306",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0368",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0249",
+    "clause": null
+   }
+  ],
+  "note": "Add once-only post-verb `--read-only`/`--follow` to `serve` using the existing ReadOnly/Follow opens shared by all surfaces, with a pre-verb usage error and the Docker entrypoint forwarding them as valueless flags; since ADR-0368 retired the standalone mcp bin, MCP gets these through `serve --mcp`."
+ },
+ {
+  "task_id": "T11",
+  "relies_on": [
+   {
+    "adr": "ADR-0159",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0136",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0156",
+    "clause": 3
+   }
+  ],
+  "note": "Implement the `snapshot DATABASE --to|--from FILE.cl` exit-after verb on read-only source opens, a nonexistent destination cleaned up on failure, codec preserved, via snapshot_to_bundle/restore_from_bundle and no new Cargo feature."
+ }
+]

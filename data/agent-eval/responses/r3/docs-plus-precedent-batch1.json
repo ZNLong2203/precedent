@@ -1,0 +1,218 @@
+[
+ {
+  "task_id": "T23",
+  "relies_on": [
+   {
+    "adr": "ADR-0500",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 7
+   }
+  ],
+  "note": "ADR-0500 withdrew the URL-in---database spelling, so the remote bundle must be accepted via --load (with --database a usage error naming --load), reusing the ADR-0496 fetch policy (.cl only, https, capped streaming staged scratch copy, safe-mode refusal, feature gate) and treating the fetched copy as scratch rather than a kept local store."
+ },
+ {
+  "task_id": "T14",
+  "relies_on": [
+   {
+    "adr": "ADR-0200",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0231",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0518",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0199",
+    "clause": 5
+   }
+  ],
+  "note": "A query command already exists (ADR-0200), so extend it as a first-positional statement-session verb with -d/--database and shared help, keeping the live-clause behaviors (TTY shell per ADR-0231 replacing ADR-0200 \u00a72 grammar, did-you-mean on usage errors, failure-progress reporting) intact."
+ },
+ {
+  "task_id": "T10",
+  "relies_on": [
+   {
+    "adr": "ADR-0227",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0378",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0557",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 4
+   }
+  ],
+  "note": "Add the procedure with no database argument (ADR-0227 signatures acting on the session/USE database), gate it behind the CYPHERLITE_PREVIEW ontology feature, respect implicit/explicit transaction rules, list it in SHOW PROCEDURES, keep it always built, and do not rely on the removed system_ontologies graph surface."
+ },
+ {
+  "task_id": "T22",
+  "relies_on": [
+   {
+    "adr": "ADR-0516",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0516",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0521",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0521",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0523",
+    "clause": 2
+   }
+  ],
+  "note": "Build on the tri-state re-arrival verdict (ADR-0516, superseding ADR-0478 \u00a73) and the sparse generation-stamped tables with run-time ceiling (ADR-0521, superseding ADR-0478 \u00a76), so any new re-arrival rule is budgeted, falls through to the DFS on Exhausted, and stays within the answer-shape gate."
+ },
+ {
+  "task_id": "T19",
+  "relies_on": [
+   {
+    "adr": "ADR-0480",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0480",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0480",
+    "clause": 8
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 8
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0368",
+    "clause": 4
+   }
+  ],
+  "note": "Serve and the MCP server should take the single --read-only[=snapshot|live] flag (ADR-0480, which supersedes ADR-0306's --follow spelling and its Docker pass-through) while keeping ADR-0306's shared handle, post-verb-only usage error, no shutdown checkpoint, and the entrypoint execing `cypherlite serve` in the image."
+ },
+ {
+  "task_id": "T11",
+  "relies_on": [
+   {
+    "adr": "ADR-0282",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0282",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0282",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0156",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0156",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0136",
+    "clause": 2
+   }
+  ],
+  "note": "The snapshot verb was removed in favor of `cypherlite clone SOURCE DEST` covering the dir/.cl matrix, so the plan should use or extend clone rather than add a snapshot command, keeping its new-destination, rollback-on-failure and read-only-source rules."
+ }
+]

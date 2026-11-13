@@ -1,0 +1,206 @@
+[
+ {
+  "task_id": "T23",
+  "relies_on": [
+   {
+    "adr": "ADR-0500",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 4
+   }
+  ],
+  "note": "Because ADR-0500 withdrew the URL-in-`--database` spelling, put the remote bundle on `--load <url>` (a bare http(s) URL in --database is a usage error), reusing ADR-0496's GitHub rewrite, https/.cl policy and capped streaming scratch fetch, and treat the download as a scratch copy released after load."
+ },
+ {
+  "task_id": "T14",
+  "relies_on": [
+   {
+    "adr": "ADR-0200",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0231",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0518",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0199",
+    "clause": 5
+   }
+  ],
+  "note": "The `query` verb already exists as a statement-session command with `-d/--database`, so the work is to extend or verify that behavior rather than add a second one, keeping the TTY-shell behavior and the did-you-mean and multi-statement failure reporting intact."
+ },
+ {
+  "task_id": "T10",
+  "relies_on": [
+   {
+    "adr": "ADR-0378",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0227",
+    "clause": 1
+   }
+  ],
+  "note": "Add the new procedure with the ADR-0227 signature style (no database argument), registered in the always-built ontology crate and listed in SHOW PROCEDURES, gated behind the CYPHERLITE_PREVIEW=ontology preview feature, honoring the implicit/explicit transaction rules, and never exposing a system_ontologies graph surface."
+ },
+ {
+  "task_id": "T22",
+  "relies_on": [
+   {
+    "adr": "ADR-0516",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0516",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0521",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0521",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 1
+   }
+  ],
+  "note": "The re-arrival rule and its work bound already exist, so any extension must use the tri-state verdict with run-time fall-through to the DFS (ADR-0516) and the sparse table accounting (ADR-0521) rather than ADR-0478 \u00a73 and \u00a76, while staying inside the answer-shape gate."
+ },
+ {
+  "task_id": "T19",
+  "relies_on": [
+   {
+    "adr": "ADR-0480",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0480",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 8
+   },
+   {
+    "adr": "ADR-0368",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0249",
+    "clause": null
+   }
+  ],
+  "note": "Serve and the MCP binary open the store read-only or following through the single `--read-only[=snapshot|live]` flag (ADR-0480 replaced `--follow` and the valueless-flag Docker pass-through), sharing one handle across surfaces, with the Docker entrypoint forwarding it to `cypherlite serve`."
+ },
+ {
+  "task_id": "T11",
+  "relies_on": [
+   {
+    "adr": "ADR-0282",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0282",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0282",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0156",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0156",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0282",
+    "clause": 4
+   }
+  ],
+  "note": "The `snapshot` verb was removed in favor of `cypherlite clone SOURCE DEST`, which already covers dir to `.cl` and back, so use or extend clone rather than adding a new verb."
+ }
+]

@@ -1,0 +1,194 @@
+[
+ {
+  "task_id": "T23",
+  "relies_on": [
+   {
+    "adr": "ADR-0500",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 2
+   }
+  ],
+  "note": "ADR-0500 withdrew URL-in-`--database`, so a URL there must be a usage error (exit 2) naming `--load <url>`; remote bundle support belongs on `--load`, reusing ADR-0496's GitHub rewrite, https/loopback policy, `.cl`-only check and capped streaming staged fetch, with ephemeral open on `:memory:` and clone into a durable target."
+ },
+ {
+  "task_id": "T14",
+  "relies_on": [
+   {
+    "adr": "ADR-0200",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0518",
+    "clause": 1
+   }
+  ],
+  "note": "Query already exists as a first-positional statement-session verb in ADR-0200 (grammar, `--database`, help), so extend that and keep the did-you-mean usage-error behavior of ADR-0518 intact rather than adding a new command."
+ },
+ {
+  "task_id": "T10",
+  "relies_on": [
+   {
+    "adr": "ADR-0227",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0378",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0227",
+    "clause": 4
+   }
+  ],
+  "note": "Add the procedure with CIP-287-style no-database-argument signature, put it behind the CYPHERLITE_PREVIEW `ontology` gate and the PreviewFeature registry, honor the implicit/explicit transaction rules, keep it in the always-built ontology crate and list it in SHOW PROCEDURES."
+ },
+ {
+  "task_id": "T22",
+  "relies_on": [
+   {
+    "adr": "ADR-0478",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0519",
+    "clause": null
+   }
+  ],
+  "note": "Extend the re-arrival trail-existence rule in the frontier kernel (accept-on-arrival before dedup, structural and answer-shape gates, work budget fall-through), and verify under the diagnostic RELATE_PATTERN_ENGINE switch."
+ },
+ {
+  "task_id": "T19",
+  "relies_on": [
+   {
+    "adr": "ADR-0306",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 8
+   },
+   {
+    "adr": "ADR-0368",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0249",
+    "clause": null
+   }
+  ],
+  "note": "ADR-0306 already specifies read-only/follow for `serve` and the MCP binary, with the Docker entrypoint passing the valueless flags through; but ADR-0368 retired the standalone mcp bin, so the MCP part now goes through `serve --mcp` and the entrypoint supervising `cypherlite serve`."
+ },
+ {
+  "task_id": "T11",
+  "relies_on": [
+   {
+    "adr": "ADR-0159",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0074",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0136",
+    "clause": 2
+   }
+  ],
+  "note": "The `snapshot` verb is already decided in ADR-0159 (read-only source, destination must not exist, codec preserved, Database snapshot/restore methods, always compiled), so implement it per that on top of the `.cl` bundle and read-only open rules."
+ }
+]

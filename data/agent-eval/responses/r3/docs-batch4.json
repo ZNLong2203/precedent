@@ -1,0 +1,194 @@
+[
+ {
+  "task_id": "T01",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0066",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0454",
+    "clause": null
+   }
+  ],
+  "note": "Add the syntax in cypherlite-parser (the only product grammar), lower it through cypherlite-front, and keep the TCK floor, CIP-eval identity and ratchet gates, and loadtest baselines green, using the renamed baselines/cip-eval.json."
+ },
+ {
+  "task_id": "T17",
+  "relies_on": [
+   {
+    "adr": "ADR-0250",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0550",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0546",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0585",
+    "clause": null
+   }
+  ],
+  "note": "The CLI reads releases.json from the canonical URL only (never the GitHub API), tries the preview-host fallback once, then fails with the one-line reinstall message naming both URLs; asset downloads use the direct release route and the SHA256SUMS signature check stays unchanged."
+ },
+ {
+  "task_id": "T21",
+  "relies_on": [
+   {
+    "adr": "ADR-0363",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0535",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0236",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0345",
+    "clause": 2
+   }
+  ],
+  "note": "Add the new kind as a row in the single cypherlite-model notification vocabulary table (code, GQLSTATUS, severity, category, remedy) and expose it through the existing notification record on the Rust API and each wire surface without a second vocabulary."
+ },
+ {
+  "task_id": "T12",
+  "relies_on": [
+   {
+    "adr": "ADR-0166",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0187",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0153",
+    "clause": null
+   }
+  ],
+  "note": "ADR-0166 already specifies this: populate each virtual node's indexes and constraints from the overlay-aware catalog at call time (excluding constraint-backing indexes, skipping relationship constraints, and omitting id/ownedIndex), so the work is to check that the implementation matches it."
+ },
+ {
+  "task_id": "T09",
+  "relies_on": [
+   {
+    "adr": "ADR-0229",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0378",
+    "clause": null
+   }
+  ],
+  "note": "Treat the ontology document as the sole source of truth: ADR-0229 supersedes the derived system_ontologies graph from ADR-0120 \u00a72, so any persistence change must keep the WAL ops, MDBWAL02 magic, and snapshot formats compatible and not rebuild a graph."
+ },
+ {
+  "task_id": "T20",
+  "relies_on": [
+   {
+    "adr": "ADR-0357",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0345",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0365",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0373",
+    "clause": null
+   }
+  ],
+  "note": "ADR-0357 already specifies this: add the root-only PlanNode::to_neo4j_value decoration, place the plan/profile pair on the SUCCESS that ends the result, leave to_value unchanged, and account for the retained statement text against the result cap."
+ }
+]

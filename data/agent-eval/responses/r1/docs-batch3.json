@@ -1,0 +1,194 @@
+[
+ {
+  "task_id": "T16",
+  "relies_on": [
+   {
+    "adr": "ADR-0246",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0246",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0245",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0479",
+    "clause": null
+   }
+  ],
+  "note": "Build the latency suite in testing/cypherlite-query-latency on the GBL workload using the verbatim queries and fetched data, but create no plan goldens, since ADR-0246 withdrew them, and catch planner cliffs through the latency compare."
+ },
+ {
+  "task_id": "T03",
+  "relies_on": [
+   {
+    "adr": "ADR-0059",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0287",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0402",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0527",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0091",
+    "clause": 2
+   }
+  ],
+  "note": "Add a typed serde redo op for the new DDL, captured at execution time and stored verbatim on replay with no re-parse and a loud decode failure, classify the command via catalog_produces_rows, and make it go through the write redo funnel."
+ },
+ {
+  "task_id": "T18",
+  "relies_on": [
+   {
+    "adr": "ADR-0268",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 2
+   }
+  ],
+  "note": "Proptest is approved only for cypherlite-storage (ADR-0268) and relate-executor (ADR-0552), so add property tests there with committed regression files and no rand 0.8/0.9 mixing, and any other engine crate needs its own ADR."
+ },
+ {
+  "task_id": "T02",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0049",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 3
+   }
+  ],
+  "note": "Port the missing CIP scenarios to MemoryDB and keep the gate comparing stable scenario identities against ENGINE_PASSING.json, exempting only the 24 Enterprise identities removed by ADR-0119."
+ },
+ {
+  "task_id": "T08",
+  "relies_on": [
+   {
+    "adr": "ADR-0146",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 2
+   }
+  ],
+  "note": "Select among the three fixed case-insensitive namespaces, with an unknown name failing as 'Graph not found: <name>' under the DatabaseNotFound kind, and keep --database as the store path rather than the namespace."
+ },
+ {
+  "task_id": "T15",
+  "relies_on": [
+   {
+    "adr": "ADR-0487",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0364",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0227",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 1
+   }
+  ],
+  "note": "Implement the document-to-graph-type conversion on the 1.1.0 shapes per ADR-0487 \u00a73, which re-bases ADR-0364 \u00a75 and fails loudly on unmappable constructs, gated by the exact 1.1.0 schema URI."
+ }
+]

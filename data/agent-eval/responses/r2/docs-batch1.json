@@ -1,0 +1,206 @@
+[
+ {
+  "task_id": "T23",
+  "relies_on": [
+   {
+    "adr": "ADR-0500",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0496",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0500",
+    "clause": 5
+   }
+  ],
+  "note": "ADR-0500 withdrew the URL-in-`--database` spelling, so a URL there must stay a usage error naming `--load <url>`; the remote bundle goes through `--load`, reusing ADR-0496's GitHub rewrite, https-only policy, `.cl` requirement and capped streaming staged fetch, and the downloaded scratch copy is released like a local source."
+ },
+ {
+  "task_id": "T14",
+  "relies_on": [
+   {
+    "adr": "ADR-0200",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0518",
+    "clause": 1
+   }
+  ],
+  "note": "The `query` command already has a decided grammar: a first-positional statement-session verb taking `[STATEMENT] [--database PATH]` plus session flags, `-c` exclusive with the positional, and a shared help block, with did-you-mean applying on its usage-error exits."
+ },
+ {
+  "task_id": "T10",
+  "relies_on": [
+   {
+    "adr": "ADR-0378",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0227",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0121",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0557",
+    "clause": null
+   }
+  ],
+  "note": "Add the new procedure with no database argument (ADR-0227 signatures), put it in the always-built cypherlite-ontology crate, include it in the `CYPHERLITE_PREVIEW=ontology` gate, add it to SHOW PROCEDURES, follow the transaction and no-privilege rules, and keep it in the catalogue."
+ },
+ {
+  "task_id": "T22",
+  "relies_on": [
+   {
+    "adr": "ADR-0478",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0478",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0536",
+    "clause": 2
+   }
+  ],
+  "note": "Extend the re-arrival trail-existence rule (ADR-0478 \u00a73) in the frontier kernel, keeping accept-on-arrival before dedup, the answer-shape gate, and the work budget with its run-time fall-through to the DFS, and keeping the single range-quantified region compile rule."
+ },
+ {
+  "task_id": "T19",
+  "relies_on": [
+   {
+    "adr": "ADR-0306",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0306",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0368",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0368",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0249",
+    "clause": null
+   }
+  ],
+  "note": "ADR-0306 already decides post-verb `--read-only`/`--follow` on `serve` and the Docker entrypoint's valueless-flag passthrough, but the standalone `cypherlite-mcp` bin was retired by ADR-0368, so MCP read-only/follow must go through `serve --mcp` (stdio or port)."
+ },
+ {
+  "task_id": "T11",
+  "relies_on": [
+   {
+    "adr": "ADR-0159",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0159",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0136",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0156",
+    "clause": 3
+   }
+  ],
+  "note": "The `snapshot` verb already has a decided design (ADR-0159): an exit-after positional with `--to`/`--from`, a read-only source open, a destination that must not exist, the source codec kept, `snapshot_to_bundle`/`restore_from_bundle` engine methods, and no new Cargo feature."
+ }
+]

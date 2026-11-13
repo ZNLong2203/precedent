@@ -1,0 +1,162 @@
+[
+ {
+  "task_id": "T16",
+  "relies_on": [
+   {
+    "adr": "ADR-0246",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0246",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0245",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 2
+   }
+  ],
+  "note": "Do not add plan goldens (ADR-0246 withdrew them); build the latency suite in the existing query-latency crate with the gbl workload, verbatim queries, and latency/answer gating instead."
+ },
+ {
+  "task_id": "T03",
+  "relies_on": [
+   {
+    "adr": "ADR-0059",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0402",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0287",
+    "clause": 1
+   }
+  ],
+  "note": "Give the new DDL a typed serde redo payload captured at execution, stored verbatim on replay with no re-parse and loud decode failure, pushed through the write redo so it counts as applied, and classify it in catalog_produces_rows."
+ },
+ {
+  "task_id": "T18",
+  "relies_on": [
+   {
+    "adr": "ADR-0268",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 4
+   }
+  ],
+  "note": "Proptest is only allowed as a dev-dependency of storage (ADR-0268) and relate-executor (ADR-0552); other engine crates need their own ADR, with committed regression files and no mixing of rand 0.8 and 0.9."
+ },
+ {
+  "task_id": "T02",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0049",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0203",
+    "clause": 1
+   }
+  ],
+  "note": "Gate parity by comparing frozen scenario identities against ENGINE_PASSING.json (not just counts), excluding the 24 identities dropped by ADR-0119, and port catalog semantics onto the MemoryDB runtime."
+ },
+ {
+  "task_id": "T08",
+  "relies_on": [
+   {
+    "adr": "ADR-0146",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   }
+  ],
+  "note": "Select among the three fixed case-insensitive namespaces at session level and fail unknown names with 'Graph not found: <name>' keeping the DatabaseNotFound kind."
+ },
+ {
+  "task_id": "T15",
+  "relies_on": [
+   {
+    "adr": "ADR-0487",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0364",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0227",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 2
+   }
+  ],
+  "note": "Map the document to the derived graph and to a graph type using the 1.1.0 converter rules and the 1.1.0 gate URI, with loud mapping errors and deterministic ids from the single parsed value model."
+ }
+]

@@ -1,0 +1,194 @@
+[
+ {
+  "task_id": "T05",
+  "relies_on": [
+   {
+    "adr": "ADR-0069",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 4
+   }
+  ],
+  "note": "Add the new verb as a first-argument-only positional command with a single-source synopsis, an entry in the help command index and a COMMAND telemetry event, and keep upgrade's fetch, sha256 verification, atomic self-replace and skill-refresh design."
+ },
+ {
+  "task_id": "T13",
+  "relies_on": [
+   {
+    "adr": "ADR-0172",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0184",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0439",
+    "clause": null
+   }
+  ],
+  "note": "Keep validation incremental over the redo-log slice with the cursor, keep accept/reject results and error texts identical, and keep the composite smallest-bucket probe and the commit-time tuple map consistent."
+ },
+ {
+  "task_id": "T07",
+  "relies_on": [
+   {
+    "adr": "ADR-0276",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 1
+   }
+  ],
+  "note": "Build on the store-level databases catalog and its fixed-namespace invariants, update the single-database placeholders in dbms.info and SHOW DATABASES, and account for the frozen CIP scenarios that expect Enterprise multi-database behavior."
+ },
+ {
+  "task_id": "T04",
+  "relies_on": [
+   {
+    "adr": "ADR-0068",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 5
+   }
+  ],
+  "note": "Change the installer's hosting, platform set and one-liner invocation while respecting the existing URL, GitHub Pages hosting, auth-on-bash prefix, install dir and release-asset contract."
+ },
+ {
+  "task_id": "T24",
+  "relies_on": [
+   {
+    "adr": "ADR-0513",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0520",
+    "clause": 3
+   }
+  ],
+  "note": "Reject every same-clause read of a created entity and make a null node binding in CREATE/MERGE raise 22N01, while dropping the CYPHER 5 warning arm and the version gating that ADR-0584 removes and not editing the retired in-repo TCK pin."
+ },
+ {
+  "task_id": "T06",
+  "relies_on": [
+   {
+    "adr": "ADR-0079",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0104",
+    "clause": 4
+   }
+  ],
+  "note": "Add the CYPHERLITE-CLI_-prefixed event through typed builders with no query, path or parameter fields, and deliver it via the exit-time local spool and next-run drain, honoring opt-out and the feature gating."
+ }
+]

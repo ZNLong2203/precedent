@@ -113,5 +113,32 @@ Almost all of the search time is Relate's full‑text engine scoring ≈ 2 MB of
 
 * Generalisation to other ADR styles or corpora (one corpus, tuned on it; the overlap thresholds too).
 * That header patches are *correct in the maintainers' judgement*: they are proven not to change any computed verdict, and each carries its evidence, but a human still has to accept the wording (38 rest on weaker edges).
-* That agents *do better* with preflight. We measured exposure and mechanism, not downstream task success.
+* That agents *produce better code* with preflight. §8 measures which clauses a model says it will rely on (63.9 % → 4.2 % relying on an overruled one); nobody ran the resulting changes.
 * Independent labelling (all labels are the assistant's).
+
+## 8. Do models rely on overruled clauses, and does Precedent change that?
+
+Sections 1–7 measured the graph and the tools. This one measures behaviour: given a task, which numbered decision clauses does a model say its plan must respect, and how often is one of them already out of force?
+
+**Setup** (`scripts/agent_eval.py`; prompts, raw answers, per-call metadata and results are in `data/agent-eval/`).
+* 24 tasks, each about an area where one decision is *partly* overruled. The decisions were drawn at random (seed 11) from the 35 whose every overruling edge was hand‑audited as correct and which have at least one dead and one live clause, so an extractor mistake cannot be blamed on the model.
+* Three conditions, same documents: **docs** — the five best matches of a plain full‑text search, as written (header + Decision section); **docs + warning** — the same plus one generic sentence ("later decisions may have overruled parts of these … take care"), a control for "just tell it to be careful"; **docs + precedent** — the same plus the `preflight` result for the task.
+* The model (`claude-sonnet-5-5`, started with no tools, no project settings, no memory and an empty working directory, so it sees exactly the prompt) lists at most 8 clauses it must respect or build on. We count clauses the graph says are out of force. Every cell was run **3 times**; 36 model calls, about US$4.
+
+| | tasks relying on ≥ 1 overruled clause | overruled clauses per task | live clauses per task | cites a decision that controls the one in question |
+|---|---|---|---|---|
+| docs | **46 / 72 (63.9 %)** (16, 15, 15 of 24) | 0.83 | 5.4 | 46 % |
+| docs + generic warning | 48 / 72 (66.7 %) (15, 17, 16) | 0.92 | 5.2 | 47 % |
+| docs + `preflight` | **3 / 72 (4.2 %)** (1, 1, 1) | **0.04** | 7.4 | 92 % |
+
+Paired by task, `preflight` removed the reliance in 14–15 tasks per run and introduced it in none (exact sign test p ≤ 0.0001 in each run). The generic warning did nothing measurable (it differed from *docs* in 1–4 tasks per run, p ≥ 0.6). The model did not simply cite less with `preflight`: it relied on *more* live clauses (7.4 vs 5.4) and named the controlling decision twice as often.
+
+**Read it this way.** Left with the documents as written, a strong model builds on a clause that a later decision removed in roughly two tasks out of three, and being told to beware does not change that; what changes it is knowing *which* clauses, from the graph. The effect size is large because these tasks were chosen where such a clause exists.
+
+**What it does not show**
+* **Tasks were chosen and worded by the assistant**, after seeing which clauses are dead, in areas where a decision is partly overruled. It measures behaviour *given* that situation, not how often agents meet it (§2 measured exposure: 74.5 % of flat top‑5s contain a decision that is partly or wholly out of force).
+* **It measures what the model says it will rely on, not code quality.** Nobody ran the resulting changes.
+* **The conditions are not symmetric in information**: the `preflight` arm is told what the others are not. The control rules out "any warning helps"; it does not rule out other cheap fixes (reading each record's *Later references*, a status lookup tool) that were not tested.
+* One model, one corpus, 24 tasks. The three runs are repeats on the *same* tasks, so their p‑values are one result seen three times, not three independent confirmations.
+* **A remaining failure, in all three runs (T08):** the dead clause was in a document the plain search returned (ADR‑0116 §1) but `preflight` did not return a card for it (4 cards, 18 decisions omitted), so nothing flagged it. `preflight` only protects what it surfaces; an agent that also reads other records still needs `decision_status` or `search_decisions` (both carry standing).
+* The ground truth is the extractor's output restricted to edges the assistant audited as correct (§1), and the assistant also wrote the tasks and drove the runs.

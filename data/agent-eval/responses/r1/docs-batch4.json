@@ -1,0 +1,186 @@
+[
+ {
+  "task_id": "T01",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0066",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0053",
+    "clause": null
+   }
+  ],
+  "note": "Add the syntax in cypherlite-parser (the only product grammar), keeping the TCK floor and CIP-eval identity/aggregate gates green, using the current cip-eval baseline name and CYPHERLITE_PARSER env."
+ },
+ {
+  "task_id": "T17",
+  "relies_on": [
+   {
+    "adr": "ADR-0250",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0550",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0546",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0585",
+    "clause": 4
+   }
+  ],
+  "note": "Have the CLI read releases.json from the canonical URL with a one-time preview-host fallback and one-line reinstall failure message, keeping asset downloads on the direct routes and the signature check unchanged."
+ },
+ {
+  "task_id": "T21",
+  "relies_on": [
+   {
+    "adr": "ADR-0363",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0535",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0236",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0181",
+    "clause": 1
+   }
+  ],
+  "note": "Add the kind as a row in the single notification vocabulary table in cypherlite-model, deriving plan-warning text from it, and expose it through the existing wire shapes."
+ },
+ {
+  "task_id": "T12",
+  "relies_on": [
+   {
+    "adr": "ADR-0166",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0153",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0187",
+    "clause": null
+   }
+  ],
+  "note": "Populate indexes and constraints per virtual label node from the overlay-aware catalog accessors at call time, excluding constraint-backing indexes, rendering Constraint strings, and skipping relationship constraints."
+ },
+ {
+  "task_id": "T09",
+  "relies_on": [
+   {
+    "adr": "ADR-0229",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 8
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0378",
+    "clause": null
+   }
+  ],
+  "note": "Keep the ontology document as the sole source of truth with the format-follows-content store rules, noting ADR-0229 removed the derived system_ontologies graph (superseding ADR-0120 clause 2), so any graph derivation change must be reconciled with that."
+ },
+ {
+  "task_id": "T20",
+  "relies_on": [
+   {
+    "adr": "ADR-0357",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0345",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0365",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0373",
+    "clause": null
+   }
+  ],
+  "note": "Add PlanNode::to_neo4j_value on the plan root for the summary on the ending SUCCESS, leaving the engine's to_value wire form unchanged and keeping each surface's plan key shape."
+ }
+]

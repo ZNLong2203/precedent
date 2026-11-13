@@ -1,0 +1,167 @@
+[
+ {
+  "task_id": "T16",
+  "relies_on": [
+   {
+    "adr": "ADR-0246",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0246",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0245",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0243",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0246",
+    "clause": 3
+   }
+  ],
+  "note": "Build the latency suite in the existing query-latency crate on the gbl workload, but do not add plan goldens: ADR-0246 withdrew them, so planner cliffs are caught by the p50 latency compare."
+ },
+ {
+  "task_id": "T03",
+  "relies_on": [
+   {
+    "adr": "ADR-0059",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0059",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0402",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0527",
+    "filler": null,
+    "clause": null
+   }
+  ],
+  "note": "Give the new DDL op a typed serde redo payload captured at execution time, store it verbatim in apply_redo with no re-parse on replay, fail loudly on undecodable records, and push it through the write redo so it counts as applied."
+ },
+ {
+  "task_id": "T18",
+  "relies_on": [
+   {
+    "adr": "ADR-0268",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0268",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0552",
+    "clause": 1
+   }
+  ],
+  "note": "proptest is allowed only as a dev-dependency of the storage crate (and relate-executor per ADR-0552), so other engine crates need their own ADR; commit regression files and keep rand 0.8 and 0.9 separate."
+ },
+ {
+  "task_id": "T02",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0119",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0049",
+    "clause": 3
+   }
+  ],
+  "note": "Gate parity on frozen scenario identities in ENGINE_PASSING.json rather than aggregate counts, with the 24 Enterprise identities of ADR-0119 as the only exceptions."
+ },
+ {
+  "task_id": "T08",
+  "relies_on": [
+   {
+    "adr": "ADR-0146",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0200",
+    "clause": 3
+   }
+  ],
+  "note": "Select among the three fixed namespaces case-insensitively and report an unknown name as 'Graph not found: <name>' with the DatabaseNotFound kind, keeping Bolt's CypherLite.Error code."
+ },
+ {
+  "task_id": "T15",
+  "relies_on": [
+   {
+    "adr": "ADR-0487",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0364",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0226",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0487",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0227",
+    "clause": 4
+   }
+  ],
+  "note": "Convert the ontology on the 1.1.0 shapes with loud mapping errors, gate on the 1.1.0 URI, and build the derived graph deterministically per ADR-0226."
+ }
+]

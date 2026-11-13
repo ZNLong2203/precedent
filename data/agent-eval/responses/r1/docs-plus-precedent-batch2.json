@@ -1,0 +1,206 @@
+[
+ {
+  "task_id": "T05",
+  "relies_on": [
+   {
+    "adr": "ADR-0069",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0190",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0069",
+    "clause": 8
+   }
+  ],
+  "note": "Add the new verb as a first-positional command (ADR-0069 \u00a71) with its synopsis defined once and listed in help (ADR-0190), and keep upgrade's verify, atomic replace and skill refresh from ADR-0069 while fetching via releases.json (ADR-0250), not the superseded \u00a73/\u00a74."
+ },
+ {
+  "task_id": "T13",
+  "relies_on": [
+   {
+    "adr": "ADR-0173",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0173",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0172",
+    "clause": 7
+   },
+   {
+    "adr": "ADR-0174",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0184",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0185",
+    "clause": null
+   }
+  ],
+  "note": "Build on the overlay-owned RedoLog cursor (ADR-0173) rather than the superseded ADR-0172 \u00a71-2 and \u00a78, keeping the recheck set, error selection, transaction semantics, catalog-drift rechecks and the smallest-bucket/relationship postings probes."
+ },
+ {
+  "task_id": "T07",
+  "relies_on": [
+   {
+    "adr": "ADR-0229",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0276",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0116",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0142",
+    "clause": 2
+   }
+  ],
+  "note": "The three fixed namespaces are the current model (ADR-0116 \u00a71 superseded by ADR-0229), so multi-database work must change the store-level catalog (ADR-0276) while respecting CE-style administration commands, USE routing and real SHOW output."
+ },
+ {
+  "task_id": "T04",
+  "relies_on": [
+   {
+    "adr": "ADR-0585",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0585",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0546",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0068",
+    "clause": 5
+   }
+  ],
+  "note": "Change the installer's hosting, platforms and invocation by treating ADR-0585 (direct unauthenticated route, no token) as governing the superseded ADR-0068 \u00a76-7, while checking ADR-0068 \u00a71-3 hosting and platform rules and ADR-0546's release-asset publishing."
+ },
+ {
+  "task_id": "T24",
+  "relies_on": [
+   {
+    "adr": "ADR-0584",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0584",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0513",
+    "clause": 3
+   }
+  ],
+  "note": "Apply the same-clause self-reference rule to every CREATE/INSERT statement since ADR-0584 removes the CYPHER 5 stand-down from ADR-0513 \u00a71, keeping the 22N01 null-binding rule and the TCK setup re-pin."
+ },
+ {
+  "task_id": "T06",
+  "relies_on": [
+   {
+    "adr": "ADR-0545",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0079",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0545",
+    "clause": 8
+   }
+  ],
+  "note": "Add the event under the CYPHERLITE-CLI_ prefix with no query text, paths or parameters, and deliver it through the ADR-0545 spool and next-run drain rather than the superseded in-run channel in ADR-0079 \u00a75."
+ }
+]

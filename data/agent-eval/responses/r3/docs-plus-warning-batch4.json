@@ -1,0 +1,194 @@
+[
+ {
+  "task_id": "T01",
+  "relies_on": [
+   {
+    "adr": "ADR-0047",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0047",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0053",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0066",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0046",
+    "clause": 1
+   }
+  ],
+  "note": "Add the syntax only in cypherlite-parser (the single product grammar), lower it through cypherlite-front, and keep the TCK floors, the CIP identity-set and aggregate baselines, and the loadtest baselines green under the renamed crates and baseline files."
+ },
+ {
+  "task_id": "T17",
+  "relies_on": [
+   {
+    "adr": "ADR-0250",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0250",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0550",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0571",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0585",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0585",
+    "clause": 3
+   }
+  ],
+  "note": "The CLI reads the static releases.json (schema v1, never the GitHub API), tries the primary URL then the single preview-host fallback, fails with the one-line reinstall message naming both URLs, and downloads assets over the direct unauthenticated route via the RELATE_RELEASE_DOWNLOAD_URL seam, keeping signature verification."
+ },
+ {
+  "task_id": "T21",
+  "relies_on": [
+   {
+    "adr": "ADR-0363",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0535",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0236",
+    "clause": null
+   }
+  ],
+  "note": "Add the new kind as a row in the single cypherlite-model notification vocabulary table (code, GQLSTATUS, severity, category, trigger, remedy) and expose it through the existing notification transport, keeping the v2 value encoding."
+ },
+ {
+  "task_id": "T12",
+  "relies_on": [
+   {
+    "adr": "ADR-0166",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0166",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0187",
+    "clause": null
+   },
+   {
+    "adr": "ADR-0153",
+    "clause": null
+   }
+  ],
+  "note": "Populate each virtual label node's indexes and constraints at call time from the overlay-aware catalog accessors (excluding constraint-backing indexes, skipping relationship constraints, rendering Neo4j-style strings), leaving the rest of the ADR-0153 and ADR-0187 shape unchanged."
+ },
+ {
+  "task_id": "T09",
+  "relies_on": [
+   {
+    "adr": "ADR-0229",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0229",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 4
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 6
+   },
+   {
+    "adr": "ADR-0120",
+    "clause": 8
+   }
+  ],
+  "note": "The verbatim ontology document stays the sole source of truth with its WAL ops, MDBWAL02 magic, snapshot fields and format-follows-content rule; the derived system_ontologies graph (ADR-0120 clause 2, ADR-0226 mapping) was removed by ADR-0229, so only the document persistence and the non-queryable namespace behavior are worked on."
+ },
+ {
+  "task_id": "T20",
+  "relies_on": [
+   {
+    "adr": "ADR-0357",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 3
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 1
+   },
+   {
+    "adr": "ADR-0357",
+    "clause": 5
+   },
+   {
+    "adr": "ADR-0345",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0365",
+    "clause": 2
+   },
+   {
+    "adr": "ADR-0373",
+    "clause": null
+   }
+  ],
+  "note": "Add PlanNode::to_neo4j_value, decorating only the root with the string-representation, version, planner/runtime and Memory args, call it before wire conversion on every surface, leave to_value unchanged, attach the plan pair to the SUCCESS that ends the result, and count the retained statement text against the result cap."
+ }
+]
