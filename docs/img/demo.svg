@@ -1,0 +1,149 @@
+<svg class="rich-terminal" viewBox="0 0 1238 586.8" xmlns="http://www.w3.org/2000/svg">
+    <!-- Generated with Rich https://www.textualize.io -->
+    <style>
+
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Regular"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Regular.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Regular.woff") format("woff");
+        font-style: normal;
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Bold"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Bold.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bold.woff") format("woff");
+        font-style: bold;
+        font-weight: 700;
+    }
+
+    .terminal-2664768211-matrix {
+        font-family: Fira Code, monospace;
+        font-size: 20px;
+        line-height: 24.4px;
+        font-variant-east-asian: full-width;
+    }
+
+    .terminal-2664768211-title {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: arial;
+    }
+
+    .terminal-2664768211-r1 { fill: #cc555a }
+.terminal-2664768211-r2 { fill: #c5c8c6 }
+.terminal-2664768211-r3 { fill: #c5c8c6;font-weight: bold }
+.terminal-2664768211-r4 { fill: #d0b344;font-weight: bold }
+.terminal-2664768211-r5 { fill: #cc555a;font-weight: bold }
+.terminal-2664768211-r6 { fill: #d0b344 }
+.terminal-2664768211-r7 { fill: #868887 }
+.terminal-2664768211-r8 { fill: #68a0b3 }
+    </style>
+
+    <defs>
+    <clipPath id="terminal-2664768211-clip-terminal">
+      <rect x="0" y="0" width="1219.0" height="535.8" />
+    </clipPath>
+    <clipPath id="terminal-2664768211-line-0">
+    <rect x="0" y="1.5" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-1">
+    <rect x="0" y="25.9" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-2">
+    <rect x="0" y="50.3" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-3">
+    <rect x="0" y="74.7" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-4">
+    <rect x="0" y="99.1" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-5">
+    <rect x="0" y="123.5" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-6">
+    <rect x="0" y="147.9" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-7">
+    <rect x="0" y="172.3" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-8">
+    <rect x="0" y="196.7" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-9">
+    <rect x="0" y="221.1" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-10">
+    <rect x="0" y="245.5" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-11">
+    <rect x="0" y="269.9" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-12">
+    <rect x="0" y="294.3" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-13">
+    <rect x="0" y="318.7" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-14">
+    <rect x="0" y="343.1" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-15">
+    <rect x="0" y="367.5" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-16">
+    <rect x="0" y="391.9" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-17">
+    <rect x="0" y="416.3" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-18">
+    <rect x="0" y="440.7" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-19">
+    <rect x="0" y="465.1" width="1220" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2664768211-line-20">
+    <rect x="0" y="489.5" width="1220" height="24.65"/>
+            </clipPath>
+    </defs>
+
+    <rect fill="#292929" stroke="rgba(255,255,255,0.35)" stroke-width="1" x="1" y="1" width="1236" height="584.8" rx="8"/><text class="terminal-2664768211-title" fill="#c5c8c6" text-anchor="middle" x="618" y="27">precedent&#160;demo</text>
+            <g transform="translate(26,22)">
+            <circle cx="0" cy="0" r="7" fill="#ff5f57"/>
+            <circle cx="22" cy="0" r="7" fill="#febc2e"/>
+            <circle cx="44" cy="0" r="7" fill="#28c840"/>
+            </g>
+        
+    <g transform="translate(9, 41)" clip-path="url(#terminal-2664768211-clip-terminal)">
+    
+    <g class="terminal-2664768211-matrix">
+    <text class="terminal-2664768211-r1" x="0" y="20" textLength="24.4" clip-path="url(#terminal-2664768211-line-0)">╭─</text><text class="terminal-2664768211-r1" x="24.4" y="20" textLength="500.2" clip-path="url(#terminal-2664768211-line-0)">─────────────────────────────────────────</text><text class="terminal-2664768211-r1" x="524.6" y="20" textLength="158.6" clip-path="url(#terminal-2664768211-line-0)">&#160;the&#160;problem&#160;</text><text class="terminal-2664768211-r1" x="683.2" y="20" textLength="512.4" clip-path="url(#terminal-2664768211-line-0)">──────────────────────────────────────────</text><text class="terminal-2664768211-r1" x="1195.6" y="20" textLength="24.4" clip-path="url(#terminal-2664768211-line-0)">─╮</text><text class="terminal-2664768211-r2" x="1220" y="20" textLength="12.2" clip-path="url(#terminal-2664768211-line-0)">
+</text><text class="terminal-2664768211-r1" x="0" y="44.4" textLength="12.2" clip-path="url(#terminal-2664768211-line-1)">│</text><text class="terminal-2664768211-r3" x="24.4" y="44.4" textLength="36.6" clip-path="url(#terminal-2664768211-line-1)">533</text><text class="terminal-2664768211-r2" x="61" y="44.4" textLength="256.2" clip-path="url(#terminal-2664768211-line-1)">&#160;decision&#160;records&#160;in&#160;</text><text class="terminal-2664768211-r3" x="317.2" y="44.4" textLength="183" clip-path="url(#terminal-2664768211-line-1)">relatedb/relate</text><text class="terminal-2664768211-r1" x="1207.8" y="44.4" textLength="12.2" clip-path="url(#terminal-2664768211-line-1)">│</text><text class="terminal-2664768211-r2" x="1220" y="44.4" textLength="12.2" clip-path="url(#terminal-2664768211-line-1)">
+</text><text class="terminal-2664768211-r1" x="0" y="68.8" textLength="12.2" clip-path="url(#terminal-2664768211-line-2)">│</text><text class="terminal-2664768211-r4" x="24.4" y="68.8" textLength="36.6" clip-path="url(#terminal-2664768211-line-2)">115</text><text class="terminal-2664768211-r2" x="61" y="68.8" textLength="695.4" clip-path="url(#terminal-2664768211-line-2)">&#160;have&#160;been&#160;partly&#160;or&#160;wholly&#160;superseded&#160;by&#160;later&#160;decisions</text><text class="terminal-2664768211-r1" x="1207.8" y="68.8" textLength="12.2" clip-path="url(#terminal-2664768211-line-2)">│</text><text class="terminal-2664768211-r2" x="1220" y="68.8" textLength="12.2" clip-path="url(#terminal-2664768211-line-2)">
+</text><text class="terminal-2664768211-r1" x="0" y="93.2" textLength="12.2" clip-path="url(#terminal-2664768211-line-3)">│</text><text class="terminal-2664768211-r5" x="24.4" y="93.2" textLength="36.6" clip-path="url(#terminal-2664768211-line-3)">111</text><text class="terminal-2664768211-r2" x="61" y="93.2" textLength="244" clip-path="url(#terminal-2664768211-line-3)">&#160;of&#160;those&#160;still&#160;say&#160;</text><text class="terminal-2664768211-r3" x="305" y="93.2" textLength="97.6" clip-path="url(#terminal-2664768211-line-3)">Accepted</text><text class="terminal-2664768211-r2" x="402.6" y="93.2" textLength="48.8" clip-path="url(#terminal-2664768211-line-3)">&#160;or&#160;</text><text class="terminal-2664768211-r3" x="451.4" y="93.2" textLength="97.6" clip-path="url(#terminal-2664768211-line-3)">Proposed</text><text class="terminal-2664768211-r2" x="549" y="93.2" textLength="244" clip-path="url(#terminal-2664768211-line-3)">&#160;in&#160;their&#160;own&#160;header</text><text class="terminal-2664768211-r1" x="1207.8" y="93.2" textLength="12.2" clip-path="url(#terminal-2664768211-line-3)">│</text><text class="terminal-2664768211-r2" x="1220" y="93.2" textLength="12.2" clip-path="url(#terminal-2664768211-line-3)">
+</text><text class="terminal-2664768211-r1" x="0" y="117.6" textLength="12.2" clip-path="url(#terminal-2664768211-line-4)">│</text><text class="terminal-2664768211-r1" x="1207.8" y="117.6" textLength="12.2" clip-path="url(#terminal-2664768211-line-4)">│</text><text class="terminal-2664768211-r2" x="1220" y="117.6" textLength="12.2" clip-path="url(#terminal-2664768211-line-4)">
+</text><text class="terminal-2664768211-r1" x="0" y="142" textLength="12.2" clip-path="url(#terminal-2664768211-line-5)">│</text><text class="terminal-2664768211-r2" x="24.4" y="142" textLength="1134.6" clip-path="url(#terminal-2664768211-line-5)">Status&#160;lives&#160;in&#160;prose,&#160;so&#160;a&#160;reader&#160;(or&#160;an&#160;agent)&#160;of&#160;the&#160;original&#160;record&#160;acts&#160;on&#160;dead&#160;clauses.</text><text class="terminal-2664768211-r1" x="1207.8" y="142" textLength="12.2" clip-path="url(#terminal-2664768211-line-5)">│</text><text class="terminal-2664768211-r2" x="1220" y="142" textLength="12.2" clip-path="url(#terminal-2664768211-line-5)">
+</text><text class="terminal-2664768211-r1" x="0" y="166.4" textLength="12.2" clip-path="url(#terminal-2664768211-line-6)">│</text><text class="terminal-2664768211-r2" x="24.4" y="166.4" textLength="1110.2" clip-path="url(#terminal-2664768211-line-6)">Precedent&#160;reads&#160;the&#160;prose&#160;once,&#160;builds&#160;the&#160;citation&#160;graph&#160;in&#160;Relate,&#160;and&#160;computes&#160;standing.</text><text class="terminal-2664768211-r1" x="1207.8" y="166.4" textLength="12.2" clip-path="url(#terminal-2664768211-line-6)">│</text><text class="terminal-2664768211-r2" x="1220" y="166.4" textLength="12.2" clip-path="url(#terminal-2664768211-line-6)">
+</text><text class="terminal-2664768211-r1" x="0" y="190.8" textLength="1220" clip-path="url(#terminal-2664768211-line-7)">╰──────────────────────────────────────────────────────────────────────────────────────────────────╯</text><text class="terminal-2664768211-r2" x="1220" y="190.8" textLength="12.2" clip-path="url(#terminal-2664768211-line-7)">
+</text><text class="terminal-2664768211-r2" x="1220" y="215.2" textLength="12.2" clip-path="url(#terminal-2664768211-line-8)">
+</text><text class="terminal-2664768211-r3" x="0" y="239.6" textLength="97.6" clip-path="url(#terminal-2664768211-line-9)">ADR-0116</text><text class="terminal-2664768211-r2" x="97.6" y="239.6" textLength="793" clip-path="url(#terminal-2664768211-line-9)">&#160;Fixed&#160;namespaces&#160;with&#160;Neo4j&#160;Community&#160;Edition&#160;database&#160;semantics</text><text class="terminal-2664768211-r2" x="1220" y="239.6" textLength="12.2" clip-path="url(#terminal-2664768211-line-9)">
+</text><text class="terminal-2664768211-r2" x="0" y="264" textLength="134.2" clip-path="url(#terminal-2664768211-line-10)">&#160;&#160;declared&#160;</text><text class="terminal-2664768211-r3" x="134.2" y="264" textLength="97.6" clip-path="url(#terminal-2664768211-line-10)">Accepted</text><text class="terminal-2664768211-r2" x="231.8" y="264" textLength="61" clip-path="url(#terminal-2664768211-line-10)">&#160;&#160;→&#160;&#160;</text><text class="terminal-2664768211-r6" x="292.8" y="264" textLength="231.8" clip-path="url(#terminal-2664768211-line-10)">◐&#160;PARTLY&#160;SUPERSEDED</text><text class="terminal-2664768211-r2" x="1220" y="264" textLength="12.2" clip-path="url(#terminal-2664768211-line-10)">
+</text><text class="terminal-2664768211-r2" x="0" y="288.4" textLength="1183.4" clip-path="url(#terminal-2664768211-line-11)">&#160;&#160;ADR-0116&#160;is&#160;PARTLY&#160;SUPERSEDED:&#160;§1,&#160;§4–5,&#160;§7–10&#160;out&#160;of&#160;force&#160;(by&#160;ADR-0229,&#160;ADR-0276,&#160;ADR-0307);&#160;</text><text class="terminal-2664768211-r2" x="1220" y="288.4" textLength="12.2" clip-path="url(#terminal-2664768211-line-11)">
+</text><text class="terminal-2664768211-r2" x="0" y="312.8" textLength="292.8" clip-path="url(#terminal-2664768211-line-12)">§2–3,&#160;§6&#160;still&#160;good&#160;law.</text><text class="terminal-2664768211-r2" x="1220" y="312.8" textLength="12.2" clip-path="url(#terminal-2664768211-line-12)">
+</text><text class="terminal-2664768211-r7" x="24.4" y="337.2" textLength="1195.6" clip-path="url(#terminal-2664768211-line-13)">ADR-0229&#160;supersedes:&#160;“ADR-0229&#160;makes&#160;`system_ontologies`&#160;listed&#160;but&#160;not&#160;queryable:&#160;§1&#x27;s&#160;&quot;Readable&#160;</text><text class="terminal-2664768211-r2" x="1220" y="337.2" textLength="12.2" clip-path="url(#terminal-2664768211-line-13)">
+</text><text class="terminal-2664768211-r7" x="0" y="361.6" textLength="1220" clip-path="url(#terminal-2664768211-line-14)">with&#160;ordinary&#160;Cypher&quot;&#160;and&#160;§4&#x27;s&#160;42N18&#160;write&#160;gate&#160;are&#160;superseded&#160;—&#160;every&#160;statement&#160;routed&#160;there&#160;except</text><text class="terminal-2664768211-r2" x="1220" y="361.6" textLength="12.2" clip-path="url(#terminal-2664768211-line-14)">
+</text><text class="terminal-2664768211-r7" x="0" y="386" textLength="292.8" clip-path="url(#terminal-2664768211-line-15)">§2&#x27;s&#160;administration&#160;com”</text><text class="terminal-2664768211-r2" x="1220" y="386" textLength="12.2" clip-path="url(#terminal-2664768211-line-15)">
+</text><text class="terminal-2664768211-r2" x="1220" y="410.4" textLength="12.2" clip-path="url(#terminal-2664768211-line-16)">
+</text><text class="terminal-2664768211-r3" x="0" y="434.8" textLength="183" clip-path="url(#terminal-2664768211-line-17)">agent&#160;preflight</text><text class="terminal-2664768211-r2" x="183" y="434.8" textLength="536.8" clip-path="url(#terminal-2664768211-line-17)">&#160;&#160;(task:&#160;add&#160;support&#160;for&#160;multiple&#160;databases)</text><text class="terminal-2664768211-r2" x="1220" y="434.8" textLength="12.2" clip-path="url(#terminal-2664768211-line-17)">
+</text><text class="terminal-2664768211-r6" x="24.4" y="459.2" textLength="793" clip-path="url(#terminal-2664768211-line-18)">⚠&#160;ADR-0142&#160;is&#160;partly&#160;superseded:&#160;a&#160;part&#160;is&#160;superseded&#160;by&#160;ADR-0152</text><text class="terminal-2664768211-r2" x="1220" y="459.2" textLength="12.2" clip-path="url(#terminal-2664768211-line-18)">
+</text><text class="terminal-2664768211-r7" x="24.4" y="483.6" textLength="1049.2" clip-path="url(#terminal-2664768211-line-19)">3&#160;decisions,&#160;≈697&#160;tokens,&#160;stale&#160;clauses&#160;flagged&#160;and&#160;the&#160;controlling&#160;decision&#160;pulled&#160;in</text><text class="terminal-2664768211-r2" x="1220" y="483.6" textLength="12.2" clip-path="url(#terminal-2664768211-line-19)">
+</text><text class="terminal-2664768211-r2" x="1220" y="508" textLength="12.2" clip-path="url(#terminal-2664768211-line-20)">
+</text><text class="terminal-2664768211-r2" x="0" y="532.4" textLength="73.2" clip-path="url(#terminal-2664768211-line-21)">Try:&#160;&#160;</text><text class="terminal-2664768211-r8" x="73.2" y="532.4" textLength="305" clip-path="url(#terminal-2664768211-line-21)">precedent&#160;status&#160;ADR-0116</text><text class="terminal-2664768211-r8" x="414.8" y="532.4" textLength="244" clip-path="url(#terminal-2664768211-line-21)">precedent&#160;cite-check</text><text class="terminal-2664768211-r8" x="695.4" y="532.4" textLength="475.8" clip-path="url(#terminal-2664768211-line-21)">precedent&#160;preflight&#160;&quot;…&quot;&#160;-p&#160;path/to/file</text><text class="terminal-2664768211-r2" x="1220" y="532.4" textLength="12.2" clip-path="url(#terminal-2664768211-line-21)">
+</text>
+    </g>
+    </g>
+</svg>
