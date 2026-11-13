@@ -38,7 +38,7 @@ Which relationships matter? *treatments* — "A supersedes §4 of B", "C reverse
 
 ## Try it
 
-**No install** — open the [explorer](https://ZNLong2203.github.io/precedent/). Pick *Accepted on paper, partly superseded* in **Ask Relate**.
+**No install** — open the [explorer](https://ZNLong2203.github.io/precedent/): search any decision to see which clauses still hold and who overruled the rest, browse all 533, or see the whole network. The **Query** tab runs your own Cypher on the same graph.
 
 **CLI** (Python ≥ 3.10; [uv](https://docs.astral.sh/uv/) recommended). The store is already in the repo — nothing to build, no keys, no network:
 

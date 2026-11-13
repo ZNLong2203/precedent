@@ -7,12 +7,29 @@ with Cypher in the tab - the data below is exactly what the `.rl` file holds (mi
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
 from . import __version__
 from .api import Precedent
 from .model import TREATMENT_KINDS
+
+_FENCE = re.compile(r"```.*?```", re.DOTALL)
+
+
+def clause_body(text: str, limit: int = 520) -> str:
+    """The clause as running prose for the explorer: no code fences, list markers or links, no leading title."""
+    t = _FENCE.sub(" … ", text or "")
+    t = "\n".join(ln for ln in t.splitlines() if not ln.lstrip().startswith("|"))  # markdown tables
+    t = re.sub(r"^\s*(?:[-*+]|\d+[.)])\s+", "", t, flags=re.MULTILINE)
+    t = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", t)
+    t = " ".join(t.split())
+    t = re.sub(r"^\*\*[^*]+\*\*\s*", "", t)  # the title is shown as the heading
+    if len(t) <= limit:
+        return t
+    cut = t[:limit]
+    return cut[: max(cut.rfind(". "), cut.rfind(" "))].rstrip(" ,;:") + " …"
 
 
 def export(api: Precedent, out_dir: Path) -> dict[str, int]:
@@ -22,9 +39,10 @@ def export(api: Precedent, out_dir: Path) -> dict[str, int]:
     corpus = api.corpus()
 
     clause_titles: dict[str, list[str]] = {}
-    clauses = s.run("MATCH (c:Clause) RETURN c.key AS key, c.decision AS decision, c.n AS n, c.title AS title, c.standing AS standing, c.defeated_by AS defeated_by ORDER BY c.decision, c.n")
+    clauses = s.run("MATCH (c:Clause) RETURN c.key AS key, c.decision AS decision, c.n AS n, c.title AS title, c.text AS text, c.standing AS standing, c.defeated_by AS defeated_by ORDER BY c.decision, c.n")
     for c in clauses:
         clause_titles.setdefault(c["decision"], []).append(c["title"])
+        c["body"] = clause_body(c.pop("text"))
 
     decisions = []
     for d in s.run(

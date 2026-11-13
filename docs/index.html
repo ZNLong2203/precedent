@@ -3,89 +3,130 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0e1319">
   <title>Precedent — is this decision still good law?</title>
-  <meta name="description" content="Explore 533 architecture decisions as a citation graph. Every query on this page runs in your browser on Relate, the embedded graph database, compiled to WebAssembly.">
-  <meta property="og:title" content="Precedent — case law for your codebase">
-  <meta property="og:description" content="Which architecture decisions are still good law? A clause-level standing graph, running on Relate in your browser.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232f9e6b'/%3E%3Cpath d='M9 22V10h7a4 4 0 0 1 0 8h-7' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/style.css">
+  <meta name="description" content="Decision records are never edited, so old ones keep saying Accepted after later ones overrule them. Pick any of 533 real decisions and see what still holds. Every answer is a graph query run in your browser on Relate (WebAssembly).">
+  <meta property="og:title" content="Precedent — is this decision still good law?">
+  <meta property="og:description" content="See which parts of a decision record were overruled by later decisions. Live on Relate in your browser.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230e1319'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23e0a526'/%3E%3Ccircle cx='6.5' cy='9' r='3' fill='%233fb27f'/%3E%3Ccircle cx='26' cy='10' r='3' fill='%23ef6a5f'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/style.css?v=4">
 </head>
 <body>
   <header class="top">
-    <div class="brand">
-      <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect width="32" height="32" rx="7" fill="var(--ok)"/><path d="M9 22V10h7a4 4 0 0 1 0 8h-7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div>
-        <h1>Precedent</h1>
-        <p class="tag">case law for your codebase</p>
-      </div>
-    </div>
-    <div id="stats" class="stats" aria-live="polite"></div>
-    <nav class="links">
-      <a id="repo-link" href="#" hidden>GitHub</a>
-      <a href="https://relatedb.ai" target="_blank" rel="noopener">Relate</a>
+    <a class="brand" href="./" data-view="decision">Precedent</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="?view=browse" data-view="browse">Browse all <span id="n-total">533</span></a>
+      <a href="?view=network" data-view="network">Whole network</a>
+      <a href="?view=query" data-view="query">Query</a>
+      <a href="?view=about" data-view="about">About</a>
     </nav>
+    <a id="repo-link" class="ext" href="#" target="_blank" rel="noopener" hidden>GitHub</a>
   </header>
 
-  <main id="app" class="app" hidden>
-    <aside class="side" aria-label="Decisions">
-      <div class="search">
-        <input id="q" type="search" placeholder="Search decisions…  (press /)" autocomplete="off" aria-label="Search decisions">
-        <div id="chips" class="chips" role="group" aria-label="Filter by standing"></div>
-      </div>
-      <div id="listmeta" class="listmeta"></div>
-      <ul id="list" class="list"></ul>
-    </aside>
+  <noscript><p class="nojs">This explorer runs a graph database in your browser, so it needs JavaScript.</p></noscript>
 
-    <section class="stage" aria-label="Decision graph">
-      <div class="toolbar">
-        <label class="toggle"><input id="showall" type="checkbox"> include untouched decisions</label>
-        <span id="graphmeta" class="muted"></span>
-        <span class="legend" aria-hidden="true">
-          <i class="dot" style="--c:var(--ok)"></i>in force
-          <i class="dot" style="--c:var(--warn)"></i>partly superseded
-          <i class="dot" style="--c:var(--bad)"></i>out of force
-          <i class="ln red"></i>supersedes / reverses / withdraws
-          <i class="ln grey"></i>amends
-        </span>
-      </div>
-      <div id="graph" class="graph" role="img" aria-label="Force-directed graph of decisions and the treatments between them"></div>
-      <div class="console">
-        <div class="console-head">
-          <strong>Ask Relate</strong>
-          <span class="muted">Cypher, executed by Relate (WebAssembly) in this tab</span>
-          <span id="examples" class="examples"></span>
-        </div>
-        <div class="console-body">
-          <textarea id="cypher" spellcheck="false" aria-label="Cypher query"></textarea>
-          <div class="console-actions">
-            <button id="run" class="btn primary">Run ⌘↵</button>
-            <button id="reset" class="btn" title="Reload the original graph (this copy is a sandbox)">Reset graph</button>
-          </div>
-        </div>
-        <div id="result" class="result" aria-live="polite"></div>
-      </div>
-    </section>
+  <!-- ===================== DECISION ===================== -->
+  <main id="v-decision" class="view col" hidden>
+    <p class="lede">Decision records are never edited, so an old one keeps saying <b>Accepted</b> after a later one has overruled it. Pick any of the 533 decisions from the Relate project and see what still holds.</p>
 
-    <aside class="detail" id="detail" aria-label="Decision details" aria-live="polite">
-      <div class="empty">
-        <h2>Pick a decision</h2>
-        <p>Records are immutable, so later decisions quietly override parts of earlier ones — while the old header still says <b>Accepted</b>. Select a node or a row to see which clauses are still good law, who changed them, and the sentence that says so.</p>
-      </div>
-    </aside>
+    <div class="finder">
+      <svg class="finder-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="M14 14l4 4"/></svg>
+      <input id="q" type="search" role="combobox" aria-expanded="false" aria-controls="suggest" aria-autocomplete="list" placeholder="Search by number or words, e.g. 116 or “namespaces”" autocomplete="off" spellcheck="false" aria-label="Search decisions">
+      <ul id="suggest" class="suggest" role="listbox" hidden></ul>
+    </div>
+    <p class="try">Try <a href="?id=ADR-0116" data-goto="ADR-0116">ADR-0116</a> (mostly overruled) · <a href="?id=ADR-0011" data-goto="ADR-0011">ADR-0011</a> (overruled) · <a href="?id=ADR-0229" data-goto="ADR-0229">ADR-0229</a> (still valid) · <a href="?id=ADR-0116" id="random">a random one</a></p>
+
+    <article id="doc" class="doc" aria-live="polite"></article>
   </main>
 
-  <div id="boot" class="boot">
-    <div class="spinner" aria-hidden="true"></div>
-    <p id="boot-msg">Starting Relate (WebAssembly)…</p>
-  </div>
+  <!-- ===================== BROWSE ===================== -->
+  <main id="v-browse" class="view wide" hidden>
+    <h1>Which decisions need attention?</h1>
+    <p id="browse-sum" class="lede"></p>
+    <div class="tools">
+      <input id="bq" type="search" placeholder="Filter by name or number" autocomplete="off" spellcheck="false" aria-label="Filter decisions">
+      <div id="seg" class="seg" role="group" aria-label="Show"></div>
+      <span id="bmeta" class="faint"></span>
+    </div>
+    <div class="tablewrap">
+      <table class="grid">
+        <thead><tr><th class="c-id">Number</th><th>Decision</th><th class="c-hdr">Header says</th><th class="c-today">Today</th><th class="c-bar">Clauses</th><th class="c-by">Overruled by</th></tr></thead>
+        <tbody id="btable"></tbody>
+      </table>
+    </div>
+    <p><button id="bmore" class="btn" hidden>Show more</button></p>
+  </main>
+
+  <!-- ===================== NETWORK ===================== -->
+  <main id="v-network" class="view net" hidden>
+    <section class="net-main">
+      <div class="net-head">
+        <p id="net-title" class="muted"></p>
+        <p class="legend"><span><i class="dot g"></i>still valid</span><span><i class="dot a"></i>partly overruled</span><span><i class="dot r"></i>overruled</span></p>
+      </div>
+      <div id="graph" class="graph" role="img" aria-label="Network of decisions that overrule or are overruled by another. Use the panel to read the selected decision."></div>
+      <p class="hint">Each dot is a decision. Lines point at the decision that was overruled. Click a dot to see it; scroll to zoom, drag to move.</p>
+    </section>
+    <aside id="panel" class="panel" aria-live="polite"></aside>
+  </main>
+
+  <!-- ===================== QUERY ===================== -->
+  <main id="v-query" class="view wide" hidden>
+    <h1>Ask the database</h1>
+    <p class="lede">Everything on this site is a Cypher query. <b>Relate</b> is an embedded graph database; here it runs <i>inside this tab</i> as WebAssembly, loaded with all the decisions. Pick a question or edit the query. Nothing leaves your browser.</p>
+    <div class="qgrid">
+      <ol id="examples" class="examples"></ol>
+      <div>
+        <textarea id="cypher" spellcheck="false" aria-label="Cypher query" rows="7"></textarea>
+        <div class="actions">
+          <button id="run" class="btn primary">Run <kbd>⌘↵</kbd></button>
+          <button id="reset" class="btn" title="Reload the original graph (this copy is a sandbox)">Reset graph</button>
+        </div>
+        <div id="result" class="result" aria-live="polite"><p class="faint">Pick a question on the left.</p></div>
+      </div>
+    </div>
+    <details class="schema"><summary>What is in the graph?</summary>
+      <p><code>(:Decision)</code> a record · <code>(:Clause)</code> one numbered point of it · <code>(:CodePath)</code> a file it mentions.</p>
+      <p><code>-[:SUPERSEDES | REVERSES | WITHDRAWS | AMENDS]-&gt;</code> how a later decision treats an earlier one, with the <code>clauses</code> it names, the quoted <code>evidence</code> sentence, and whether it took <code>effective</code> hold. <code>-[:CITES]-&gt;</code> is a plain citation. <code>standing</code> is derived: <code>in_force</code>, <code>partial</code> or <code>out</code>.</p>
+    </details>
+  </main>
+
+  <!-- ===================== ABOUT ===================== -->
+  <main id="v-about" class="view col prose" hidden>
+    <h1>Why this exists</h1>
+    <p>A decision record says what a team decided, when and why. Nobody edits it afterwards. So when the team changes its mind, the change is a <i>new</i> record containing a sentence like <q>§4 is superseded</q>, and the old one still says <code>Status: Accepted</code>.</p>
+    <p>A person skimming the log, or an AI agent searching it, lands on the old record and acts on rules nobody follows any more. Precedent reads those sentences, links the records in a graph, and works out clause by clause what still holds.</p>
+
+    <h2>How it decides</h2>
+    <ol>
+      <li><b>Read.</b> Find the sentences where one decision supersedes, reverses, withdraws or amends another, and which numbered clauses they name. Each sentence is kept as evidence.</li>
+      <li><b>Link.</b> Store them as typed edges in a Relate graph: <code>(ADR-0229)-[:SUPERSEDES {clauses: [1, 4, 5, 7, 10]}]-&gt;(ADR-0116)</code>.</li>
+      <li><b>Judge.</b> A clause is overruled if a decision that itself still stands overrules it. If the overruler was overruled in turn, the original comes back.</li>
+    </ol>
+
+    <h2>What a coding agent sees</h2>
+    <p>Same question, asked two ways: <q>add support for creating and switching between multiple databases</q>. The right-hand column is real output of <code>precedent preflight</code>, trimmed.</p>
+    <div class="compare">
+      <div><h3>Searching the docs</h3><p><b>ADR-0116</b> Fixed namespaces with Neo4j Community Edition database semantics</p><p class="faint">Header: Accepted. Best text match, so it is read first. The agent designs around three fixed namespaces.</p></div>
+      <div><h3>Asking Precedent</h3><p><b>ADR-0116</b> — partly overruled</p><p class="del">§1 Three fixed namespaces → ADR-0229<br>§8 Settings stay in the existing catalog → ADR-0276<br>§9 Errors → ADR-0307</p><p class="faint">§2, §3 and §6 still hold. ADR-0276 and ADR-0229 are added because they control the answer.</p></div>
+    </div>
+    <p>Precedent is served to agents over MCP and as a CLI, and a draft decision can be checked against the graph inside a Relate transaction (rolled back) before it is written. <span id="more-links"></span></p>
+
+    <h2>The log in numbers</h2>
+    <table class="facts" id="facts"></table>
+    <p class="faint">Counted by the Relate graph running in this tab. Method, audit and caveats: <a id="eval-link" target="_blank" rel="noopener">evaluation</a>.</p>
+  </main>
+
+  <div id="boot" class="boot"><p id="boot-msg">Starting Relate (WebAssembly)…</p></div>
 
   <footer class="foot">
     <span id="engine">Relate (WASM)</span>
-    <span id="foot-q" class="muted"></span>
-    <span class="muted">Everything on this page runs locally — no server, no tracking.</span>
+    <span id="foot-q"></span>
+    <span>Runs in your browser. No server, no tracking.</span>
   </footer>
 
   <script src="assets/vendor/force-graph.min.js"></script>
-  <script type="module" src="assets/app.js"></script>
+  <script type="module" src="assets/app.js?v=4"></script>
 </body>
 </html>
