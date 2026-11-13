@@ -109,7 +109,7 @@ Prerequisites: Python 3.10+, [uv](https://docs.astral.sh/uv/) (or `pip install -
 
 ```bash
 uv sync --extra dev          # install
-uv run pytest                # 50 tests, ~7 s (real Relate store, real MCP calls, 31 real ADRs)
+uv run pytest                # 72 tests, a few seconds (real Relate store, real MCP calls, 31 real ADRs)
 uv run precedent --help
 ```
 
