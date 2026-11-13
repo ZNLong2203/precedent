@@ -151,9 +151,9 @@ Full numbers and caveats in [docs/evaluation.md](docs/evaluation.md). Headlines:
 - The corpus never contains an overruling that is itself fully overruled, so the *restoration* path of the standing engine is covered by unit tests, not by the demo data.
 - The browser explorer is a sandbox copy; edits there never leave the tab.
 
-## Built with AI
+## Where models are involved
 
-This project was designed and written with **Claude Code (Claude Sonnet 5.5)**, including the extractor, the standing engine, the MCP server and the explorer. The gold audit labels were also produced by the assistant (disclosed in [`data/gold/README.md`](data/gold/README.md)). The shipped product makes **no** model calls. The one place a model is called is the *evaluation*: `scripts/agent_eval.py run` feeds prompts to Claude Sonnet 5.5 through the `claude` CLI as the model under test (prompts, raw answers and per-call metadata are committed in [`data/agent-eval/`](data/agent-eval/)).
+The shipped product makes **no** model calls. Two places involve a model: the gold audit labels were produced by an AI assistant rather than a human (see [`data/gold/README.md`](data/gold/README.md)), and the *evaluation* calls one: `scripts/agent_eval.py run` feeds prompts to Claude Sonnet 5.5 through the `claude` CLI as the model under test (prompts, raw answers and per-call metadata are committed in [`data/agent-eval/`](data/agent-eval/)).
 
 ## License and attribution
 
