@@ -236,6 +236,8 @@ function moveSuggest(delta) {
 
 // ----------------------------------------------------------------------------- the decision page
 const KIND_PASSIVE = { SUPERSEDES: "Overruled", REVERSES: "Reversed", WITHDRAWS: "Withdrawn", AMENDS: "Amended", REINSTATES: "Reinstated", AFFIRMS: "Confirmed" };
+/** a clause title cut at the 10th word can end mid-sentence: drop the dangling punctuation and say so */
+const tidy = (s) => (/[,;:(]$/.test(s) ? s.replace(/[,;:(\s]+$/, "") + "…" : s);
 const quoteHtml = (t, soft) => `<blockquote class="quote ${soft ? "soft" : ""}"><span class="by">${KIND_PASSIVE[t.kind] || "Changed"} by ${goto(t.id)}</span>${mdInline(clip(t.evidence || "", 320))}</blockquote>`;
 
 /** Group edges to one neighbour into a single arrow: which clauses, and whether it really overrules. */
@@ -323,7 +325,7 @@ function renderDecision(id) {
       ? `<span class="st bad">Overruled by ${by.map(goto).join(", ")}</span>`
       : `<span class="st ok">Still holds${ss.length ? ` <span class="sub">· amended by ${uniq(ss.map((t) => t.id)).map(goto).join(", ")}</span>` : ""}</span>`;
     const detail = (c.body ? `<p class="body">${mdInline(c.body)}</p>` : "") + (dead ? ns : []).filter((t) => t.evidence).map((t) => quoteHtml(t, false)).join("") + ss.filter((t) => t.evidence).map((t) => quoteHtml(t, true)).join("");
-    return `<details class="cl ${dead ? "dead" : ""} ${detail ? "" : "bare"}"><summary><span class="n">§${c.n}</span><span class="t">${mdInline(c.title)}</span>${status}</summary>${detail ? `<div class="cd">${detail}</div>` : ""}</details>`;
+    return `<details class="cl ${dead ? "dead" : ""} ${detail ? "" : "bare"}"><summary><span class="n">§${c.n}</span><span class="t">${mdInline(tidy(c.title))}</span>${status}</summary>${detail ? `<div class="cd">${detail}</div>` : ""}</details>`;
   }).join("");
 
   const unspecified = headNegs.length && clauses.length
@@ -425,6 +427,7 @@ function buildNetwork() {
     netData = graphData();
     nodeIndex.clear();
     netData.nodes.forEach((n) => nodeIndex.set(n.id, n));
+    if (fg) { fg._fit = true; fg.graphData(netData); } // rebuilt after "Reset graph"
   }
   $("#net-title").textContent = `Every decision that overrules, or is overruled by, another · ${netData.nodes.length}`;
   if (!fg) {
@@ -607,8 +610,8 @@ function bind() {
   window.addEventListener("popstate", () => { const { v, id } = parseUrl(); if (id) selected = id; view = v; show(); });
   $("#run").addEventListener("click", runConsole);
   $("#reset").addEventListener("click", () => {
-    db.free?.(); db = new RelateDb(); loadGraph(doc); netData = null;
-    if (fg) { buildNetwork(); fg.graphData(netData); }
+    db.free?.(); db = new RelateDb(); loadGraph(doc);
+    netData = null; hl = null; hovered = null; // the network is rebuilt from the fresh graph when it is next opened
     $("#result").innerHTML = '<div class="meta">Graph reloaded.</div>';
   });
   $("#examples").innerHTML = EXAMPLES.map((e, i) => `<li><button data-ex="${i}" aria-pressed="false">${esc(e[0])}</button></li>`).join("");

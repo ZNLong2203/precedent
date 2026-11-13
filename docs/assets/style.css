@@ -233,7 +233,7 @@ h1 { font-size: 26px; line-height: 1.2; font-weight: 650; letter-spacing: -0.015
 .btn.primary:hover, .panel .btn:hover { background: #fff; }
 .btn.primary kbd { background: rgba(14, 19, 25, 0.1); border-color: transparent; color: var(--bg); opacity: 0.65; }
 .panel .btn { margin-top: 20px; }
-.graph-tooltip { background: var(--panel) !important; color: var(--ink) !important; border: 1px solid var(--line2); border-radius: 8px !important; padding: 7px 10px !important; font: 13px/1.4 var(--sans) !important; max-width: 340px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); }
+.float-tooltip-kap { background: var(--panel) !important; color: var(--ink) !important; border: 1px solid var(--line2); border-radius: 8px !important; padding: 7px 10px !important; font: 13px/1.4 var(--sans) !important; max-width: 340px; width: max-content; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); }
 
 /* ------------------------------------------------------------------ query */
 .qgrid { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 26px; margin-top: 24px; align-items: start; }
