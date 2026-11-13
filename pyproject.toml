@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "precedent"
+version = "0.1.0"
+description = "Case law for your codebase: a standing (good-law) checker for decision records, built on the Relate embedded graph database."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+keywords = ["relate", "neo4j", "graph", "adr", "mcp", "agents", "decision-records"]
+classifiers = [
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Documentation",
+]
+dependencies = [
+  "relate-db>=1.0.1",   # the embedded graph database (import name: relate)
+  "typer>=0.12",        # CLI
+  "rich>=13",           # readable terminal output
+  "numpy>=1.26",        # offline LSA embeddings
+  "mcp>=2,<3",          # Model Context Protocol server (stdio)
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+precedent = "precedent.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/precedent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]

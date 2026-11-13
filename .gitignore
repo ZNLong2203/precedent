@@ -1,0 +1,31 @@
+# --- private notes, drafts, secrets: never published ---
+private/
+.env
+.env.*
+*.key
+
+# --- python ---
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
+
+# --- node (docs tooling) ---
+node_modules/
+
+# --- OS / editor ---
+.DS_Store
+.idea/
+.vscode/
+
+# --- local scratch ---
+tmp/
+*.log
+# transient lock/WAL sidecars of a Relate store being written
+*.rl-wal
+*.rl-lock
