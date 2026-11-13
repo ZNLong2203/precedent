@@ -22,14 +22,13 @@ from .parse_adr import ADR_REF, LINK_REF, adr_id
 _VERBS: dict[str, str] = {
     "SUPERSEDES": r"supersed(?:e|es|ed|ing)|replac(?:e|es|ed|ing)|obsolet(?:e|es|ed|ing)|supplant(?:s|ed|ing)?|overrides|overridden|overrode|overrul(?:e|es|ed|ing)",
     "REVERSES": r"revers(?:e|es|ed|ing)|undone|overturn(?:s|ed|ing)?",
-    "WITHDRAWS": r"withdr(?:aw|aws|ew|awn|awing)|rescind(?:s|ed)?|retract(?:s|ed)?|abandon(?:s|ed|ing)?|retir(?:e|es|ed|ing)",
+    "WITHDRAWS": r"withdr(?:aw|aws|ew|awn|awing)|rescind(?:s|ed)?|retract(?:s|ed)?|abandon(?:s|ed|ing)?|retires|retiring|retired(?=\s+(?:by|on|in|with|the|this|that|those|these|its|their|a|an)\b)",
     "REINSTATES": r"restor(?:e|es|ed|ing)|reinstat(?:e|es|ed|ing)",
-    "AMENDS": r"amend(?:s|ed|ing)?|rais(?:e|es|ed)|extend(?:s|ed|ing)?|widen(?:s|ed)?|narrow(?:s|ed)?|refin(?:e|es|ed)|add(?:s|ed)|correct(?:s|ed)|renam(?:e|es|ed)|split(?:s)?|fold(?:s|ed)?|fill(?:s)? in|updat(?:e|es|ed)|chang(?:e|es|ed)|relax(?:es|ed)?|tighten(?:s|ed)?|drop(?:s|ped)?|remov(?:e|es|ed)|clarif(?:y|ies|ied)|lower(?:s|ed)|bump(?:s|ed)|mov(?:e|es|ed)|shorten(?:s|ed)?|reword(?:s|ed)?|restrict(?:s|ed)?|limit(?:s|ed)|constrain(?:s|ed)|cap(?:s|ped)",
+    "AMENDS": r"amend(?:s|ed|ing)?|rais(?:e|es|ed)|extend(?:s|ed|ing)?|widen(?:s|ed)?|narrow(?:s|ed)?|refin(?:e|es|ed)|add(?:s|ed)|correct(?:s|ed)|renam(?:e|es|ed)|split(?:s)?|fold(?:s|ed)?|fill(?:s)? in|updat(?:e|es|ed)|chang(?:e|es|ed)|relax(?:es|ed)?|tighten(?:s|ed)?|drop(?:s|ped)?|remov(?:e|es|ed)|clarif(?:y|ies|ied)|lower(?:s|ed)|bump(?:s|ed)|mov(?:e|es|ed)|shorten(?:s|ed)?|reword(?:s|ed)?|revis(?:e|es|ed)|restrict(?:s|ed)?|limit(?:s|ed)|constrain(?:s|ed)|cap(?:s|ped)",
     "AFFIRMS": r"confirm(?:s|ed)?|stand(?:s)?|stay(?:s)?|remain(?:s)?|keep(?:s)?|retain(?:s)?|pin(?:s)?|implement(?:s|ed)|ratif(?:y|ies|ied)",
 }
 _PRIORITY = ("SUPERSEDES", "REVERSES", "WITHDRAWS", "REINSTATES", "AMENDS", "AFFIRMS")
-_VERB_RX = {k: re.compile(r"\b(?:%s)\b" % v, re.IGNORECASE) for k, v in _VERBS.items()}
-_ANY_VERB = re.compile(r"\b(?:%s)\b" % "|".join(f"(?:{v})" for v in _VERBS.values()), re.IGNORECASE)
+_VERB_RX = {k: re.compile(r"(?<![\w-])(?:%s)\b" % v, re.IGNORECASE) for k, v in _VERBS.items()}
 _PASSIVE_STEM = r"(supersed(?:ed)|replaced|reversed|withdrawn|amended|overridden|overruled|obsoleted|retired|restored)"
 _STEM_KIND = {
     "supersed": "SUPERSEDES", "replac": "SUPERSEDES", "overrid": "SUPERSEDES", "overrul": "SUPERSEDES",
@@ -54,8 +53,9 @@ _STANDS = re.compile(
     r"(?:§|\bDecisions?\s+|\bitems?\s+|\bclauses?\s+)(\d{1,2}(?:\s*(?:,|and|&|–|-|to)\s*\d{1,2})*)\s+(?:both\s+)?(?:stand|stands|remain|remains|stay|stays|still\s+(?:stand|stands|hold|holds))\b",
     re.IGNORECASE,
 )
-_SENT_SPLIT = re.compile(r"(?<=[.!?])\s+(?=[A-Z`\[(*\-])|;\s+(?=(?:ADR[- ]\d|\[ADR[- ]\d))|\s[—–]\s(?=ADR[- ]\d)")
+_SENT_SPLIT = re.compile(r"(?<=[.!?])\s+(?=[A-Z`\[(*\-§])|;\s+(?=(?:ADR[- ]\d|\[ADR[- ]\d))|\s[—–]\s(?=ADR[- ]\d)")
 _ABBREV = re.compile(r"\b(?:e\.g|i\.e|vs|etc|cf|approx)\.$", re.IGNORECASE)
+_ANY_VERB_RX = re.compile(r"(?<![\w-])(?:%s)\b" % "|".join(f"(?:{v})" for v in _VERBS.values()), re.IGNORECASE)
 _NUM_RANGE = re.compile(r"\d{1,2}")
 
 
@@ -83,11 +83,26 @@ _EXCEPT = re.compile(
 )
 
 
+_COMPARATIVE = re.compile(r"(?:the way|as|like|per|adopts?|follows?|uses?|reuses?|matches|matching|mirrors|same as|pins? how|see)\s+(?:the\s+)?$", re.IGNORECASE)
+_STANDS_AFTER = re.compile(r"\b(?:stays?|stands?|unchanged|remains?)\b", re.IGNORECASE)
+
+
 def clause_refs(text: str) -> tuple[int, ...]:
-    """Clause numbers named in ``text`` (``§4``, ``Decisions 1 and 2``); exceptions are dropped."""
+    """Clause numbers named in ``text`` (``§4``, ``Decisions 1 and 2``).
+
+    Dropped on purpose: exceptions ("except §2"), comparisons ("the way §3 probes a node") and
+    clauses the same sentence says *stay* in force.
+    """
     text = _EXCEPT.sub("", text)
     out: set[int] = set()
     for m in _CLAUSE_TOKEN.finditer(text):
+        if _COMPARATIVE.search(text[max(0, m.start() - 16) : m.start()]):
+            continue
+        tail = re.split(r"[.;—]", text[m.end() : m.end() + 70], maxsplit=1)[0]
+        tail = re.sub(r'["“”`][^"“”`]*["“”`]?', " ", tail)  # quoted text is the thing being treated
+        tail = re.sub(r"\([^)]*\)?", " ", tail)  # parenthetical asides don't decide the clause's fate
+        if _STANDS_AFTER.search(tail):
+            continue
         out.update(_numbers(m.group(1)))
     return tuple(sorted(out))
 
@@ -95,7 +110,8 @@ def clause_refs(text: str) -> tuple[int, ...]:
 def _whole_object(object_text: str, target_num: int | None = None) -> bool:
     """Does the verb act on the decision itself ("supersedes ADR-0012", "reverses this ADR")?
 
-    A possessive ("ADR-0012's naming") or any clause reference means a *part* is meant.
+    The reference must stand alone: a possessive ("ADR-0012's naming"), a clause or noun that
+    follows it ("ADR-0012 alternative 3", "ADR-0012 §2") means a *part* is meant.
     """
     t = object_text.lstrip()
     if re.match(r"in part\b", t, re.IGNORECASE):
@@ -105,8 +121,9 @@ def _whole_object(object_text: str, target_num: int | None = None) -> bool:
     m = re.match(pat, t, re.IGNORECASE)
     if not m:
         return False
-    rest = t[m.end() : m.end() + 24]
-    return not re.match(r"[\]\)]*\([^)]*\)\s*(?:'s|’s)|(?:'s|’s)|\W{0,3}(?:§|Decisions?\s|items?\s)", rest, re.IGNORECASE)
+    rest = t[m.end() :]
+    rest = re.sub(r"^[\]\)]*(?:\([^)]*\))?", "", rest)  # a markdown link target: [ADR-0012](0012-x.md)
+    return bool(re.match(r"\s*(?:$|[.,;:)\]—–]|and\b|in\b|for\b|with\b|because\b|so\b|as\b|where\b|when\b|entirely\b|completely\b|wholly\b|outright\b)", rest, re.IGNORECASE))
 
 
 def _clauses_after(text: str, end: int) -> tuple[int, ...]:
@@ -167,10 +184,13 @@ def _evidence(sentence: str, limit: int = 380) -> str:
 
 
 # --------------------------------------------------------------------------- rules
-_THIS = r"(?:this\s+(?:ADR|decision|record|change|amendment|proposal)|we|it)"
+_THIS = r"(?:this(?:\s+(?:ADR|decision|record|change|amendment|proposal))?|we)"
 _ACTIVE_THIS = re.compile(rf"\b{_THIS}\s+(?:(?:also|now|partly|partially|explicitly|hereby|then|further)\s+)*(?P<verb>{'|'.join(_VERBS['SUPERSEDES'].split('|') + _VERBS['REVERSES'].split('|') + _VERBS['WITHDRAWS'].split('|') + _VERBS['REINSTATES'].split('|') + _VERBS['AMENDS'].split('|'))})\b", re.IGNORECASE)
 _IMPERATIVE = re.compile(r"^(?P<verb>supersedes|replaces|reverses|withdraws|amends|restores|obsoletes|overrides)\b", re.IGNORECASE)
 _PASSIVE_BY = re.compile(rf"\b(?:is|are|was|were|gets|stays|becomes|been)\s+(?:(?:partly|partially|now|hereby|in part)\s+)*{_PASSIVE_STEM}\s+(?:in part\s+)?by\s+(?:\[)?(?P<actor>ADR[- ]\d{{1,4}}|this\b|the present\b)", re.IGNORECASE)
+_PARTICIPLE_BY_ADR = re.compile(rf"\b{_PASSIVE_STEM}\s+(?:in part\s+)?by\s+(?:\[)?ADR[- ](?P<actor>\d{{1,4}})", re.IGNORECASE)
+_AUX = re.compile(r"\b(?:is|are|was|were|be|been|being|gets|get)\s+(?:\w+\s+){0,2}$", re.IGNORECASE)
+_PASSIVE_NO_ACTOR = re.compile(rf"\b(?:is|are|was|were)\s+(?:(?:partly|partially|now|hereby|in part)\s+)*{_PASSIVE_STEM}(?!\s+by\s+(?:\[?ADR|this\b|the present))", re.IGNORECASE)
 _LATER_REVERSED = re.compile(r"\blater\s+(?P<verb>reversed|withdrawn|superseded|replaced)\b[^)]{0,80}?ADR[- ](?P<actor>\d{1,4})", re.IGNORECASE)
 _STATUS_BY = re.compile(r"Superseded(?P<part>\s+in part)?\s+by\s+.*?(?:ADR[- ]|\]\()(?P<actor>\d{1,4})", re.IGNORECASE)
 _FIELD_REL = re.compile(r"^(?P<key>Amends|Supersedes|Superseded By|Amended):\s*(?P<val>.*)$", re.IGNORECASE)
@@ -215,6 +235,7 @@ def _citations(col: _Collector, unit: Unit) -> None:
         )
 
 
+_FULL = re.compile(r"\b(?:in full|in its entirety|entirely|completely|wholly|outright)\b", re.IGNORECASE)
 _THIS_PASSIVE = re.compile(
     r"\bthis\s+(?:ADR|decision|record)\s+(?:is|was|has\s+been)\s+(?:now\s+)?(?:superseded|replaced|withdrawn|reversed|obsoleted)\s+by\b",
     re.IGNORECASE,
@@ -236,6 +257,9 @@ def _later_references(col: _Collector, unit: Unit) -> None:
         if not mentions:
             continue
         passive = _PASSIVE_BY.search(sent)
+        if passive and passive.group("actor").lower().startswith(("this", "the present")):
+            _body_sentence(col, unit, sent)  # "ADR-0035: its sentence is superseded by this ADR" -> this ADR acts
+            continue
         if passive and passive.group("actor")[0] in "Aa":
             actor_num = int(re.search(r"\d+", passive.group("actor")).group())
             kind = _kind_from_stem(passive.group(1))
@@ -247,6 +271,9 @@ def _later_references(col: _Collector, unit: Unit) -> None:
             tail = sent[a_end:]
             kind, vm = _best_kind(tail[:240])
             if kind is None or vm is None:
+                continue
+            # "ADR-0279's namespace is superseded by `run`": the cited ADR is the *patient*, not the actor
+            if re.match(r"(?:'s|’s)", tail) and _AUX.search(tail[: vm.start()]):
                 continue
             rule, base = "later-actor-verb", 0.8
             scope_text = tail
@@ -321,10 +348,10 @@ def _body_sentence(col: _Collector, unit: Unit, sent: str) -> None:
             tgt = [mm for mm in others if mm[1] < p.start()]
             if tgt:
                 num, s, e = tgt[-1]
-                clauses = _clauses_after(sent, e) or clause_refs(_strip_other_adr_clauses(sent[e : p.start()]))
+                clauses = tuple(sorted({*_clauses_after(sent, e), *clause_refs(_strip_other_adr_clauses(sent[e : p.start()]))}))
                 # whole only if the ADR itself is the passive subject: "ADR-X is superseded by this ..."
                 whole = not clauses and sent[e : p.start()].strip() == ""
-                col.add_treatment(Treatment(this, adr_id(num), kind, tuple(sorted(clauses)), _evidence(sent), "body-passive-this", 0.8, this, (), whole))
+                col.add_treatment(Treatment(this, adr_id(num), kind, clauses, _evidence(sent), "body-passive-this", 0.8, this, (), whole))
         else:
             a_num = int(re.search(r"\d+", actor).group())
             tgt = [mm for mm in mentions if mm[1] < p.start() and mm[0] != a_num]
@@ -332,6 +359,34 @@ def _body_sentence(col: _Collector, unit: Unit, sent: str) -> None:
                 num, s, e = tgt[-1]
                 col.add_treatment(Treatment(adr_id(a_num), adr_id(num), kind, tuple(sorted(_clauses_after(sent, e))), _evidence(sent), "body-passive-named", 0.65, this))
         return
+
+    # (b2) "ADR-0015's execute step is superseded." - no actor named: the decision that says so acts.
+    #      Handles lists of subjects: "ADR-0011 / ADR-0012 / ADR-0015 '...' is reversed here".
+    first = mentions[0]
+    this_num = int(this.split("-")[1])
+    if first[1] <= 2:
+        pn = _PASSIVE_NO_ACTOR.search(sent, first[2])
+        if pn and not _HEDGE.search(sent[max(0, pn.start() - 40) : pn.start()]):
+            kind = _kind_from_stem(pn.group(1))
+            subjects = [first]
+            for m_ in mentions[1:]:
+                if m_[1] >= pn.start():
+                    break
+                gap = sent[subjects[-1][2] : m_[1]]
+                if len(gap) <= 70 and not re.search(r"[.;:]", gap) and not _ANY_VERB_RX.search(gap):
+                    subjects.append(m_)
+                else:
+                    break
+            for k, (num, _s, e) in enumerate(subjects):
+                if adr_id(num) == this or num >= this_num:
+                    continue
+                seg_end = subjects[k + 1][1] if k + 1 < len(subjects) else pn.start()
+                clauses = tuple(sorted({*_clauses_after(sent, e), *clause_refs(_strip_other_adr_clauses(sent[e:seg_end]))}))
+                # whole only when this ADR is the single, unqualified subject ("ADR-0012 is superseded [in full].")
+                alone = len(subjects) == 1 and not re.match(r"\s*(?:'s|’s)", sent[e : e + 4])
+                whole = not clauses and alone and (sent[e : pn.start()].strip() == "" or bool(_FULL.search(sent)))
+                col.add_treatment(Treatment(this, adr_id(num), kind, clauses, _evidence(sent), "body-passive-implicit", 0.6, this, (), whole))
+            return
 
     # (c) "(later reversed: ADR-0472 keeps them ...)": a later decision reverses what this unit says
     lr = _LATER_REVERSED.search(sent)
@@ -351,18 +406,27 @@ def _body_sentence(col: _Collector, unit: Unit, sent: str) -> None:
         col.add_treatment(Treatment(this, adr_id(num), kind or "AMENDS", clauses, _evidence(sent), "body-imperative", 0.7, this, (), whole))
         return
 
-    # (e) third-party narration: "ADR-A supersedes ADR-B ..."
+    # (e) third-party narration, strict: "ADR-A supersedes ... ADR-B" (active verb right after ADR-A)
     if len(mentions) >= 2:
         a_num, _a_s, a_e = mentions[0]
-        gap = sent[a_e : a_e + 60]
         negatives = "|".join(_VERBS[k] for k in ("SUPERSEDES", "REVERSES", "WITHDRAWS"))
-        am = re.match(rf"\W{{0,3}}(?:'s\s)?(?:\w+\s){{0,6}}?(?:(?:now|also|partly|then)\s+)?({negatives})\b", gap, re.IGNORECASE)
-        if am and not _HEDGE.search(sent[max(0, a_e + am.start(1) - 40) : a_e + am.start(1)]):
+        am = re.match(rf"\s*(?:(?:now|also|partly|then|later)\s+)*({negatives})\b", sent[a_e:], re.IGNORECASE)
+        if am:
             kind, _vm = _best_kind(am.group(1))
             rest = [mm for mm in mentions[1:] if mm[0] != a_num and mm[1] >= a_e + am.end(1)]
             if rest and kind:
                 num, s, e = rest[0]
                 col.add_treatment(Treatment(adr_id(a_num), adr_id(num), kind, tuple(sorted(_clauses_after(sent, e))), _evidence(sent), "body-named-verb", 0.6, this))
+                return
+
+    # (f) "ADR-X (retired by ADR-Y)": passive participle without an auxiliary
+    pb = _PARTICIPLE_BY_ADR.search(sent)
+    if pb:
+        a_num = int(pb.group("actor"))
+        tgt = [mm for mm in mentions if mm[1] < pb.start() and mm[0] != a_num]
+        if tgt:
+            num, s, e = tgt[-1]
+            col.add_treatment(Treatment(adr_id(a_num), adr_id(num), _kind_from_stem(pb.group(1)), tuple(sorted(_clauses_after(sent, e))), _evidence(sent), "body-participle-by", 0.65, this))
 
 
 def extract(decisions: dict[str, Decision], units: list[Unit]) -> tuple[list[Citation], list[Treatment]]:
